@@ -6,14 +6,92 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import Link from "next/link";
 
 interface DialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function FormDialog({ open, setOpen }: DialogProps) {
+export const updatePayDeskData = async (report: {}) => {
+  try {
+    const response = await fetch("/api/paydesk/update", {
+      method: "POST",
+      body: JSON.stringify(report),
+      headers: {
+        "Content-Type": "aplication/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Field to create users input");
+    }
+  } catch {
+    throw Error("Field to conect to server");
+  }
+};
+
+export default function FormDialog({
+  open,
+  setOpen,
+  setAlert,
+  setMessage,
+}: DialogProps) {
+  const postFormDataToMongoDB = async (report: {}) => {
+    try {
+      const response = await fetch("/api/report", {
+        method: "POST",
+        body: JSON.stringify(report),
+        headers: {
+          "Content-Type": "aplication/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Field to create users input");
+      }
+      const { message } = await response.json();
+      setMessage(message);
+    } catch {
+      throw Error("Field to conect to server");
+    }
+  };
+
+  const [loading, setLoading] = React.useState(false);
+  const submit = async (value: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    const formData = new FormData(value.currentTarget);
+    const formJson = Object.fromEntries((formData as any).entries());
+    const report = {
+      usd: +formJson.usd,
+      eur: +formJson.eur,
+      gbp: +formJson.gbp,
+      pln: +formJson.pln,
+      cad: +formJson.cad,
+      chf: +formJson.chf,
+      sek: +formJson.sek,
+      czk: +formJson.czk,
+      nok: +formJson.nok,
+      gold: +formJson.gold,
+      eqvUsd: +formJson["eqv-usd"],
+      eqvEur: +formJson["eqv-eur"],
+      eqvGbp: +formJson["eqv-gbp"],
+      eqvPln: +formJson["eqv-pln"],
+      eqvCad: +formJson["eqv-cad"],
+      eqvChf: +formJson["eqv-chf"],
+      eqvSek: +formJson["eqv-sek"],
+      eqvCzk: +formJson["eqv-czk"],
+      eqvNok: +formJson["eqv-nok"],
+      eqvGold: +formJson["eqv-gold"],
+    };
+    await postFormDataToMongoDB(report);
+    await updatePayDeskData(report);
+    setLoading(false);
+    setOpen(false);
+    setAlert(true);
+  };
+
   return (
     <Dialog
       open={open}
@@ -22,40 +100,15 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          const formData = new FormData(event.currentTarget);
-          const formJson = Object.fromEntries((formData as any).entries());
-          const report = {
-            usd: formJson.usd,
-            eur: formJson.eur,
-            gbp: formJson.gbp,
-            pln: formJson.pln,
-            cad: formJson.cad,
-            chf: formJson.chf,
-            sek: formJson.sek,
-            czk: formJson.czk,
-            nok: formJson.nok,
-            gold: formJson.gold,
-            eqvUsd: formJson["eqv-usd"],
-            eqvEur: formJson["eqv-eur"],
-            eqvGbp: formJson["eqv-gbp"],
-            eqvPln: formJson["eqv-pln"],
-            eqvCad: formJson["eqv-cad"],
-            eqvChf: formJson["eqv-chf"],
-            eqvSek: formJson["eqv-sek"],
-            eqvCzk: formJson["eqv-czk"],
-            eqvNok: formJson["eqv-nok"],
-            eqvGold: formJson["eqv-gold"],
-          };
-          console.log(report);
-          setOpen(false);
+          submit(event);
         },
       }}
     >
       <DialogTitle>Звіт</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Перенесіть будь-ласка всі ваші операції в кінці операційного дня з
-          таблички Exel (куп/прод та потрачену грн)
+          Перенесіть будь-ласка всі ваші операції в кінці дня з таблички Exel
+          (куп/прод та потрачену грн), звіт можна зробити лише один раз за день
         </DialogContentText>
         <Box display={"flex"} gap={1}>
           <Box>
@@ -70,7 +123,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eur"
               name="eur"
@@ -80,7 +132,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="gbp"
               name="gbp"
@@ -90,7 +141,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="pln"
               name="pln"
@@ -100,7 +150,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="cad"
               name="cad"
@@ -110,7 +159,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="chf"
               name="chf"
@@ -120,7 +168,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="sek"
               name="sek"
@@ -130,7 +177,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="czk"
               name="czk"
@@ -140,7 +186,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="nok"
               name="nok"
@@ -150,7 +195,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="gold"
               name="gold"
@@ -162,7 +206,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
           </Box>
           <Box>
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-usd"
               name="eqv-usd"
@@ -172,7 +215,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-eur"
               name="eqv-eur"
@@ -182,7 +224,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-gbp"
               name="eqv-gbp"
@@ -192,7 +233,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-pln"
               name="eqv-pln"
@@ -202,7 +242,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-cad"
               name="eqv-cad"
@@ -212,7 +251,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-chf"
               name="eqv-chf"
@@ -222,7 +260,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-sek"
               name="eqv-sek"
@@ -232,7 +269,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-czk"
               name="eqv-czk"
@@ -242,7 +278,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-nok"
               name="eqv-nok"
@@ -252,7 +287,6 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
               variant="standard"
             />
             <TextField
-              autoFocus
               margin="dense"
               id="eqv-gold"
               name="eqv-gold"
@@ -264,17 +298,34 @@ export default function FormDialog({ open, setOpen }: DialogProps) {
           </Box>
         </Box>
       </DialogContent>
-      <DialogActions>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => setOpen(false)}
-        >
-          Відміна
-        </Button>
-        <Button variant="contained" color="success" type="submit">
-          Підтвердити
-        </Button>
+      <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Link href={"/report"}>
+          <Button variant="contained" color="info" disabled={loading}>
+            Відправлені звіти
+          </Button>
+        </Link>
+        <Box display={"flex"} gap={"15px"}>
+          <Button
+            variant="contained"
+            color="error"
+            disabled={loading}
+            onClick={() => setOpen(false)}
+          >
+            Відміна
+          </Button>
+          <Button
+            variant="contained"
+            disabled={loading}
+            color="success"
+            type="submit"
+          >
+            {loading ? (
+              <CircularProgress size={25} title="Підтвердити" />
+            ) : (
+              "Підтвердити"
+            )}
+          </Button>
+        </Box>
       </DialogActions>
     </Dialog>
   );

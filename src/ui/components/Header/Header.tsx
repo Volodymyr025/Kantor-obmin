@@ -1,5 +1,6 @@
 import { MAIN_GREEN } from "@/ui/palette/Color";
 import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -13,7 +14,9 @@ export default function Header() {
         alignItems: "center",
       }}
     >
-      <Typography>Кантор обмін</Typography>
+      <Link href={"/"}>
+        <Typography>Кантор обмін</Typography>
+      </Link>
       <Box display={"flex"}>
         <Box>
           <Typography>Ганкевич Володимир Михайлович</Typography>
