@@ -30,13 +30,13 @@ export const POST = async (request: Request) => {
 
     if (resultData[0]) {
       return NextResponse.json(
-        { message: "Сьогодні звіт вже був створений" },
+        { message: "Сьогоднішній звіт вже відправлено" },
         { status: 201 }
       );
     }
 
     await Report.create(data);
-    return NextResponse.json({ message: "Report is created" }, { status: 201 });
+    return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error is created", err },

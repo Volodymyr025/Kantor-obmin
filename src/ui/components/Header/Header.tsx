@@ -1,6 +1,7 @@
 import { MAIN_GREEN } from "@/ui/palette/Color";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
+import { logOut } from "../Auth/lucia";
 
 export default function Header() {
   return (
@@ -12,6 +13,7 @@ export default function Header() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        width: "100%",
       }}
     >
       <Link href={"/"}>
@@ -22,7 +24,11 @@ export default function Header() {
           <Typography>Ганкевич Володимир Михайлович</Typography>
           <Typography>Кантор №1 м.Чортків</Typography>
         </Box>
-        <Button sx={{ fontSize: 18, mx: 2 }}>Вихід</Button>
+        <form action={logOut}>
+          <Button type="submit" sx={{ fontSize: 18, mx: 2 }}>
+            Вихід
+          </Button>
+        </form>
       </Box>
     </Box>
   );
