@@ -1,9 +1,15 @@
+"use client";
 import { MAIN_GREEN } from "@/ui/palette/Color";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
-import { logOut } from "../Auth/lucia";
+import { logOut } from "../Auth/login";
+import { UserState } from "@/ui/context-store/user";
+import { useContext } from "react";
 
 export default function Header() {
+  const userName = localStorage.getItem("User");
+  const departament = localStorage.getItem("Departament");
+
   return (
     <Box
       component={"header"}
@@ -21,11 +27,15 @@ export default function Header() {
       </Link>
       <Box display={"flex"}>
         <Box>
-          <Typography>Ганкевич Володимир Михайлович</Typography>
-          <Typography>Кантор №1 м.Чортків</Typography>
+          <Typography>Касир:{userName}</Typography>
+          <Typography>Відділення:{departament}</Typography>
         </Box>
         <form action={logOut}>
-          <Button type="submit" sx={{ fontSize: 18, mx: 2 }}>
+          <Button
+            type="submit"
+            sx={{ fontSize: 18, mx: 2 }}
+            onClick={() => localStorage.clear()}
+          >
             Вихід
           </Button>
         </form>

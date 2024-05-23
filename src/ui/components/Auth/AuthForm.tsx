@@ -16,19 +16,27 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import { useFormState } from "react-dom";
-import { login } from "./lucia";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { login } from "./login";
 
 export default function AuthForm() {
   const [formState, formAction] = useFormState(login, {});
   const [open, setOpen] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [departament, setDepartament] = useState("");
 
-  const checkError = () => {
-    if (formState) {
+  const submitHandler = () => {
+    localStorage.setItem("User", userName);
+    localStorage.setItem("Departament", departament);
+  };
+
+  useEffect(() => {
+    if (formState.err) {
       setOpen(true);
     }
-  };
+  }, [formState]);
 
   return (
     <Box
@@ -64,6 +72,7 @@ export default function AuthForm() {
           id="login"
           label="Логін"
           name="userName"
+          onChange={(e) => setUserName(e.target.value)}
           fullWidth
           type="text"
           variant="outlined"
@@ -98,6 +107,7 @@ export default function AuthForm() {
           <Select
             required
             name="departament"
+            onChange={(e) => setDepartament(e.target.value)}
             labelId="select-departament"
             id="select-departament"
             label="Оберіть відділення"
@@ -111,8 +121,8 @@ export default function AuthForm() {
         <Button
           type="submit"
           fullWidth
-          onClick={checkError}
           color="success"
+          onClick={submitHandler}
           variant="contained"
           sx={{ my: 1 }}
         >
