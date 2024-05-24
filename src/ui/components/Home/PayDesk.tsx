@@ -8,10 +8,13 @@ import { Progress } from "@/ui/context-store/openReport";
 export default function PayDesk() {
   const { openDialog } = useContext(Progress);
   const [payDesk, setPayDesk] = useState([]);
-
+  const departament = localStorage.getItem("Departament");
   const getPayDeskFromDB = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/paydesk/desk");
+      const res = await fetch("http://localhost:3000/api/paydesk/desk", {
+        method: "POST",
+        body: JSON.stringify({ departament }),
+      });
       const data = await res.json();
       setPayDesk(data);
     } catch {

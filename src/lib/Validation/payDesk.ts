@@ -22,6 +22,8 @@ const payDeskSchema = new mongoose.Schema(
     eqvCzk: Number,
     eqvNok: Number,
     eqvGold: Number,
+    user: String,
+    departament: String,
   },
   { timestamps: true }
 );

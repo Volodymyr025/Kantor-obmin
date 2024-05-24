@@ -59,6 +59,9 @@ export default function FormDialog({
   };
 
   const [loading, setLoading] = React.useState(false);
+  const departament = localStorage.getItem("Departament");
+  const user = localStorage.getItem("User");
+
   const submit = async (value: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     const formData = new FormData(value.currentTarget);
@@ -84,6 +87,8 @@ export default function FormDialog({
       eqvCzk: +formJson["eqv-czk"],
       eqvNok: +formJson["eqv-nok"],
       eqvGold: +formJson["eqv-gold"],
+      user: user,
+      departament: departament,
     };
     await postFormDataToMongoDB(report);
     await updatePayDeskData(report);

@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import PayDesk from "@/lib/Validation/payDesk";
 
-export const GET = async (request: Request) => {
+export const POST = async (request: Request) => {
   try {
     await conectToDB("Chortkiv");
-    const payDesk = await PayDesk.find();
+    const { departament } = await request.json();
+    const payDesk = await PayDesk.find({ departament: departament });
     const lastOneDesk = payDesk.slice(-1);
     return NextResponse.json(lastOneDesk);
   } catch (err: any) {
