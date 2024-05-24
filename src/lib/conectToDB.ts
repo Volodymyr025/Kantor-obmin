@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 export const conectToDB = async (nameDB: string) => {
-  const department = localStorage.getItem("Department");
   const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${nameDB}?retryWrites=true&w=majority&appName=Kantor`;
   try {
     await mongoose.connect(url);

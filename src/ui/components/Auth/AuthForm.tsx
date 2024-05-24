@@ -31,8 +31,12 @@ export default function AuthForm() {
   const submitHandler = () => {
     localStorage.setItem("User", userName);
     localStorage.setItem("Department", department);
-    if (department.includes("Чортків")) {
-      console.log("dsad");
+  };
+
+  const locationHeandler = (select: string) => {
+    setDepartment(select);
+    if (select.includes("Чортків")) {
+      setTown(select);
     }
   };
 
@@ -41,6 +45,15 @@ export default function AuthForm() {
       setOpen(true);
     }
   }, [formState]);
+
+  useEffect(() => {
+    void (async () => {
+      await fetch("/api/conectToDB", {
+        method: "POST",
+        body: JSON.stringify(town),
+      });
+    })();
+  }, [town]);
 
   return (
     <Box
@@ -111,7 +124,7 @@ export default function AuthForm() {
           <Select
             required
             name="department"
-            onChange={(e) => setDepartment(e.target.value)}
+            onChange={(e) => locationHeandler(e.target.value)}
             labelId="select-department"
             id="select-department"
             label="Оберіть відділення"
