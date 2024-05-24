@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import Report from "@/lib/Validation/report";
+import { updatePayDeskData } from "./updateReport";
 
 export const POST = async (request: Request) => {
   try {
@@ -18,7 +19,7 @@ export const POST = async (request: Request) => {
 
     const report = await Report.find({
       createdAt: { $gte: startOfDay, $lte: endOfDay },
-      departament: reqData.departament,
+      department: reqData.department,
     });
 
     if (report.length) {
@@ -29,6 +30,8 @@ export const POST = async (request: Request) => {
     }
 
     await Report.create(reqData);
+    await updatePayDeskData(reqData);
+
     return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json(

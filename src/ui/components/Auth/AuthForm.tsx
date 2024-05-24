@@ -25,11 +25,15 @@ export default function AuthForm() {
   const [formState, formAction] = useFormState(login, {});
   const [open, setOpen] = useState(false);
   const [userName, setUserName] = useState("");
-  const [departament, setDepartament] = useState("");
+  const [department, setDepartment] = useState("");
+  const [town, setTown] = useState("");
 
   const submitHandler = () => {
     localStorage.setItem("User", userName);
-    localStorage.setItem("Departament", departament);
+    localStorage.setItem("Department", department);
+    if (department.includes("Чортків")) {
+      console.log("dsad");
+    }
   };
 
   useEffect(() => {
@@ -103,16 +107,17 @@ export default function AuthForm() {
           }}
         />
         <FormControl fullWidth margin="normal">
-          <InputLabel id="select-departament">Оберіть відділення</InputLabel>
+          <InputLabel id="select-department">Оберіть відділення</InputLabel>
           <Select
             required
-            name="departament"
-            onChange={(e) => setDepartament(e.target.value)}
-            labelId="select-departament"
-            id="select-departament"
+            name="department"
+            onChange={(e) => setDepartment(e.target.value)}
+            labelId="select-department"
+            id="select-department"
             label="Оберіть відділення"
             defaultValue={""}
           >
+            <MenuItem value={"Admin"}>Admin</MenuItem>
             <MenuItem value={"Чортків"}>Чортків</MenuItem>
             <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
             <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>

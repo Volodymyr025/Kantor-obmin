@@ -3,10 +3,24 @@ import { MAIN_GREEN } from "@/ui/palette/Color";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { logOut } from "../Auth/login";
+import { useEffect, useState } from "react";
 
 export default function Header() {
-  const userName = localStorage.getItem("User");
-  const departament = localStorage.getItem("Departament");
+  const [userName, setUserName] = useState("");
+  const [department, setDepartment] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUserName = localStorage.getItem("User");
+      const storedDepartment = localStorage.getItem("Department");
+      if (storedUserName) {
+        setUserName(storedUserName);
+      }
+      if (storedDepartment) {
+        setDepartment(storedDepartment);
+      }
+    }
+  }, []);
 
   return (
     <Box
@@ -26,7 +40,7 @@ export default function Header() {
       <Box display={"flex"}>
         <Box>
           <Typography>Касир:{userName}</Typography>
-          <Typography>Відділення:{departament}</Typography>
+          <Typography>Відділення:{department}</Typography>
         </Box>
         <form action={logOut}>
           <Button

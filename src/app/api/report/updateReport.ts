@@ -2,16 +2,15 @@ import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import PayDesk from "@/lib/Validation/payDesk";
 
-export const POST = async (request: Request) => {
+export const updatePayDeskData = async (data: { department: string }) => {
   try {
     await conectToDB("Chortkiv");
-    const payDesk = await PayDesk.find();
-    const req = await request.json();
+    const payDesk = await PayDesk.find({ department: data.department });
     const lastOneDesk = payDesk.slice(-1);
     if (!payDesk.length) {
-      await PayDesk.create(req);
+      await PayDesk.create(data);
     } else {
-      const combinedObject = [...lastOneDesk, ...[req]].reduce((pay, rep) => {
+      const combinedObject = [...lastOneDesk, ...[data]].reduce((pay, rep) => {
         return {
           usd: pay.usd + rep.usd,
           eur: pay.eur + rep.eur,
@@ -33,12 +32,16 @@ export const POST = async (request: Request) => {
           eqvCzk: pay.eqvCzk + rep.eqvCzk,
           eqvNok: pay.eqvNok + rep.eqvNok,
           eqvGold: pay.eqvGold + rep.eqvGold,
+          department: data.department,
         };
       });
       await PayDesk.create(combinedObject);
     }
 
-    return NextResponse.json(payDesk);
+    return NextResponse.json(
+      { message: "Report uploaded to paydesk" },
+      { status: 201 }
+    );
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error to find report", err },
