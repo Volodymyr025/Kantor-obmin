@@ -16,23 +16,6 @@ interface DialogProps {
   setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const updatePayDeskData = async (report: {}) => {
-  try {
-    const response = await fetch("/api/paydesk/update", {
-      method: "POST",
-      body: JSON.stringify(report),
-      headers: {
-        "Content-Type": "aplication/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Field to create users input");
-    }
-  } catch {
-    throw Error("Field to conect to server");
-  }
-};
-
 export default function FormDialog({
   open,
   setOpen,
@@ -59,7 +42,7 @@ export default function FormDialog({
   };
 
   const [loading, setLoading] = React.useState(false);
-  const departament = localStorage.getItem("Departament");
+  const department = localStorage.getItem("Department");
   const user = localStorage.getItem("User");
 
   const submit = async (value: React.FormEvent<HTMLFormElement>) => {
@@ -88,10 +71,9 @@ export default function FormDialog({
       eqvNok: +formJson["eqv-nok"],
       eqvGold: +formJson["eqv-gold"],
       user: user,
-      departament: departament,
+      department: department,
     };
     await postFormDataToMongoDB(report);
-    await updatePayDeskData(report);
     setLoading(false);
     setOpen(false);
     setAlert(true);

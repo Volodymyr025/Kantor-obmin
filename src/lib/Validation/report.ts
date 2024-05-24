@@ -23,7 +23,7 @@ const postReportSchema = new mongoose.Schema(
     eqvNok: Number,
     eqvGold: Number,
     user: String,
-    departament: String,
+    department: String,
   },
   { timestamps: true }
 );

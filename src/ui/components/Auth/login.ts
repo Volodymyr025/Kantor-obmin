@@ -13,12 +13,12 @@ export const login = async (
   await conectToDB("Chortkiv");
   const formUser = formData.get("userName");
   const formPassword = formData.get("password") as string;
-  const formDepartament = formData.get("departament");
+  const formDepartment = formData.get("department");
 
   const findUserByName = await User.findOne({ name: formUser });
-  const findDepartament = await User.findOne({
+  const findDepartment = await User.findOne({
     name: formUser,
-    departament: formDepartament,
+    department: formDepartment,
   });
   if (!findUserByName) {
     return {
@@ -41,7 +41,7 @@ export const login = async (
     };
   }
 
-  if (!findDepartament) {
+  if (!findDepartment) {
     return {
       err: "Користувача не знайдено в даному відділені",
     };
