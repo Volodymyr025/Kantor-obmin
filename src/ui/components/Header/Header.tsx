@@ -3,8 +3,6 @@ import { MAIN_GREEN } from "@/ui/palette/Color";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { logOut } from "../Auth/login";
-import { UserState } from "@/ui/context-store/user";
-import { useContext } from "react";
 
 export default function Header() {
   const userName = localStorage.getItem("User");
