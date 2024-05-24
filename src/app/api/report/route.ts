@@ -4,38 +4,31 @@ import Report from "@/lib/Validation/report";
 
 export const POST = async (request: Request) => {
   try {
-    const data = await request.json();
+    const reqData = await request.json();
     await conectToDB("Chortkiv");
 
     const date = new Date();
-    const today = {
-      year: date.getFullYear(),
-      month: `${date.getMonth() + 1}`.padStart(2, "0"),
-      day: `${date.getDate()}`.padStart(2, "0"),
-    };
-    const onlyDate = `${today.year}-${today.month}-${today.day}`;
 
-    const report = await Report.find({}, "createdAt");
-    const lastAdded = report.slice(-1);
+    const transformData = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
-    const resultData = lastAdded.map((doc) => {
-      const today = {
-        year: doc.createdAt.getFullYear(),
-        month: `${doc.createdAt.getMonth() + 1}`.padStart(2, "0"),
-        day: `${doc.createdAt.getDate()}`.padStart(2, "0"),
-      };
-      const exystDate = `${today.year}-${today.month}-${today.day}`;
-      return exystDate === onlyDate;
+    const startOfDay = new Date(transformData).setHours(0, 0, 0, 0);
+    const endOfDay = new Date(transformData).setHours(23, 59, 59, 999);
+
+    const report = await Report.find({
+      createdAt: { $gte: startOfDay, $lte: endOfDay },
+      departament: reqData.departament,
     });
 
-    if (resultData[0]) {
+    if (report.length) {
       return NextResponse.json(
         { message: "Сьогоднішній звіт вже відправлено" },
         { status: 201 }
       );
     }
 
-    await Report.create(data);
+    await Report.create(reqData);
     return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json(
