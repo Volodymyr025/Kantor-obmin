@@ -4,7 +4,7 @@ import PayDesk from "@/lib/Validation/payDesk";
 
 export const updatePayDeskData = async (data: { department: string }) => {
   try {
-    await conectToDB("Chortkiv");
+    await conectToDB(data.department);
     const payDesk = await PayDesk.find({ department: data.department });
     const lastOneDesk = payDesk.slice(-1);
     if (!payDesk.length) {

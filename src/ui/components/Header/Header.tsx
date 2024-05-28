@@ -18,6 +18,9 @@ export default function Header() {
       }
       if (storedDepartment) {
         setDepartment(storedDepartment);
+      } else {
+        setUserName("");
+        setDepartment("");
       }
     }
   }, []);
@@ -32,26 +35,31 @@ export default function Header() {
         justifyContent: "space-between",
         alignItems: "center",
         width: "100%",
+        height: "70px",
+        position: "fixed",
+        zIndex: 99,
       }}
     >
       <Link href={"/"}>
         <Typography>Кантор обмін</Typography>
       </Link>
-      <Box display={"flex"}>
-        <Box>
-          <Typography>Касир:{userName}</Typography>
-          <Typography>Відділення:{department}</Typography>
+      {userName && (
+        <Box display={"flex"}>
+          <Box>
+            <Typography>Касир:{userName}</Typography>
+            <Typography>Відділення:{department}</Typography>
+          </Box>
+          <form action={logOut}>
+            <Button
+              type="submit"
+              sx={{ fontSize: 18, mx: 2 }}
+              onClick={() => localStorage.clear()}
+            >
+              Вихід
+            </Button>
+          </form>
         </Box>
-        <form action={logOut}>
-          <Button
-            type="submit"
-            sx={{ fontSize: 18, mx: 2 }}
-            onClick={() => localStorage.clear()}
-          >
-            Вихід
-          </Button>
-        </form>
-      </Box>
+      )}
     </Box>
   );
 }

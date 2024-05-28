@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
-
 export const conectToDB = async (nameDB: string) => {
-  const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${nameDB}?retryWrites=true&w=majority&appName=Kantor`;
   try {
-    await mongoose.connect(url);
-    console.log("connected");
+    const request = await fetch("http://localhost:3000/api/conectToDB", {
+      method: "POST",
+      body: JSON.stringify(nameDB),
+    });
+    const req = await request.json();
+    console.log(req.message);
   } catch (err) {
     console.log("conected field");
     throw new Error("Field to conected");

@@ -2,10 +2,7 @@
 import { Lucia, TimeSpan } from "lucia";
 import { MongodbAdapter } from "@lucia-auth/adapter-mongodb";
 import mongoose from "mongoose";
-import { conectToDB } from "@/lib/conectToDB";
 import { cookies } from "next/headers";
-
-conectToDB("Chortkiv");
 
 const adapter = new MongodbAdapter(
   mongoose.connection.collection("sessions"),
