@@ -6,7 +6,7 @@ import { updatePayDeskData } from "./updateReport";
 export const POST = async (request: Request) => {
   try {
     const reqData = await request.json();
-    await conectToDB("Chortkiv");
+    await conectToDB(reqData.department);
 
     const date = new Date();
 
@@ -41,9 +41,10 @@ export const POST = async (request: Request) => {
   }
 };
 
-export const GET = async (request: Request) => {
+export const PATCH = async (request: Request) => {
   try {
-    await conectToDB("Chortkiv");
+    const req = await request.json();
+    await conectToDB(req);
     const report = await Report.find();
     return NextResponse.json(report);
   } catch (err: any) {

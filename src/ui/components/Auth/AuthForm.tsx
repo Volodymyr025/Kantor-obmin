@@ -15,45 +15,60 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { login } from "./login";
+import { verifyAuth } from "./lucia";
+
+interface ButtonType {
+  userName: string;
+  department: string;
+}
+
+const SubmitButton = ({ userName, department }: ButtonType) => {
+  const { pending } = useFormStatus();
+
+  useEffect(
+    () =>
+      void (async () => {
+        const auth = await verifyAuth();
+        if (auth.session) {
+          localStorage.setItem("User", userName);
+          localStorage.setItem("Department", department);
+        }
+      })(),
+    [pending]
+  );
+
+  return (
+    <Button
+      type="submit"
+      fullWidth
+      color="success"
+      variant="contained"
+      sx={{ my: 1 }}
+    >
+      {pending ? "Loading..." : "Вхід"}
+    </Button>
+  );
+};
 
 export default function AuthForm() {
   const [formState, formAction] = useFormState(login, {});
   const [open, setOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [department, setDepartment] = useState("");
-  const [town, setTown] = useState("");
-
-  const submitHandler = () => {
-    localStorage.setItem("User", userName);
-    localStorage.setItem("Department", department);
-  };
 
   const locationHeandler = (select: string) => {
     setDepartment(select);
-    if (select.includes("Чортків")) {
-      setTown(select);
-    }
   };
-
   useEffect(() => {
     if (formState.err) {
       setOpen(true);
     }
   }, [formState]);
-
-  useEffect(() => {
-    void (async () => {
-      await fetch("/api/conectToDB", {
-        method: "POST",
-        body: JSON.stringify(town),
-      });
-    })();
-  }, [town]);
 
   return (
     <Box
@@ -134,18 +149,10 @@ export default function AuthForm() {
             <MenuItem value={"Чортків"}>Чортків</MenuItem>
             <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
             <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
+            <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
           </Select>
         </FormControl>
-        <Button
-          type="submit"
-          fullWidth
-          color="success"
-          onClick={submitHandler}
-          variant="contained"
-          sx={{ my: 1 }}
-        >
-          Вхід
-        </Button>
+        <SubmitButton userName={userName} department={department} />
       </form>
     </Box>
   );

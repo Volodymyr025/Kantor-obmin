@@ -3,18 +3,17 @@ import User from "@/lib/Validation/user";
 import { conectToDB } from "@/lib/conectToDB";
 import { ActionResult } from "next/dist/server/app-render/types";
 import { comparePasswords } from "./hash";
-import { closeSession, createAuthSession } from "./lucia";
+import { closeSession, createAuthSession, verifyAuth } from "./lucia";
 import { redirect } from "next/navigation";
 
 export const login = async (
   prevState: any,
   formData: FormData
 ): Promise<ActionResult> => {
-  await conectToDB("Chortkiv");
   const formUser = formData.get("userName");
   const formPassword = formData.get("password") as string;
-  const formDepartment = formData.get("department");
-
+  const formDepartment = formData.get("department") as string;
+  await conectToDB(formDepartment);
   const findUserByName = await User.findOne({ name: formUser });
   const findDepartment = await User.findOne({
     name: formUser,

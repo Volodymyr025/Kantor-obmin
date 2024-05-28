@@ -3,13 +3,11 @@ import ButtonMenu from "./ButtonMenu";
 import { Container } from "@mui/material";
 import PayDesk from "./PayDesk";
 import ProgressWrapper from "@/ui/context-store/openReport";
-import Header from "../Header/Header";
 
 export default function Home() {
   return (
     <Grid container sx={{ width: "100%" }}>
-      <Header />
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ mt: "70px" }}>
         <ProgressWrapper>
           <Container sx={{ my: 5 }}>
             <ButtonMenu />
