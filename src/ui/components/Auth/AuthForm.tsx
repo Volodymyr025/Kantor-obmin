@@ -3,6 +3,7 @@ import {
   Alert,
   Box,
   Button,
+  CircularProgress,
   FormControl,
   IconButton,
   InputAdornment,
@@ -50,7 +51,7 @@ const SubmitButton = ({ userName, department }: ButtonType) => {
       variant="contained"
       sx={{ my: 1 }}
     >
-      {pending ? "Loading..." : "Вхід"}
+      {pending ? "Перевіряємо дані ..." : "Вхід "}
     </Button>
   );
 };

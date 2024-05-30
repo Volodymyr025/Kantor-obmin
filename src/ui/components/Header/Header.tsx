@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { logOut } from "../Auth/login";
 import { useEffect, useState } from "react";
+import Logo from "@/ui/assets/SVG/Logo";
 
 export default function Header() {
   const [userName, setUserName] = useState("");
@@ -41,7 +42,7 @@ export default function Header() {
       }}
     >
       <Link href={"/"}>
-        <Typography>Кантор обмін</Typography>
+        <Logo />
       </Link>
       {userName && (
         <Box display={"flex"}>

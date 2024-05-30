@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/ui/components/Header/Header";
 import TableList from "@/ui/components/Shared/TableList";
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -28,11 +29,14 @@ export default function Report() {
     })();
   }, [setReport]);
   return (
-    <Box sx={{ p: 5 }}>
-      <Typography fontSize={36} textAlign={"center"} sx={{ mt: "70px" }}>
-        Відправлені звіти
-      </Typography>
-      <TableList data={report} />
-    </Box>
+    <>
+      <Header />
+      <Box sx={{ p: 5 }}>
+        <Typography fontSize={36} textAlign={"center"} sx={{ mt: "70px" }}>
+          Відправлені звіти
+        </Typography>
+        <TableList data={report} />
+      </Box>
+    </>
   );
 }

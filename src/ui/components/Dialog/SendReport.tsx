@@ -9,14 +9,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Box, CircularProgress } from "@mui/material";
 import Link from "next/link";
 
-interface DialogProps {
+export interface DialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function FormDialog({
+export default function SendReport({
   open,
   setOpen,
   setAlert,

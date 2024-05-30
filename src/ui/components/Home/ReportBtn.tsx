@@ -1,17 +1,17 @@
 "use client";
-import { Box, Button, Snackbar } from "@mui/material";
+import { Button, Snackbar } from "@mui/material";
 import React, { useContext, useState } from "react";
-import FormDialog from "../Dialog/Dialog";
 import { Progress } from "@/ui/context-store/openReport";
+import SendReport from "../Dialog/SendReport";
 
-export default function ButtonMenu() {
-  const { openDialog, setOpen } = useContext(Progress);
+export default function ReportBtn() {
+  const [openDialog, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [message, setMessage] = useState("");
 
   return (
-    <Box sx={{ display: "flex", gap: 2 }}>
-      <FormDialog
+    <>
+      <SendReport
         open={openDialog}
         setOpen={setOpen}
         setAlert={setOpenAlert}
@@ -26,12 +26,12 @@ export default function ButtonMenu() {
       <Button color="success" variant="contained" onClick={() => setOpen(true)}>
         Звіт
       </Button>
-      <Button color="success" variant="contained">
+      {/* <Button color="success" variant="contained">
         Відправка інкасації
       </Button>
       <Button color="success" variant="contained">
         Отримання інкасації
-      </Button>
-    </Box>
+      </Button> */}
+    </>
   );
 }
