@@ -1,9 +1,7 @@
 "use client";
 import {
-  Alert,
   Box,
   Button,
-  CircularProgress,
   FormControl,
   IconButton,
   InputAdornment,
@@ -70,7 +68,6 @@ export default function AuthForm() {
       setOpen(true);
     }
   }, [formState]);
-
   return (
     <Box
       sx={{

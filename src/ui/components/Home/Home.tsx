@@ -3,6 +3,7 @@ import { Container } from "@mui/material";
 import PayDesk from "./PayDesk";
 import ReportBtn from "./ReportBtn";
 import SendCashBtn from "./SendCashBtn";
+import CashStepper from "./Stepper";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
           <ReportBtn />
           <SendCashBtn />
         </Container>
+        <CashStepper />
         <Container sx={{ bgcolor: "#fff", width: "100%", minHeight: "100vh" }}>
           <PayDesk />
         </Container>

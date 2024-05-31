@@ -1,4 +1,3 @@
-import { conectToDB } from "@/lib/conectToDB";
 import mongoose from "mongoose";
 
 const cashSchema = new mongoose.Schema(
@@ -23,7 +22,14 @@ const cashSchema = new mongoose.Schema(
 const UnCashMen =
   mongoose.models.UnCashMen || mongoose.model("UnCashMen", cashSchema);
 
-export const UnCashFun = async (dbName: string) => {
+export const UnCashFactory = async (name: string) => {
+  let dbName = "";
+  if (name.includes("Чортків")) {
+    dbName = "Chortkiv";
+  }
+  if (name.includes("Тернопіль")) {
+    dbName = "Ternopil";
+  }
   const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   const conect = await mongoose.createConnection(url).asPromise();
   const model = conect.model("UnCashMen", cashSchema);

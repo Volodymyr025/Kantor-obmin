@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import { conectToDB } from "@/lib/conectToDB";
-import UnCashMen, { UnCashFun } from "../../../../models/сashSend";
-import mongoose from "mongoose";
+import { UnCashFactory } from "../../../../models/сashSend";
 
 export const POST = async (request: Request) => {
   const reqData = await request.json();
   try {
-    const cash = await UnCashFun("Чортків");
+    const cash = await UnCashFactory(reqData.sendTo);
     cash.create(reqData);
     return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
   } catch (err: any) {
