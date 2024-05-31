@@ -15,6 +15,7 @@ const cashSchema = new mongoose.Schema(
     sendTo: String,
     user: String,
     department: String,
+    process: String,
   },
   { timestamps: true }
 );
