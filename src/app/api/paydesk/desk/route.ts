@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
-import PayDesk from "@/lib/Validation/payDesk";
+import PayDesk from "../../../../../models/payDesk";
 
 export const POST = async (request: Request) => {
   try {

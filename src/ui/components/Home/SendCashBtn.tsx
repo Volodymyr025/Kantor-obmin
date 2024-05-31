@@ -1,7 +1,7 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
 import React, { useContext, useState } from "react";
-import SendCash from "../Dialog/SendCash";
+import Uncashmen from "../Dialog/SendUnChashmen/Uncashmen";
 
 export default function SendCashBtn() {
   const [openDialog, setOpen] = useState(false);
@@ -10,7 +10,7 @@ export default function SendCashBtn() {
 
   return (
     <>
-      <SendCash
+      <Uncashmen
         open={openDialog}
         setOpen={setOpen}
         setAlert={setOpenAlert}

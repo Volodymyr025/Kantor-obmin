@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import {
   Alert,
+  AlertTitle,
   Box,
   CircularProgress,
   FormControl,
@@ -17,6 +18,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import ListCurrency from "./ListCurrency";
 
 interface DialogProps {
   open: boolean;
@@ -25,36 +27,45 @@ interface DialogProps {
   setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface CashInput {
+export interface CashInput {
   sum: string;
   currency: string;
-  department: string;
+  sendTo: string;
 }
 
-export default function SendCash({
+type Currency =
+  | "usd"
+  | "eur"
+  | "gbp"
+  | "pln"
+  | "cad"
+  | "chf"
+  | "sek"
+  | "czk"
+  | "nok"
+  | "gold";
+
+export default function Uncashmen({
   open,
   setOpen,
   setAlert,
   setMessage,
 }: DialogProps) {
   const [loading, setLoading] = React.useState(false);
-  const department = localStorage.getItem("Department");
-  const user = localStorage.getItem("User");
+
   const [cashStore, setCashStore] = React.useState<CashInput>({
     sum: "",
     currency: "",
-    department: "",
+    sendTo: "",
   });
   const [cashList, setCashList] = React.useState<CashInput[]>([]);
 
-  const postFormDataToMongoDB = async (report: {}) => {
+  const postFormDataToMongoDB = async (sendTo: {}) => {
+    setLoading(true);
     try {
-      const response = await fetch("/api/report", {
+      const response = await fetch("/api/sendCash", {
         method: "POST",
-        body: JSON.stringify(report),
-        headers: {
-          "Content-Type": "aplication/json",
-        },
+        body: JSON.stringify(sendTo),
       });
       if (!response.ok) {
         throw new Error("Field to create users input");
@@ -70,7 +81,7 @@ export default function SendCash({
     if (
       cashStore.sum.length <= 0 ||
       cashStore.currency.length <= 0 ||
-      cashStore.department.length <= 0
+      cashStore.sendTo.length <= 0
     ) {
       return;
     }
@@ -78,52 +89,46 @@ export default function SendCash({
     setCashStore({
       sum: "",
       currency: "",
-      department: cashStore.department,
+      sendTo: cashStore.sendTo,
     });
   };
 
   const handlerClose = () => {
-    setCashStore({ sum: "", currency: "", department: "" });
+    setCashStore({ sum: "", currency: "", sendTo: "" });
     setCashList([]);
     setOpen(false);
   };
 
-  const handlerRemove = (e: any) => {
-    const remove = cashList.filter((item, index) => index !== e);
-    setCashList(remove);
-  };
-  const submit = async (value: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
-    const formData = new FormData(value.currentTarget);
-    const formJson = Object.fromEntries((formData as any).entries());
-    const report = {
-      usd: +formJson.usd,
-      eur: +formJson.eur,
-      gbp: +formJson.gbp,
-      pln: +formJson.pln,
-      cad: +formJson.cad,
-      chf: +formJson.chf,
-      sek: +formJson.sek,
-      czk: +formJson.czk,
-      nok: +formJson.nok,
-      gold: +formJson.gold,
-      eqvUsd: +formJson["eqv-usd"],
-      eqvEur: +formJson["eqv-eur"],
-      eqvGbp: +formJson["eqv-gbp"],
-      eqvPln: +formJson["eqv-pln"],
-      eqvCad: +formJson["eqv-cad"],
-      eqvChf: +formJson["eqv-chf"],
-      eqvSek: +formJson["eqv-sek"],
-      eqvCzk: +formJson["eqv-czk"],
-      eqvNok: +formJson["eqv-nok"],
-      eqvGold: +formJson["eqv-gold"],
-      user: user,
+  const submit = async () => {
+    const department = localStorage.getItem("Department");
+    const user = localStorage.getItem("User");
+    const sendObj = {
+      usd: 0,
+      eur: 0,
+      gbp: 0,
+      pln: 0,
+      cad: 0,
+      chf: 0,
+      sek: 0,
+      czk: 0,
+      nok: 0,
+      gold: 0,
       department: department,
+      user: user,
+      sendTo: cashList[0].sendTo,
     };
-    await postFormDataToMongoDB(report);
+    cashList.forEach((item) => {
+      const currency = item.currency.toLowerCase() as Currency;
+      const sum = parseFloat(item.sum);
+
+      if (sendObj.hasOwnProperty(currency)) {
+        sendObj[currency] += sum;
+      }
+    });
+    await postFormDataToMongoDB(sendObj);
     setLoading(false);
-    setOpen(false);
     setAlert(true);
+    handlerClose();
   };
 
   return (
@@ -135,7 +140,7 @@ export default function SendCash({
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          submit(event);
+          submit();
         },
       }}
     >
@@ -149,7 +154,6 @@ export default function SendCash({
           autoFocus
           margin="dense"
           id="sum"
-          required
           onChange={(e) =>
             setCashStore((prev) => ({
               ...prev,
@@ -165,7 +169,6 @@ export default function SendCash({
         <FormControl fullWidth margin="normal">
           <InputLabel id="currency">Оберіть валюту</InputLabel>
           <Select
-            required
             onChange={(e) =>
               setCashStore((prev) => ({
                 ...prev,
@@ -193,26 +196,21 @@ export default function SendCash({
           </Select>
         </FormControl>
         <FormControl fullWidth margin="normal">
-          <InputLabel id="select-department">Оберіть відділення</InputLabel>
+          <InputLabel id="select-sendTo">Оберіть відділення</InputLabel>
           <Select
-            required
             onChange={(e) =>
               setCashStore((prev) => ({
                 ...prev,
                 [e.target.name]: e.target.value,
               }))
             }
-            name="department"
-            labelId="select-department"
-            id="select-department"
+            name="sendTo"
+            labelId="select-sendTo"
+            id="select-sendTo"
             label="Оберіть відділення"
             defaultValue={""}
             disabled={cashList.length > 0}
-            value={
-              cashList.length > 0
-                ? cashList[0].department
-                : cashStore.department
-            }
+            value={cashList.length > 0 ? cashList[0].sendTo : cashStore.sendTo}
             fullWidth
           >
             <MenuItem value={"Чортків"}>Чортків</MenuItem>
@@ -232,13 +230,13 @@ export default function SendCash({
           >
             Відміна
           </Button>
-          <Button variant="contained" disabled={loading} onClick={addCashList}>
+          <Button onClick={addCashList} variant="contained" disabled={loading}>
             Додати
           </Button>
         </Box>
         <Button
           variant="contained"
-          disabled={loading}
+          disabled={loading || cashList.length === 0}
           color="success"
           type="submit"
         >
@@ -249,20 +247,7 @@ export default function SendCash({
           )}
         </Button>
       </DialogActions>
-      <Box sx={{ display: "flex", m: 1, gap: 1, flexWrap: "wrap" }}>
-        {cashList.map((item, index) => (
-          <Paper
-            key={index}
-            elevation={3}
-            sx={{ p: 1 }}
-            onClick={() => handlerRemove(index)}
-          >
-            <Typography fontWeight={700}>Кому:{item.department}</Typography>
-            <Typography>Сума:{item.sum}</Typography>
-            <Typography>Валюта:{item.currency}</Typography>
-          </Paper>
-        ))}
-      </Box>
+      <ListCurrency cashList={cashList} setCashList={setCashList} />
     </Dialog>
   );
 }

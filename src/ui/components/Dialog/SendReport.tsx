@@ -42,10 +42,10 @@ export default function SendReport({
   };
 
   const [loading, setLoading] = React.useState(false);
-  const department = localStorage.getItem("Department");
-  const user = localStorage.getItem("User");
 
   const submit = async (value: React.FormEvent<HTMLFormElement>) => {
+    const department = localStorage.getItem("Department");
+    const user = localStorage.getItem("User");
     setLoading(true);
     const formData = new FormData(value.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
