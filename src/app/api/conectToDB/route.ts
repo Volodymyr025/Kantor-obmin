@@ -12,7 +12,7 @@ export const POST = async (req: Request) => {
   }
   const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   try {
-    await mongoose.createConnection(url).asPromise();
+    await mongoose.connect(url);
     return NextResponse.json(
       { message: `conected ${dbName}` },
       { status: 201 }

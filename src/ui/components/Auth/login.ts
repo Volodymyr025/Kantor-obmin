@@ -13,12 +13,15 @@ export const login = async (
   const formUser = formData.get("userName");
   const formPassword = formData.get("password") as string;
   const formDepartment = formData.get("department") as string;
+
   await conectToDB(formDepartment);
+
   const findUserByName = await User.findOne({ name: formUser });
   const findDepartment = await User.findOne({
     name: formUser,
     department: formDepartment,
   });
+
   if (!findUserByName) {
     return {
       err: "За даним імя'м користувача не знайдено",
@@ -45,7 +48,11 @@ export const login = async (
       err: "Користувача не знайдено в даному відділені",
     };
   }
+
   await createAuthSession(findUserByName._id);
+  {
+    findUserByName;
+  }
   redirect("/");
 };
 
