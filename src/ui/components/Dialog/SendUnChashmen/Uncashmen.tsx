@@ -116,6 +116,7 @@ export default function Uncashmen({
       department: department,
       user: user,
       sendTo: cashList[0].sendTo,
+      process: "processing",
     };
     cashList.forEach((item) => {
       const currency = item.currency.toLowerCase() as Currency;
