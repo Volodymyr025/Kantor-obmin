@@ -12,9 +12,15 @@ export const POST = async (req: Request) => {
   }
   const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   try {
-    await mongoose.connect(url);
-    return NextResponse.json({ message: "conected" }, { status: 201 });
+    await mongoose.createConnection(url).asPromise();
+    return NextResponse.json(
+      { message: `conected ${dbName}` },
+      { status: 201 }
+    );
   } catch (err) {
-    return NextResponse.json({ message: "Field to conected" }, { status: 201 });
+    return NextResponse.json(
+      { message: `Filed to conected ${dbName}` + err },
+      { status: 401 }
+    );
   }
 };

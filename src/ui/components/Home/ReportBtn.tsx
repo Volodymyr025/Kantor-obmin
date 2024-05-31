@@ -26,12 +26,6 @@ export default function ReportBtn() {
       <Button color="success" variant="contained" onClick={() => setOpen(true)}>
         Звіт
       </Button>
-      {/* <Button color="success" variant="contained">
-        Відправка інкасації
-      </Button>
-      <Button color="success" variant="contained">
-        Отримання інкасації
-      </Button> */}
     </>
   );
 }

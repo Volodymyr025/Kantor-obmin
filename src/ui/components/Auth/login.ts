@@ -1,9 +1,9 @@
 "use server";
-import User from "@/lib/Validation/user";
+import User from "../../../../models/user";
 import { conectToDB } from "@/lib/conectToDB";
 import { ActionResult } from "next/dist/server/app-render/types";
 import { comparePasswords } from "./hash";
-import { closeSession, createAuthSession, verifyAuth } from "./lucia";
+import { closeSession, createAuthSession } from "./lucia";
 import { redirect } from "next/navigation";
 
 export const login = async (
