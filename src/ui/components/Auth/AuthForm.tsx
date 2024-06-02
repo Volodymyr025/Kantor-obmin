@@ -94,7 +94,7 @@ export default function AuthForm() {
           </IconButton>
         }
       />
-      <form action={formAction} style={{ width: "35%" }}>
+      <form action={formAction} style={{ width: "50%" }}>
         <Typography sx={{ fontSize: 21, textAlign: "center" }}>
           Вхід в систему
         </Typography>
