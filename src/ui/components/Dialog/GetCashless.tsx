@@ -6,13 +6,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, CircularProgress, Paper } from "@mui/material";
+import { Box, CircularProgress, Paper, Typography } from "@mui/material";
 
 export interface DialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
+  data: any;
 }
 
 export default function GetCashlessWindow({
@@ -20,9 +21,8 @@ export default function GetCashlessWindow({
   setOpen,
   setAlert,
   setMessage,
+  data,
 }: DialogProps) {
-  const [data, setData] = React.useState([]);
-
   const postFormDataToMongoDB = async (report: {}) => {
     try {
       const response = await fetch("/api/cashless", {
@@ -69,7 +69,26 @@ export default function GetCashlessWindow({
           перераховано кошти в 100% розмірі і немає розбіжностей з інкасаційним
           актом
         </DialogContentText>
-        <Box display={"flex"} gap={1}></Box>
+        <Box display={"flex"} gap={1}>
+          {data.map((item: any) => {
+            return (
+              <Paper key={item._id} sx={{ p: 2, m: 2 }}>
+                <Typography variant="h5">{item.department}</Typography>
+                {item.usd > 0 && <Typography>USD:{item.usd}</Typography>}
+                {item.eur > 0 && <Typography>EUR:{item.eur}</Typography>}
+                {item.gbp > 0 && <Typography>GBP:{item.gbp}</Typography>}
+                {item.pln > 0 && <Typography>PLN:{item.pln}</Typography>}
+                {item.cad > 0 && <Typography>CAD:{item.cad}</Typography>}
+                {item.chf > 0 && <Typography>CHF:{item.chf}</Typography>}
+                {item.sek > 0 && <Typography>SEK:{item.sek}</Typography>}
+                {item.czk > 0 && <Typography>CZK:{item.czk}</Typography>}
+                {item.nok > 0 && <Typography>NOK:{item.nok}</Typography>}
+                {item.gold > 0 && <Typography>{item.gold}</Typography>}
+                <Typography>Відправник:{item.user}</Typography>
+              </Paper>
+            );
+          })}
+        </Box>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box display={"flex"} gap={"15px"}>
