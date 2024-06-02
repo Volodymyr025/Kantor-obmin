@@ -94,8 +94,9 @@ export default function SendReport({
       <DialogTitle>Звіт</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Перенесіть будь-ласка всі ваші операції в кінці дня з таблички Exel
-          (куп/прод та потрачену грн), звіт можна зробити лише один раз за день
+          Перенесіть будь-ласка всі ваші операції в кінці робочого дня з
+          таблички Exel (куп/прод та потрачену грн), звіт можна зробити лише
+          один раз за день
         </DialogContentText>
         <Box display={"flex"} gap={1}>
           <Box>
