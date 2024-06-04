@@ -24,7 +24,7 @@ const UnCashMen =
   mongoose.models.UnCashMen || mongoose.model("UnCashMen", cashSchema);
 
 export const UnCashFactory = async (name: string) => {
-  let dbName = "";
+  let dbName = name;
   if (name.includes("Чортків")) {
     dbName = "Chortkiv";
   }

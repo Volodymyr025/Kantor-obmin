@@ -19,6 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import ListCurrency from "./ListCurrency";
+import { Update } from "@/ui/context-store/updatePayDesk";
 
 interface DialogProps {
   open: boolean;
@@ -52,13 +53,16 @@ export default function Uncashmen({
   setMessage,
 }: DialogProps) {
   const [loading, setLoading] = React.useState(false);
+  const setUpdate = React.useContext(Update).setUpdate;
+  const [cashList, setCashList] = React.useState<CashInput[]>([]);
+  const [user, setUser] = React.useState("");
+  const [department, setDepartment] = React.useState("");
 
   const [cashStore, setCashStore] = React.useState<CashInput>({
     sum: "",
     currency: "",
     sendTo: "",
   });
-  const [cashList, setCashList] = React.useState<CashInput[]>([]);
 
   const postFormDataToMongoDB = async (sendTo: {}) => {
     setLoading(true);
@@ -99,9 +103,24 @@ export default function Uncashmen({
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUserName = localStorage.getItem("User");
+      const storedDepartment = localStorage.getItem("Department");
+      if (storedUserName) {
+        setUser(storedUserName);
+      }
+      if (storedDepartment) {
+        setDepartment(storedDepartment);
+      } else {
+        setUser("");
+        setDepartment("");
+      }
+    }
+  }, []);
+
   const submit = async () => {
-    const department = localStorage.getItem("Department");
-    const user = localStorage.getItem("User");
+    setUpdate(true);
     const sendObj = {
       usd: 0,
       eur: 0,
@@ -127,6 +146,7 @@ export default function Uncashmen({
       }
     });
     await postFormDataToMongoDB(sendObj);
+    setUpdate(false);
     setLoading(false);
     setAlert(true);
     handlerClose();
@@ -218,6 +238,7 @@ export default function Uncashmen({
             <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
             <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
             <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
+            <MenuItem value={"Administration"}>Administration</MenuItem>
           </Select>
         </FormControl>
       </DialogContent>

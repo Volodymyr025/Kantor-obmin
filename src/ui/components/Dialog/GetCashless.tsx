@@ -7,6 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, CircularProgress, Paper, Typography } from "@mui/material";
+import { Update } from "@/ui/context-store/updatePayDesk";
 
 export interface DialogProps {
   open: boolean;
@@ -23,11 +24,16 @@ export default function GetCashlessWindow({
   setMessage,
   data,
 }: DialogProps) {
-  const postFormDataToMongoDB = async (report: {}) => {
+  const [loading, setLoading] = React.useState(false);
+  const setUpdate = React.useContext(Update).setUpdate;
+
+  const getCashless = async (data: {}) => {
+    setUpdate(true);
+    setLoading(true);
     try {
       const response = await fetch("/api/cashless", {
-        method: "POST",
-        body: JSON.stringify(report),
+        method: "PATCH",
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "aplication/json",
         },
@@ -42,9 +48,9 @@ export default function GetCashlessWindow({
     }
   };
 
-  const [loading, setLoading] = React.useState(false);
-
   const submit = async () => {
+    await getCashless(data);
+    setUpdate(false);
     setLoading(false);
     setOpen(false);
     setAlert(true);
@@ -54,6 +60,7 @@ export default function GetCashlessWindow({
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
+      sx={{ form: { maxWidth: "700px" } }}
       PaperProps={{
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,7 +76,8 @@ export default function GetCashlessWindow({
           перераховано кошти в 100% розмірі і немає розбіжностей з інкасаційним
           актом
         </DialogContentText>
-        <Box display={"flex"} gap={1}>
+
+        <Box display={"flex"} gap={1} flexWrap={"wrap"}>
           {data.map((item: any) => {
             return (
               <Paper key={item._id} sx={{ p: 2, m: 2 }}>
@@ -83,7 +91,7 @@ export default function GetCashlessWindow({
                 {item.sek > 0 && <Typography>SEK:{item.sek}</Typography>}
                 {item.czk > 0 && <Typography>CZK:{item.czk}</Typography>}
                 {item.nok > 0 && <Typography>NOK:{item.nok}</Typography>}
-                {item.gold > 0 && <Typography>{item.gold}</Typography>}
+                {item.gold > 0 && <Typography>GOLD:{item.gold}</Typography>}
                 <Typography>Відправник:{item.user}</Typography>
               </Paper>
             );

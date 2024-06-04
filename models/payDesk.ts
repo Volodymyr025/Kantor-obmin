@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const payDeskSchema = new mongoose.Schema(
+export const payDeskSchema = new mongoose.Schema(
   {
     usd: Number,
     eur: Number,

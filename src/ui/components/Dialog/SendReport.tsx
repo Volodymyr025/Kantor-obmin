@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, CircularProgress } from "@mui/material";
 import Link from "next/link";
+import { Update } from "@/ui/context-store/updatePayDesk";
 
 export interface DialogProps {
   open: boolean;
@@ -22,7 +23,12 @@ export default function SendReport({
   setAlert,
   setMessage,
 }: DialogProps) {
+  const setUpdate = React.useContext(Update).setUpdate;
+
+  const [loading, setLoading] = React.useState(false);
+
   const postFormDataToMongoDB = async (report: {}) => {
+    setUpdate(true);
     try {
       const response = await fetch("/api/report", {
         method: "POST",
@@ -40,8 +46,6 @@ export default function SendReport({
       throw Error("Field to conect to server");
     }
   };
-
-  const [loading, setLoading] = React.useState(false);
 
   const submit = async (value: React.FormEvent<HTMLFormElement>) => {
     const department = localStorage.getItem("Department");
@@ -74,6 +78,7 @@ export default function SendReport({
       department: department,
     };
     await postFormDataToMongoDB(report);
+    setUpdate(false);
     setLoading(false);
     setOpen(false);
     setAlert(true);

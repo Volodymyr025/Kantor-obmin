@@ -14,9 +14,8 @@ export default async function Home() {
           <SendCashBtn />
         </Container>
         <CashStepper />
-        <Container sx={{ bgcolor: "#fff", width: "100%", minHeight: "100vh" }}>
-          <PayDesk />
-        </Container>
+
+        <PayDesk />
       </Grid>
     </Grid>
   );
