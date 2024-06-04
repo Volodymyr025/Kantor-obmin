@@ -26,10 +26,13 @@ export default function PayDesk() {
 
   const getPayDeskFromDB = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/paydesk/desk", {
-        method: "POST",
-        body: JSON.stringify({ department }),
-      });
+      const res = await fetch(
+        "https://kantor-obmin.vercel.app/api/paydesk/desk",
+        {
+          method: "POST",
+          body: JSON.stringify({ department }),
+        }
+      );
       const data = await res.json();
       setPayDesk(data);
     } catch {
@@ -42,10 +45,13 @@ export default function PayDesk() {
     setDB: Dispatch<SetStateAction<never[]>>
   ) => {
     try {
-      const res = await fetch("http://localhost:3000/api/paydesk/allDesk", {
-        method: "POST",
-        body: JSON.stringify({ department: dep }),
-      });
+      const res = await fetch(
+        "https://kantor-obmin.vercel.app/api/paydesk/allDesk",
+        {
+          method: "POST",
+          body: JSON.stringify({ department: dep }),
+        }
+      );
 
       const data = await res.json();
       setDB(data);
