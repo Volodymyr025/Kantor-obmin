@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   FormControl,
+  Grid,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -69,7 +70,8 @@ export default function AuthForm() {
     }
   }, [formState]);
   return (
-    <Box
+    <Grid
+      container
       sx={{
         height: "100vh",
         width: "100%",
@@ -94,64 +96,66 @@ export default function AuthForm() {
           </IconButton>
         }
       />
-      <form action={formAction} style={{ width: "50%" }}>
-        <Typography sx={{ fontSize: 21, textAlign: "center" }}>
-          Вхід в систему
-        </Typography>
-        <TextField
-          id="login"
-          label="Логін"
-          name="userName"
-          onChange={(e) => setUserName(e.target.value)}
-          fullWidth
-          type="text"
-          variant="outlined"
-          margin="normal"
-          required
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircleIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          id="Password"
-          name="password"
-          label="Пароль"
-          fullWidth
-          type="password"
-          variant="outlined"
-          required
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LockIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="select-department">Оберіть відділення</InputLabel>
-          <Select
+      <Grid item md={6} sm={10} p={2}>
+        <form action={formAction}>
+          <Typography sx={{ fontSize: 21, textAlign: "center" }}>
+            Вхід в систему
+          </Typography>
+          <TextField
+            id="login"
+            label="Логін"
+            name="userName"
+            onChange={(e) => setUserName(e.target.value)}
+            fullWidth
+            type="text"
+            variant="outlined"
+            margin="normal"
             required
-            name="department"
-            onChange={(e) => locationHeandler(e.target.value)}
-            labelId="select-department"
-            id="select-department"
-            label="Оберіть відділення"
-            defaultValue={""}
-          >
-            <MenuItem value={"Admin"}>Admin</MenuItem>
-            <MenuItem value={"Чортків"}>Чортків</MenuItem>
-            <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
-            <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
-            <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
-          </Select>
-        </FormControl>
-        <SubmitButton userName={userName} department={department} />
-      </form>
-    </Box>
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircleIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            id="Password"
+            name="password"
+            label="Пароль"
+            fullWidth
+            type="password"
+            variant="outlined"
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="select-department">Оберіть відділення</InputLabel>
+            <Select
+              required
+              name="department"
+              onChange={(e) => locationHeandler(e.target.value)}
+              labelId="select-department"
+              id="select-department"
+              label="Оберіть відділення"
+              defaultValue={""}
+            >
+              <MenuItem value={"Administration"}>Administration</MenuItem>
+              <MenuItem value={"Чортків"}>Чортків</MenuItem>
+              <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
+              <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
+              <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
+            </Select>
+          </FormControl>
+          <SubmitButton userName={userName} department={department} />
+        </form>
+      </Grid>
+    </Grid>
   );
 }

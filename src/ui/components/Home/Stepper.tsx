@@ -7,47 +7,48 @@ import StepLabel from "@mui/material/StepLabel";
 import { Button, Snackbar } from "@mui/material";
 import GetCashlessWindow from "../Dialog/GetCashless";
 import { CurrencyType } from "./SendCashBtn";
+import { Update } from "@/ui/context-store/updatePayDesk";
 
 const steps = ["Вам відпавили інкасацію", "В дорозі...", "Прийнято"];
 
-const getProcessingCash = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/api/cashless");
-    const data = await response.json();
-    return data;
-  } catch {
-    throw new Error("filed to get cashless");
-  }
-};
 export default function CashStepper() {
   const [openDialog, setOpen] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
   const [message, setMessage] = React.useState("");
-  const [data, setData] = React.useState([]);
+  const [process, setProcess] = React.useState([]);
+  const updatePayDesk = React.useContext(Update).update;
 
-  const checkProcessing = async () => {
-    const data = await getProcessingCash();
-    const localDepart = localStorage.getItem("Department");
-
-    const getProcessingData = data.filter(
-      (item: { process: string; sendTo: string }) => {
-        if (item.process === "processing" && item.sendTo === localDepart) {
+  const getProcessingCash = async () => {
+    let storedDepartment = "";
+    if (typeof window !== "undefined") {
+      storedDepartment = localStorage.getItem("Department") || "";
+    }
+    try {
+      const response = await fetch("http://localhost:3000/api/cashless");
+      const data = await response.json();
+      const result = await data.filter((item: { sendTo: string }) => {
+        if (item.sendTo === storedDepartment) {
           return item;
         }
-      }
-    );
-    setData(getProcessingData);
+      });
+      setProcess(result);
+    } catch {
+      throw new Error("filed to get cashless");
+    }
   };
 
-  setInterval(checkProcessing, 600000);
+  const checkProcessing = () => {};
+  setInterval(getProcessingCash, 600000);
 
   React.useEffect(
     () =>
       void (async () => {
-        await checkProcessing();
+        await getProcessingCash();
+        checkProcessing();
       })(),
-    []
+    [updatePayDesk]
   );
+
   return (
     <>
       <GetCashlessWindow
@@ -55,7 +56,7 @@ export default function CashStepper() {
         setOpen={setOpen}
         setAlert={setOpenAlert}
         setMessage={setMessage}
-        data={data}
+        data={process}
       />
       <Snackbar
         open={openAlert}
@@ -63,7 +64,7 @@ export default function CashStepper() {
         message={message}
         onClose={() => setOpenAlert(false)}
       />
-      {data.length && (
+      {process.length > 0 && (
         <Box sx={{ width: "100%", p: 3, margin: "0 auto" }}>
           <Stepper activeStep={1} alternativeLabel>
             {steps.map((label) => (

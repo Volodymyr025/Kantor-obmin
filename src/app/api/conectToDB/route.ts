@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
-  let dbName = "";
   const data = await req.json();
+  let dbName = data;
   if (data.includes("Чортків")) {
     dbName = "Chortkiv";
   }
