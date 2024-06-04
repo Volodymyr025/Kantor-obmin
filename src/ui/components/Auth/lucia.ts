@@ -14,7 +14,7 @@ const lucia = new Lucia(adapter, {
   sessionCookie: {
     expires: false,
     attributes: {
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
     },
   },
 });

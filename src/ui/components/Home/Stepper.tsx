@@ -25,7 +25,7 @@ export default function CashStepper() {
     }
     try {
       const response = await fetch(
-        "https://kantor-obmin.vercel.app/api/cashless"
+        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/cashless"
       );
       const data = await response.json();
       const result = await data.filter((item: { sendTo: string }) => {
