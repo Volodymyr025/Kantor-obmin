@@ -1,7 +1,7 @@
 export const conectToDB = async (nameDB: string) => {
   try {
     const request = await fetch(
-      "https://kantor-obmin.vercel.app/api/conectToDB",
+      "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/conectToDB",
       {
         method: "POST",
         body: JSON.stringify(nameDB),

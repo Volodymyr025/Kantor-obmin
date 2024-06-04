@@ -27,7 +27,7 @@ export default function PayDesk() {
   const getPayDeskFromDB = async () => {
     try {
       const res = await fetch(
-        "https://kantor-obmin.vercel.app/api/paydesk/desk",
+        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/paydesk/desk",
         {
           method: "POST",
           body: JSON.stringify({ department }),
@@ -46,7 +46,7 @@ export default function PayDesk() {
   ) => {
     try {
       const res = await fetch(
-        "https://kantor-obmin.vercel.app/api/paydesk/allDesk",
+        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/paydesk/allDesk",
         {
           method: "POST",
           body: JSON.stringify({ department: dep }),
