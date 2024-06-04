@@ -24,7 +24,9 @@ export default function CashStepper() {
       storedDepartment = localStorage.getItem("Department") || "";
     }
     try {
-      const response = await fetch("http://localhost:3000/api/cashless");
+      const response = await fetch(
+        "https://kantor-obmin.vercel.app/api/cashless"
+      );
       const data = await response.json();
       const result = await data.filter((item: { sendTo: string }) => {
         if (item.sendTo === storedDepartment) {

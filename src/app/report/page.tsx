@@ -12,7 +12,7 @@ export default function Report() {
   }
   const getReportFromDB = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/report", {
+      const res = await fetch("https://kantor-obmin.vercel.app/api/report", {
         method: "PATCH",
         body: JSON.stringify(department?.toString()),
       });
