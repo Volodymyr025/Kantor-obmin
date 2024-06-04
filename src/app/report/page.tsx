@@ -32,10 +32,7 @@ export default function Report() {
     <>
       <Header />
       <Box sx={{ p: 5 }}>
-        <Typography fontSize={36} textAlign={"center"} sx={{ mt: "70px" }}>
-          Відправлені звіти
-        </Typography>
-        <TableList data={report} />
+        <TableList data={report} title={"Відправлені звіти"} />
       </Box>
     </>
   );
