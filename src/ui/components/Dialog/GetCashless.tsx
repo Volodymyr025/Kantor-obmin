@@ -34,9 +34,6 @@ export default function GetCashlessWindow({
       const response = await fetch("/api/cashless", {
         method: "PATCH",
         body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "aplication/json",
-        },
       });
       if (!response.ok) {
         throw new Error("Field to create users input");

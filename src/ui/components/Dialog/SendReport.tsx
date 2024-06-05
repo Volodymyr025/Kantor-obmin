@@ -33,9 +33,6 @@ export default function SendReport({
       const response = await fetch("/api/report", {
         method: "POST",
         body: JSON.stringify(report),
-        headers: {
-          "Content-Type": "aplication/json",
-        },
       });
       if (!response.ok) {
         throw new Error("Field to create users input");
