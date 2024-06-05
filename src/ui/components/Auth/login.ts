@@ -50,9 +50,6 @@ export const login = async (
   }
 
   await createAuthSession(findUserByName._id);
-  {
-    findUserByName;
-  }
   redirect("/");
 };
 
