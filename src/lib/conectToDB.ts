@@ -10,7 +10,7 @@ export const conectToDB = async (nameDB: string) => {
   }
   const url = `${process.env.mongoUrl}${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   try {
-    await mongoose.createConnection(url).asPromise();
+    await mongoose.connect(url);
     return console.error({ message: `conected ${dbName}` });
   } catch (err) {
     return console.error({ message: `Filed to conected ${dbName}` + err });
