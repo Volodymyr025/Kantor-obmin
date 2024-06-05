@@ -7,7 +7,7 @@ export default async function Main() {
   const resultAuth = await verifyAuth();
 
   if (!resultAuth.user) {
-    redirect("/login");
+    return redirect("/login");
   }
   return (
     <>
