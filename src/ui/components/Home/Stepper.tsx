@@ -15,7 +15,7 @@ export default function CashStepper() {
   const [openDialog, setOpen] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
   const [message, setMessage] = React.useState("");
-  const [process, setProcess] = React.useState([]);
+  const [processing, setProcessing] = React.useState([]);
   const updatePayDesk = React.useContext(Update).update;
 
   const getProcessingCash = async () => {
@@ -24,29 +24,25 @@ export default function CashStepper() {
       storedDepartment = localStorage.getItem("Department") || "";
     }
     try {
-      const response = await fetch(
-        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/cashless"
-      );
+      const response = await fetch(`/api/cashless`, {
+        next: { revalidate: 600 },
+      });
       const data = await response.json();
       const result = await data.filter((item: { sendTo: string }) => {
         if (item.sendTo === storedDepartment) {
           return item;
         }
       });
-      setProcess(result);
+      setProcessing(result);
     } catch {
       throw new Error("filed to get cashless");
     }
   };
 
-  const checkProcessing = () => {};
-  setInterval(getProcessingCash, 600000);
-
   React.useEffect(
     () =>
       void (async () => {
         await getProcessingCash();
-        checkProcessing();
       })(),
     [updatePayDesk]
   );
@@ -58,7 +54,7 @@ export default function CashStepper() {
         setOpen={setOpen}
         setAlert={setOpenAlert}
         setMessage={setMessage}
-        data={process}
+        data={processing}
       />
       <Snackbar
         open={openAlert}
@@ -66,7 +62,7 @@ export default function CashStepper() {
         message={message}
         onClose={() => setOpenAlert(false)}
       />
-      {process.length > 0 && (
+      {processing.length > 0 && (
         <Box sx={{ width: "100%", p: 3, margin: "0 auto" }}>
           <Stepper activeStep={1} alternativeLabel>
             {steps.map((label) => (

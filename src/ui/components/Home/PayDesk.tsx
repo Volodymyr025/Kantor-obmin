@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import TableList from "../Shared/TableList";
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Update } from "@/ui/context-store/updatePayDesk";
 
 export default function PayDesk() {
@@ -26,13 +26,10 @@ export default function PayDesk() {
 
   const getPayDeskFromDB = async () => {
     try {
-      const res = await fetch(
-        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/paydesk/desk",
-        {
-          method: "POST",
-          body: JSON.stringify({ department }),
-        }
-      );
+      const res = await fetch(`/api/paydesk/desk`, {
+        method: "POST",
+        body: JSON.stringify({ department }),
+      });
       const data = await res.json();
       setPayDesk(data);
     } catch {
@@ -45,13 +42,10 @@ export default function PayDesk() {
     setDB: Dispatch<SetStateAction<never[]>>
   ) => {
     try {
-      const res = await fetch(
-        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/paydesk/allDesk",
-        {
-          method: "POST",
-          body: JSON.stringify({ department: dep }),
-        }
-      );
+      const res = await fetch(`/api/paydesk/allDesk`, {
+        method: "POST",
+        body: JSON.stringify({ department: dep }),
+      });
 
       const data = await res.json();
       setDB(data);

@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
   if (data.includes("Тернопіль")) {
     dbName = "Ternopil";
   }
-  const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Kantor`;
+  const url = `${process.env.mongoUrl}${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   try {
     await mongoose.connect(url);
     return NextResponse.json(

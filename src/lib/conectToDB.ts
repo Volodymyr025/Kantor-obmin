@@ -1,12 +1,9 @@
 export const conectToDB = async (nameDB: string) => {
   try {
-    const request = await fetch(
-      "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/conectToDB",
-      {
-        method: "POST",
-        body: JSON.stringify(nameDB),
-      }
-    );
+    const request = await fetch(`${process.env.apiHttp}/api/conectToDB`, {
+      method: "POST",
+      body: JSON.stringify(nameDB),
+    });
     const req = await request.json();
     return req;
   } catch (err) {
