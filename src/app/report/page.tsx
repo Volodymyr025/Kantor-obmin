@@ -12,13 +12,10 @@ export default function Report() {
   }
   const getReportFromDB = async () => {
     try {
-      const res = await fetch(
-        "https://kantor-obmin-volodymyrs-projects-b4340f70.vercel.app/api/report",
-        {
-          method: "PATCH",
-          body: JSON.stringify(department?.toString()),
-        }
-      );
+      const res = await fetch(`${process.env.apiHttp}/api/report`, {
+        method: "PATCH",
+        body: JSON.stringify(department?.toString()),
+      });
       const data = await res.json();
       const lastAdded = await data.slice(-1);
       setReport(lastAdded);

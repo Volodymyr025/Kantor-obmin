@@ -31,7 +31,7 @@ export const UnCashFactory = async (name: string) => {
   if (name.includes("Тернопіль")) {
     dbName = "Ternopil";
   }
-  const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Kantor`;
+  const url = `${process.env.mongoUrl}${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   const conect = await mongoose.createConnection(url).asPromise();
   const model = conect.model("UnCashMen", cashSchema);
   return model;

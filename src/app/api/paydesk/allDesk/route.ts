@@ -13,7 +13,7 @@ export const POST = async (request: Request) => {
       dbName = "Ternopil";
     }
 
-    const url = `mongodb+srv://volgankevych:N2ojKuOJBAKdcDP0@kantor.vphvwe5.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Kantor`;
+    const url = `${process.env.mongoUrl}${dbName}?retryWrites=true&w=majority&appName=Kantor`;
     const conect = await mongoose.createConnection(url).asPromise();
     const Desk = conect.model("PayDesk", payDeskSchema);
 

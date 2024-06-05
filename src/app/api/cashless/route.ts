@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import UnCashMen from "../../../../models/сashSend";
-import { conectToDB } from "@/lib/conectToDB";
-import process from "process";
+
 import PayDesk from "../../../../models/payDesk";
 
 export interface CurrensyType {
