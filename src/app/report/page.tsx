@@ -12,7 +12,7 @@ export default function Report() {
   }
   const getReportFromDB = async () => {
     try {
-      const res = await fetch(`${process.env.apiHttp}/api/report`, {
+      const res = await fetch(`/api/report`, {
         method: "PATCH",
         body: JSON.stringify(department?.toString()),
       });
