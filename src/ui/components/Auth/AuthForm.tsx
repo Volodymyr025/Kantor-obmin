@@ -33,10 +33,14 @@ const SubmitButton = ({ userName, department }: ButtonType) => {
   useEffect(
     () =>
       void (async () => {
-        const auth = await verifyAuth();
-        if (auth.session) {
-          localStorage.setItem("User", userName);
-          localStorage.setItem("Department", department);
+        try {
+          const auth = await verifyAuth();
+          if (auth && auth.session && auth.session.userId) {
+            localStorage.setItem("User", userName);
+            localStorage.setItem("Department", department);
+          }
+        } catch (error) {
+          console.error("Auth error:", error);
         }
       })(),
     [pending]
