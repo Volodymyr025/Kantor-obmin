@@ -43,7 +43,16 @@ export const verifyAuth = async () => {
       session: null,
     };
   }
-  const result = await lucia.validateSession(sessionCookie.value);
+
+  const sessionId = sessionCookie.value;
+  if (!sessionId) {
+    return {
+      user: null,
+      session: null,
+    };
+  }
+
+  const result = await lucia.validateSession(sessionId);
   try {
     if (result.session && result.session.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
