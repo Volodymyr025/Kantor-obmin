@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import UnCashMen from "../../../../models/сashSend";
 
 import PayDesk from "../../../../models/payDesk";
+import { conectToDB } from "@/lib/conectToDB";
 
 export interface CurrensyType {
   _id: string;
@@ -33,6 +34,7 @@ export const PATCH = async (request: Request) => {
   const req = await request.json();
   const [data] = req;
   try {
+    conectToDB(data.sendTo);
     const allPayDesk = await PayDesk.find({ department: data.sendTo });
     const [lastOneDesk] = allPayDesk.slice(-1);
 
