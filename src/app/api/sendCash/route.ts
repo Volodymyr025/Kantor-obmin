@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
-import { UnCashFactory } from "../../../../models/сashSend";
 import { CurrensyType } from "../cashless/route";
 import PayDesk from "../../../../models/payDesk";
+import { conectToDB } from "@/lib/conectToDB";
+import UnCashMen from "../../../../models/сashSend";
 
 export const POST = async (request: Request) => {
   const reqData = await request.json();
-
   try {
-    const cash = await UnCashFactory(reqData.sendTo);
-    cash.create(reqData);
+    await conectToDB();
+    await UnCashMen.create(reqData);
+
     const payDesk = await PayDesk.find({ department: reqData.department });
     const [lastOneDesk] = payDesk.slice(-1);
-
     [reqData].map(async (obj: CurrensyType) => {
       await PayDesk.findOneAndUpdate(
         { _id: lastOneDesk._id },
@@ -29,7 +29,10 @@ export const POST = async (request: Request) => {
         }
       );
     });
-    return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
+    return NextResponse.json(
+      { message: "Інкасацію відправлено" },
+      { status: 201 }
+    );
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error is created", err },
