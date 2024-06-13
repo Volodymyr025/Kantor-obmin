@@ -46,7 +46,7 @@ export default function CashStepper() {
       })(),
     [updatePayDesk]
   );
-
+  console.log(processing);
   return (
     <>
       <GetCashlessWindow
