@@ -21,7 +21,7 @@ export interface CurrensyType {
 export const POST = async (request: Request) => {
   const department = await request.json();
   try {
-    conectToDB(department);
+    await conectToDB(department);
     const report = await UnCashMen.find({ process: "processing" });
     return NextResponse.json(report);
   } catch (err: any) {
@@ -36,7 +36,7 @@ export const PATCH = async (request: Request) => {
   const req = await request.json();
   const [data] = req;
   try {
-    conectToDB(data.sendTo);
+    await conectToDB(data.sendTo);
     const allPayDesk = await PayDesk.find({ department: data.sendTo });
     const [lastOneDesk] = allPayDesk.slice(-1);
 

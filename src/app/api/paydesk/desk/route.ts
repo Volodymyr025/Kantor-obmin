@@ -5,7 +5,7 @@ import PayDesk from "../../../../../models/payDesk";
 export const POST = async (request: Request) => {
   try {
     const { department } = await request.json();
-    conectToDB(department);
+    await conectToDB(department);
     const payDesk = await PayDesk.find({ department: department });
     const lastOneDesk = payDesk.slice(-1);
 
