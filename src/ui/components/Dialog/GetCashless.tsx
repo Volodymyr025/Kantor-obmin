@@ -27,7 +27,7 @@ export default function GetCashlessWindow({
   const [loading, setLoading] = React.useState(false);
   const setUpdate = React.useContext(Update).setUpdate;
 
-  const getCashless = async (data: {}) => {
+  const getCashless = async () => {
     setUpdate(true);
     setLoading(true);
     try {
@@ -36,7 +36,7 @@ export default function GetCashlessWindow({
         body: JSON.stringify(data),
       });
       if (!response.ok) {
-        throw new Error("Field to create users input");
+        throw new Error("Field to update cashless");
       }
       const { message } = await response.json();
       setMessage(message);
@@ -46,11 +46,11 @@ export default function GetCashlessWindow({
   };
 
   const submit = async () => {
-    await getCashless(data);
-    setUpdate(false);
-    setLoading(false);
+    await getCashless();
     setOpen(false);
     setAlert(true);
+    setLoading(false);
+    setUpdate(false);
   };
 
   return (
@@ -60,9 +60,9 @@ export default function GetCashlessWindow({
       sx={{ form: { maxWidth: "700px" } }}
       PaperProps={{
         component: "form",
-        onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+        onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          submit();
+          await submit();
         },
       }}
     >

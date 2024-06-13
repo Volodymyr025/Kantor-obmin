@@ -40,6 +40,10 @@ export const PATCH = async (request: Request) => {
     const [lastOneDesk] = allPayDesk.slice(-1);
 
     await req.map(async (obj: CurrensyType) => {
+      await UnCashMen.findOneAndUpdate(
+        { _id: obj._id },
+        { process: "complete" }
+      );
       await PayDesk.findOneAndUpdate(
         { _id: lastOneDesk._id },
         {
@@ -54,10 +58,6 @@ export const PATCH = async (request: Request) => {
           nok: lastOneDesk.nok + obj.nok,
           gold: lastOneDesk.gold + obj.gold,
         }
-      );
-      await UnCashMen.findOneAndUpdate(
-        { _id: obj._id },
-        { process: "complete" }
       );
     });
     return NextResponse.json({ message: "Інкасацію прийнято" });
