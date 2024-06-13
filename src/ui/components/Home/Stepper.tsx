@@ -25,6 +25,8 @@ export default function CashStepper() {
     }
     try {
       const response = await fetch(`/api/cashless`, {
+        method: "POST",
+        body: JSON.stringify(storedDepartment),
         next: { revalidate: 600 },
       });
       const data = await response.json();

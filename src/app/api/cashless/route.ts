@@ -18,8 +18,10 @@ export interface CurrensyType {
   gold: number;
 }
 
-export const GET = async (request: Request) => {
+export const POST = async (request: Request) => {
+  const department = await request.json();
   try {
+    conectToDB(department);
     const report = await UnCashMen.find({ process: "processing" });
     return NextResponse.json(report);
   } catch (err: any) {
