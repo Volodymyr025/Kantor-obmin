@@ -4,11 +4,11 @@ import Home from "@/ui/components/Home/Home";
 import { redirect } from "next/navigation";
 
 export default async function Main() {
-  // const resultAuth = await verifyAuth();
+  const resultAuth = await verifyAuth();
 
-  // if (!resultAuth.user) {
-  //   return redirect("/login");
-  // }
+  if (!resultAuth.user) {
+    return redirect("/login");
+  }
   return (
     <>
       <Header />

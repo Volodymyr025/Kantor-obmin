@@ -18,10 +18,9 @@ export interface CurrensyType {
   gold: number;
 }
 
-export const POST = async (request: Request) => {
-  const department = await request.json();
+export const GET = async (request: Request) => {
   try {
-    await conectToDB(department);
+    await conectToDB();
     const report = await UnCashMen.find({ process: "processing" });
     return NextResponse.json(report);
   } catch (err: any) {
@@ -36,7 +35,7 @@ export const PATCH = async (request: Request) => {
   const req = await request.json();
   const [data] = req;
   try {
-    await conectToDB(data.sendTo);
+    await conectToDB();
     const allPayDesk = await PayDesk.find({ department: data.sendTo });
     const [lastOneDesk] = allPayDesk.slice(-1);
 

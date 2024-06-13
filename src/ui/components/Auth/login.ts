@@ -14,7 +14,7 @@ export const login = async (
   const formPassword = formData.get("password") as string;
   const formDepartment = formData.get("department") as string;
 
-  await conectToDB(formDepartment);
+  await conectToDB();
 
   const findUserByName = await User.findOne({ name: formUser });
   const findDepartment = await User.findOne({

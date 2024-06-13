@@ -32,7 +32,7 @@ export default function Report() {
     <>
       <Header />
       <Box sx={{ p: 5 }}>
-        <TableList data={report} title={"Відправлені звіти"} />
+        {/* <TableList data={report} title={"Відправлені звіти"} /> */}
       </Box>
     </>
   );
