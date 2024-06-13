@@ -10,31 +10,33 @@ export const updatePayDeskData = async (data: { department: string }) => {
     if (!payDesk.length) {
       await PayDesk.create(data);
     } else {
-      const combinedObject = [...lastOneDesk, ...[data]].reduce((pay, rep) => {
-        return {
-          usd: pay.usd + rep.usd,
-          eur: pay.eur + rep.eur,
-          gbp: pay.gbp + rep.gbp,
-          pln: pay.pln + rep.pln,
-          cad: pay.cad + rep.cad,
-          chf: pay.chf + rep.chf,
-          sek: pay.sek + rep.sek,
-          czk: pay.czk + rep.czk,
-          nok: pay.nok + rep.nok,
-          gold: pay.gold + rep.gold,
-          eqvUsd: pay.eqvUsd + rep.eqvUsd,
-          eqvEur: pay.eqvEur + rep.eqvEur,
-          eqvGbp: pay.eqvGbp + rep.eqvGbp,
-          eqvPln: pay.eqvPln + rep.eqvPln,
-          eqvCad: pay.eqvCad + rep.eqvCad,
-          eqvChf: pay.eqvChf + rep.eqvChf,
-          eqvSek: pay.eqvSek + rep.eqvSek,
-          eqvCzk: pay.eqvCzk + rep.eqvCzk,
-          eqvNok: pay.eqvNok + rep.eqvNok,
-          eqvGold: pay.eqvGold + rep.eqvGold,
-          department: data.department,
-        };
-      });
+      const combinedObject = Promise.all(
+        [...lastOneDesk, ...[data]].reduce((pay, rep) => {
+          return {
+            usd: pay.usd + rep.usd,
+            eur: pay.eur + rep.eur,
+            gbp: pay.gbp + rep.gbp,
+            pln: pay.pln + rep.pln,
+            cad: pay.cad + rep.cad,
+            chf: pay.chf + rep.chf,
+            sek: pay.sek + rep.sek,
+            czk: pay.czk + rep.czk,
+            nok: pay.nok + rep.nok,
+            gold: pay.gold + rep.gold,
+            eqvUsd: pay.eqvUsd + rep.eqvUsd,
+            eqvEur: pay.eqvEur + rep.eqvEur,
+            eqvGbp: pay.eqvGbp + rep.eqvGbp,
+            eqvPln: pay.eqvPln + rep.eqvPln,
+            eqvCad: pay.eqvCad + rep.eqvCad,
+            eqvChf: pay.eqvChf + rep.eqvChf,
+            eqvSek: pay.eqvSek + rep.eqvSek,
+            eqvCzk: pay.eqvCzk + rep.eqvCzk,
+            eqvNok: pay.eqvNok + rep.eqvNok,
+            eqvGold: pay.eqvGold + rep.eqvGold,
+            department: data.department,
+          };
+        })
+      );
       await PayDesk.create(combinedObject);
     }
 
