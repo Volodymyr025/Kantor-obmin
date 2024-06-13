@@ -10,46 +10,46 @@ export const login = async (
   prevState: any,
   formData: FormData
 ): Promise<ActionResult> => {
-  // const formUser = formData.get("userName");
-  // const formPassword = formData.get("password") as string;
-  // const formDepartment = formData.get("department") as string;
+  const formUser = formData.get("userName");
+  const formPassword = formData.get("password") as string;
+  const formDepartment = formData.get("department") as string;
 
-  // await conectToDB(formDepartment);
+  await conectToDB(formDepartment);
 
-  // const findUserByName = await User.findOne({ name: formUser });
-  // const findDepartment = await User.findOne({
-  //   name: formUser,
-  //   department: formDepartment,
-  // });
+  const findUserByName = await User.findOne({ name: formUser });
+  const findDepartment = await User.findOne({
+    name: formUser,
+    department: formDepartment,
+  });
 
-  // if (!findUserByName) {
-  //   return {
-  //     err: "За даним імя'м користувача не знайдено",
-  //   };
-  // }
-  // if (formPassword.length <= 1) {
-  //   return {
-  //     err: "Поле з паролем пононо бути заповнене",
-  //   };
-  // }
+  if (!findUserByName) {
+    return {
+      err: "За даним імя'м користувача не знайдено",
+    };
+  }
+  if (formPassword.length <= 1) {
+    return {
+      err: "Поле з паролем пононо бути заповнене",
+    };
+  }
 
-  // const validPassword = await comparePasswords(
-  //   formPassword,
-  //   findUserByName.password
-  // );
-  // if (!validPassword) {
-  //   return {
-  //     err: "Неправильний пароль",
-  //   };
-  // }
+  const validPassword = await comparePasswords(
+    formPassword,
+    findUserByName.password
+  );
+  if (!validPassword) {
+    return {
+      err: "Неправильний пароль",
+    };
+  }
 
-  // if (!findDepartment) {
-  //   return {
-  //     err: "Користувача не знайдено в даному відділені",
-  //   };
-  // }
+  if (!findDepartment) {
+    return {
+      err: "Користувача не знайдено в даному відділені",
+    };
+  }
 
-  // await createAuthSession(findUserByName._id);
+  await createAuthSession(findUserByName._id);
   redirect("/");
 };
 
