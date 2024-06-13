@@ -37,6 +37,7 @@ export const createAuthSession = async (userId: string) => {
 
 export const verifyAuth = async () => {
   const sessionCookie = cookies().get(lucia.sessionCookieName);
+
   if (!sessionCookie) {
     return {
       user: null,
@@ -45,6 +46,7 @@ export const verifyAuth = async () => {
   }
 
   const sessionId = sessionCookie.value;
+
   if (!sessionId) {
     return {
       user: null,
@@ -53,6 +55,7 @@ export const verifyAuth = async () => {
   }
 
   const result = await lucia.validateSession(sessionId);
+
   try {
     if (result.session && result.session.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
@@ -71,7 +74,6 @@ export const verifyAuth = async () => {
       );
     }
   } catch {}
-
   return result;
 };
 
