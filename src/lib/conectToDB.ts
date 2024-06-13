@@ -8,9 +8,13 @@ export const conectToDB = async (nameDB: string) => {
   if (nameDB.includes("Тернопіль")) {
     dbName = "Ternopil";
   }
+  const options = {
+    serverSelectionTimeoutMS: 30000, // 30 секунд
+    socketTimeoutMS: 45000, // 45 секунд
+  };
   const url = `${process.env.mongoUrl}${dbName}?retryWrites=true&w=majority&appName=Kantor`;
   try {
-    await mongoose.connect(url);
+    await mongoose.connect(url, options);
     return console.error({ message: `conected ${dbName}` });
   } catch (err) {
     return console.error({ message: `Filed to conected ${dbName}` + err });

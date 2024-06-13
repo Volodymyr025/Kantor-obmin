@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     },
     userName: String,
     password: String,
+    role: String,
     department: [],
   } as const,
   { _id: false }
