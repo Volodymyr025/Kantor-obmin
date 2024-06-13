@@ -69,7 +69,7 @@ export default function AuthForm() {
     setDepartment(select);
   };
   useEffect(() => {
-    if (formState.err) {
+    if (formState && formState.err) {
       setOpen(true);
     }
   }, [formState]);
@@ -88,7 +88,7 @@ export default function AuthForm() {
         open={open}
         autoHideDuration={6000}
         onClose={() => setOpen(false)}
-        message={formState.err}
+        message={formState && formState.err}
         action={
           <IconButton
             size="small"

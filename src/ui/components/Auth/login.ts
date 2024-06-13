@@ -49,8 +49,6 @@ export const login = async (
     };
   }
 
-  const userId: string = findUserByName._id.toString();
-
   await createAuthSession(findUserByName._id);
   redirect("/");
 };
