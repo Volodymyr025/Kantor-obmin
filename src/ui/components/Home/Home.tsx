@@ -4,8 +4,15 @@ import PayDesk from "./PayDesk";
 import ReportBtn from "./ReportBtn";
 import SendCashBtn from "./SendCashBtn";
 import CashStepper from "./Stepper";
+import { verifyAuth } from "../Auth/lucia";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
+  const resultAuth = await verifyAuth();
+
+  if (!resultAuth.user) {
+    return redirect("/login");
+  }
   return (
     <Grid container sx={{ width: "100%" }}>
       <Grid item xs={12} sx={{ mt: "70px" }}>
