@@ -43,7 +43,13 @@ export default function PayDesk() {
   return (
     <Grid container sx={{ gap: 2, justifyContent: "center" }}>
       {payDesk.map((desk: { department: string }) => (
-        <Grid item md={5.5} sm={11} xs={11} key={desk.department}>
+        <Grid
+          item
+          md={payDesk.length >= 1 ? 11 : 5.5}
+          sm={11}
+          xs={11}
+          key={desk.department}
+        >
           <TableList data={[desk]} title={desk.department} />
         </Grid>
       ))}
