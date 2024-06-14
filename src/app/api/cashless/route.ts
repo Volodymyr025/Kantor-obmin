@@ -6,6 +6,7 @@ import { conectToDB } from "@/lib/conectToDB";
 
 export interface CurrensyType {
   _id: string;
+  uah: number;
   usd: number;
   eur: number;
   gbp: number;
@@ -48,6 +49,7 @@ export const PATCH = async (request: Request) => {
         await PayDesk.findOneAndUpdate(
           { _id: lastOneDesk._id },
           {
+            uah: lastOneDesk.uah + obj.uah,
             usd: lastOneDesk.usd + obj.usd,
             eur: lastOneDesk.eur + obj.eur,
             gbp: lastOneDesk.gbp + obj.gbp,

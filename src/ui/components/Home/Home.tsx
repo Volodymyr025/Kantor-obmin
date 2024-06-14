@@ -6,6 +6,7 @@ import SendCashBtn from "./SendCashBtn";
 import CashStepper from "./Stepper";
 import { verifyAuth } from "../Auth/lucia";
 import { redirect } from "next/navigation";
+import ExchangeBtn from "./ExchangeBtn";
 
 export default async function Home() {
   const resultAuth = await verifyAuth();
@@ -19,6 +20,7 @@ export default async function Home() {
         <Container sx={{ my: 5, display: "flex", gap: 2 }}>
           <ReportBtn />
           <SendCashBtn />
+          <ExchangeBtn />
         </Container>
         <CashStepper />
 
