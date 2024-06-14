@@ -35,6 +35,14 @@ export default function TableList({ data, title }: TableProps) {
                 "&:last-child td, &:last-child th": { border: 0 },
               }}
             >
+              <TableCell align="center">{row.uah}</TableCell>
+              <TableCell align="center">UAH</TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+              }}
+            >
               <TableCell align="center">{row.usd}</TableCell>
               <TableCell align="center">USD</TableCell>
               <TableCell align="center">

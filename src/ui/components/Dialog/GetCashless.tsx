@@ -79,6 +79,7 @@ export default function GetCashlessWindow({
             return (
               <Paper key={item._id} sx={{ p: 2, m: 2 }}>
                 <Typography variant="h5">{item.department}</Typography>
+                {item.uah > 0 && <Typography>UAH:{item.uah}</Typography>}
                 {item.usd > 0 && <Typography>USD:{item.usd}</Typography>}
                 {item.eur > 0 && <Typography>EUR:{item.eur}</Typography>}
                 {item.gbp > 0 && <Typography>GBP:{item.gbp}</Typography>}

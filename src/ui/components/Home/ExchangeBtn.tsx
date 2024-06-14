@@ -1,34 +1,17 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
-import React, { useContext, useState } from "react";
-import Uncashmen from "../Dialog/SendUnChashmen/Uncashmen";
+import React, { useState } from "react";
+import SendReport from "../Dialog/SendReport";
+import ExchangeWindow from "../Dialog/Exchange";
 
-export interface CurrencyType {
-  _id: string;
-  uah: number;
-  usd: number;
-  eur: number;
-  gbp: number;
-  pln: number;
-  cad: number;
-  chf: number;
-  sek: number;
-  czk: number;
-  nok: number;
-  gold: number;
-  user: string;
-  sendTo: string;
-  department: string;
-}
-
-export default function SendCashBtn() {
+export default function ExchangeBtn() {
   const [openDialog, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [message, setMessage] = useState("");
 
   return (
     <>
-      <Uncashmen
+      <ExchangeWindow
         open={openDialog}
         setOpen={setOpen}
         setAlert={setOpenAlert}
@@ -41,7 +24,7 @@ export default function SendCashBtn() {
         onClose={() => setOpenAlert(false)}
       />
       <Button color="success" variant="contained" onClick={() => setOpen(true)}>
-        Відправка інкасації
+        Обмін
       </Button>
     </>
   );

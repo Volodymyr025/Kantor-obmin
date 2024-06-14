@@ -17,6 +17,7 @@ export const POST = async (request: Request) => {
         await PayDesk.findOneAndUpdate(
           { _id: lastOneDesk._id },
           {
+            uah: lastOneDesk.uah - obj.uah,
             usd: lastOneDesk.usd - obj.usd,
             eur: lastOneDesk.eur - obj.eur,
             gbp: lastOneDesk.gbp - obj.gbp,

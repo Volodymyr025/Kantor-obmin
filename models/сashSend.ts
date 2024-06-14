@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const cashSchema = new mongoose.Schema(
   {
+    uah: Number,
     usd: Number,
     eur: Number,
     gbp: Number,

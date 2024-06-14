@@ -35,6 +35,7 @@ export interface CashInput {
 }
 
 type Currency =
+  | "uah"
   | "usd"
   | "eur"
   | "gbp"
@@ -122,6 +123,7 @@ export default function Uncashmen({
   const submit = async () => {
     setUpdate(true);
     const sendObj = {
+      uah: 0,
       usd: 0,
       eur: 0,
       gbp: 0,
@@ -204,6 +206,7 @@ export default function Uncashmen({
             value={cashStore.currency}
             fullWidth
           >
+            <MenuItem value={"uah"}>UAH</MenuItem>
             <MenuItem value={"usd"}>USD</MenuItem>
             <MenuItem value={"eur"}>EUR</MenuItem>
             <MenuItem value={"gbp"}>GBP</MenuItem>
