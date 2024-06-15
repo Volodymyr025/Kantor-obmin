@@ -1,6 +1,7 @@
 "use client";
 import Header from "@/ui/components/Header/Header";
-import TableList from "@/ui/components/Shared/TableList";
+import TableList from "@/ui/components/Table/PayDeskTable";
+import { UserInfo } from "@/ui/context-store/userInfo";
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 

@@ -8,6 +8,7 @@ import { Button, Snackbar } from "@mui/material";
 import GetCashlessWindow from "../Dialog/GetCashless";
 import { CurrencyType } from "./SendCashBtn";
 import { Update } from "@/ui/context-store/updatePayDesk";
+import { UserInfo } from "@/ui/context-store/userInfo";
 
 const steps = ["Вам відпавили інкасацію", "В дорозі...", "Прийнято"];
 

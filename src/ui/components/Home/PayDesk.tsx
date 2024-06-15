@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import TableList from "../Shared/TableList";
+import { useContext, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { Update } from "@/ui/context-store/updatePayDesk";
+import PayDeskTable from "../Table/PayDeskTable";
 
 export default function PayDesk() {
   const [payDesk, setPayDesk] = useState([]);
@@ -50,7 +44,7 @@ export default function PayDesk() {
           xs={11}
           key={desk.department}
         >
-          <TableList data={[desk]} title={desk.department} />
+          <PayDeskTable data={[desk]} title={desk.department} />
         </Grid>
       ))}
     </Grid>
