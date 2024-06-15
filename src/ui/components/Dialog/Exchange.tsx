@@ -56,23 +56,13 @@ export default function ExchangeWindow({
       <DialogTitle sx={{ fontSize: 22, textAlign: "center", fontWeight: 500 }}>
         Обмін валют
       </DialogTitle>
-      <FormControl component="fieldset">
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            value="top"
-            control={
-              <Switch color="primary" onChange={() => setBuySell(!buySell)} />
-            }
-            label={buySell ? "Ми продаєм" : "Ми купляєм"}
-            labelPlacement="top"
-          />
-        </FormGroup>
-      </FormControl>
+
       <Grid container justifyContent={"space-between"} gap={2}>
-        <Grid item xs={11} md={5}>
+        <Grid item xs={12} md={5}>
           <TextField
             autoFocus
             id="sum"
+            required
             name="sum"
             label={
               buySell ? "Сума валюти яку продаєм" : "Сума валюти яку купляєм"
@@ -82,7 +72,7 @@ export default function ExchangeWindow({
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={11} md={1.5}>
+        <Grid item xs={12} md={1.5}>
           <FormControl fullWidth>
             <InputLabel id="select-currency">Валюта</InputLabel>
             <Select
@@ -107,17 +97,31 @@ export default function ExchangeWindow({
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={11} md={5}>
+        <Grid item xs={12} md={5}>
           <TextField
             fullWidth
             disabled
-            id="outlined-disabled"
-            label="Disabled"
+            id="all"
+            label="Разом"
             defaultValue="Hello World"
           />
         </Grid>
       </Grid>
-      <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
+      <DialogActions
+        sx={{ display: "flex", p: 0, justifyContent: "space-between" }}
+      >
+        <FormControl component="fieldset">
+          <FormGroup aria-label="position" row>
+            <FormControlLabel
+              value="top"
+              control={
+                <Switch color="primary" onChange={() => setBuySell(!buySell)} />
+              }
+              label={buySell ? "Ми продаєм" : "Ми купляєм"}
+              labelPlacement="top"
+            />
+          </FormGroup>
+        </FormControl>
         <Box display={"flex"} gap={2} width={"40%"} py={2}>
           <Button
             fullWidth
