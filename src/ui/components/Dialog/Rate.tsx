@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import Link from "next/link";
 import { Update } from "@/ui/context-store/updatePayDesk";
 import { UserInfo } from "@/ui/context-store/userInfo";
@@ -18,7 +18,7 @@ export interface DialogProps {
   setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function SendReport({
+export default function RateWindow({
   open,
   setOpen,
   setAlert,
@@ -27,11 +27,13 @@ export default function SendReport({
   const setUpdate = React.useContext(Update).setUpdate;
 
   const [loading, setLoading] = React.useState(false);
+  const department = React.useContext(UserInfo).department;
+  const user = React.useContext(UserInfo).userName;
 
-  const postFormDataToMongoDB = async (report: {}) => {
+  const postRateToMongoDB = async (report: {}) => {
     setUpdate(true);
     try {
-      const response = await fetch("/api/report", {
+      const response = await fetch("/api/rate", {
         method: "POST",
         body: JSON.stringify(report),
       });
@@ -46,39 +48,37 @@ export default function SendReport({
   };
 
   const submit = async (value: React.FormEvent<HTMLFormElement>) => {
-    const department = localStorage.getItem("Department");
-    const user = localStorage.getItem("User");
     setLoading(true);
     const formData = new FormData(value.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
     const report = {
-      usd: +formJson.usd,
-      eur: +formJson.eur,
-      gbp: +formJson.gbp,
-      pln: +formJson.pln,
-      cad: +formJson.cad,
-      chf: +formJson.chf,
-      sek: +formJson.sek,
-      czk: +formJson.czk,
-      nok: +formJson.nok,
-      gold: +formJson.gold,
-      eqvUsd: +formJson["eqv-usd"],
-      eqvEur: +formJson["eqv-eur"],
-      eqvGbp: +formJson["eqv-gbp"],
-      eqvPln: +formJson["eqv-pln"],
-      eqvCad: +formJson["eqv-cad"],
-      eqvChf: +formJson["eqv-chf"],
-      eqvSek: +formJson["eqv-sek"],
-      eqvCzk: +formJson["eqv-czk"],
-      eqvNok: +formJson["eqv-nok"],
-      eqvGold: +formJson["eqv-gold"],
+      buyUsd: +formJson.usd,
+      buyEur: +formJson.eur,
+      buyGbp: +formJson.gbp,
+      buyPln: +formJson.pln,
+      buyCad: +formJson.cad,
+      buyChf: +formJson.chf,
+      buySek: +formJson.sek,
+      buyCzk: +formJson.czk,
+      buyNok: +formJson.nok,
+      buyGold: +formJson.gold,
+      sellUsd: +formJson["sell-usd"],
+      sellEur: +formJson["sell-eur"],
+      sellGbp: +formJson["sell-gbp"],
+      sellPln: +formJson["sell-pln"],
+      sellCad: +formJson["sell-cad"],
+      sellChf: +formJson["sell-chf"],
+      sellSek: +formJson["sell-sek"],
+      sellCzk: +formJson["sell-czk"],
+      sellNok: +formJson["sell-nok"],
+      sellGold: +formJson["sell-gold"],
       user: user,
       department: department,
     };
-    await postFormDataToMongoDB(report);
-    setUpdate(false);
+    await postRateToMongoDB(report);
     setLoading(false);
     setOpen(false);
+    setUpdate(false);
     setAlert(true);
   };
 
@@ -94,22 +94,19 @@ export default function SendReport({
         },
       }}
     >
-      <DialogTitle>Звіт</DialogTitle>
+      <DialogTitle>Курси валют</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Перенесіть будь-ласка всі ваші операції в кінці робочого дня з
-          таблички Exel (куп/прод та потрачену грн), звіт можна зробити лише
-          один раз за день
-        </DialogContentText>
+        <DialogContentText>Поставте будь-ласка курси валют</DialogContentText>
         <Box display={"flex"} gap={1}>
           <Box>
+            <Typography sx={{ textAlign: "center" }}>Купівля</Typography>
             <TextField
               autoFocus
               margin="dense"
               id="usd"
               name="usd"
-              label="Американський долар"
-              type="number"
+              label="Американський долар(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -117,8 +114,8 @@ export default function SendReport({
               margin="dense"
               id="eur"
               name="eur"
-              label="Євро"
-              type="number"
+              label="Євро(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -126,8 +123,8 @@ export default function SendReport({
               margin="dense"
               id="gbp"
               name="gbp"
-              label="Англійський фунти"
-              type="number"
+              label="Англійський фунти(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -135,8 +132,8 @@ export default function SendReport({
               margin="dense"
               id="pln"
               name="pln"
-              label="Польський злотий"
-              type="number"
+              label="Польський злотий(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -144,8 +141,8 @@ export default function SendReport({
               margin="dense"
               id="cad"
               name="cad"
-              label="Канадський долар"
-              type="number"
+              label="Канадський долар(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -153,8 +150,8 @@ export default function SendReport({
               margin="dense"
               id="chf"
               name="chf"
-              label="Швейцарський франк"
-              type="number"
+              label="Швейцарський франк(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -162,8 +159,8 @@ export default function SendReport({
               margin="dense"
               id="sek"
               name="sek"
-              label="Швецька крона"
-              type="number"
+              label="Швецька крона(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -171,8 +168,8 @@ export default function SendReport({
               margin="dense"
               id="czk"
               name="czk"
-              label="Чешська крона"
-              type="number"
+              label="Чешська крона(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -180,8 +177,8 @@ export default function SendReport({
               margin="dense"
               id="nok"
               name="nok"
-              label="Норвежська крона"
-              type="number"
+              label="Норвежська крона(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -189,100 +186,102 @@ export default function SendReport({
               margin="dense"
               id="gold"
               name="gold"
-              label="Золото-999"
-              type="number"
+              label="Золото-999(Купівля)"
+              type="text"
               fullWidth
               variant="standard"
             />
           </Box>
           <Box>
+            <Typography sx={{ textAlign: "center" }}>Продаж</Typography>
+
             <TextField
               margin="dense"
-              id="eqv-usd"
-              name="eqv-usd"
-              label="Еквівалент Американський долар в грн"
-              type="number"
+              id="sell-usd"
+              name="sell-usd"
+              label="Американський долар(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-eur"
-              name="eqv-eur"
-              label="Еквівалент Євро в грн"
-              type="number"
+              id="sell-eur"
+              name="sell-eur"
+              label="Євро(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-gbp"
-              name="eqv-gbp"
-              label="Еквівалент Англійський фунти в грн"
-              type="number"
+              id="sell-gbp"
+              name="sell-gbp"
+              label="Англійський фунти(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-pln"
-              name="eqv-pln"
-              label="Еквівалент Польський злотий в грн"
-              type="number"
+              id="sell-pln"
+              name="sell-pln"
+              label="Польський злотий(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-cad"
-              name="eqv-cad"
-              label="Еквівалент Канадський долар в грн"
-              type="number"
+              id="sell-cad"
+              name="sell-cad"
+              label="Канадський долар(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-chf"
-              name="eqv-chf"
-              label="Еквівалент Швейцарський франк в грн"
-              type="number"
+              id="sell-chf"
+              name="sell-chf"
+              label="Швейцарський франк(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-sek"
-              name="eqv-sek"
-              label="Еквівалент Швецька крона в грн"
-              type="number"
+              id="sell-sek"
+              name="sell-sek"
+              label="Швецька крона(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-czk"
-              name="eqv-czk"
-              label="Еквівалент Чешська крона в грн"
-              type="number"
+              id="sell-czk"
+              name="sell-czk"
+              label="Чешська крона(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-nok"
-              name="eqv-nok"
-              label="Еквівалент Норвежська крона в грн"
-              type="number"
+              id="sell-nok"
+              name="sell-nok"
+              label="Норвежська крона(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
             <TextField
               margin="dense"
-              id="eqv-gold"
-              name="eqv-gold"
-              label="Еквівалент Золото-999 в грн"
-              type="number"
+              id="sell-gold"
+              name="sell-gold"
+              label="Золото-999(Продаж)"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -290,9 +289,9 @@ export default function SendReport({
         </Box>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Link href={"/report"}>
+        <Link href={"/"}>
           <Button variant="contained" color="info" disabled={loading}>
-            Відправлені звіти
+            Поставлені курси
           </Button>
         </Link>
         <Box display={"flex"} gap={"15px"}>

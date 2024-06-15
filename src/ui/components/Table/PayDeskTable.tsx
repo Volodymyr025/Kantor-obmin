@@ -12,7 +12,7 @@ interface TableProps {
   title: string;
 }
 
-export default function TableList({ data, title }: TableProps) {
+export default function PayDeskTable({ data, title }: TableProps) {
   return (
     <TableContainer component={Paper}>
       <Typography sx={{ fontSize: 36, textAlign: "center" }}>

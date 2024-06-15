@@ -7,6 +7,8 @@ import CashStepper from "./Stepper";
 import { verifyAuth } from "../Auth/lucia";
 import { redirect } from "next/navigation";
 import ExchangeBtn from "./ExchangeBtn";
+import RateBtn from "./RateBtn";
+import RateTable from "../Table/RateTable";
 
 export default async function Home() {
   const resultAuth = await verifyAuth();
@@ -18,12 +20,13 @@ export default async function Home() {
     <Grid container sx={{ width: "100%" }}>
       <Grid item xs={12} sx={{ mt: "70px" }}>
         <Container sx={{ my: 5, display: "flex", gap: 2 }}>
-          <ReportBtn />
-          <SendCashBtn />
           <ExchangeBtn />
+          <SendCashBtn />
+          <RateBtn />
+          <ReportBtn />
         </Container>
         <CashStepper />
-
+        <RateTable />
         <PayDesk />
       </Grid>
     </Grid>
