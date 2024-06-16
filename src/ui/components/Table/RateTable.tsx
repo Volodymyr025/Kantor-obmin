@@ -7,20 +7,34 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserInfo } from "@/ui/context-store/userInfo";
+import { getLocalDepartment } from "@/ui/utils/getLocalStore";
 
 export default function RateTable() {
-  const department = useContext(UserInfo).department;
+  const [data, setData] = useState([]);
+
+  let department = getLocalDepartment();
 
   const getRateFromDB = async () => {
-    const req = await fetch("api/rate", {
-      method: "PATCH",
-      body: JSON.stringify(department),
-    });
+    try {
+      const req = await fetch("api/rate", {
+        method: "PATCH",
+        body: JSON.stringify({ department }),
+      });
+      const response = await req.json();
+      setData(response);
+    } catch {
+      console.log("error to get rate from db");
+    }
   };
-  const db = getRateFromDB();
-  const data: any = [];
+
+  useEffect(() => {
+    void (async () => {
+      await getRateFromDB();
+    })();
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Typography sx={{ fontSize: 26, textAlign: "center" }}>Курси</Typography>

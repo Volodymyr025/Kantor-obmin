@@ -12,13 +12,12 @@ export const PATCH = async (request: Request) => {
       .toString()
       .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
-    const startOfDay = new Date(transformData).setHours(0, 0, 0, 0);
-    const endOfDay = new Date(transformData).setHours(23, 59, 59, 999);
-
     const rate = await Rate.find({
-      createdAt: { $gte: startOfDay, $lte: endOfDay },
       department: reqData.department,
+      createdAt: { $gte: transformData },
     });
+
+    console.log(rate, "rate");
 
     return NextResponse.json(rate);
   } catch (err: any) {
