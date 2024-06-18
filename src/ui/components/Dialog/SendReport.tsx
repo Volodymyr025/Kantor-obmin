@@ -52,6 +52,7 @@ export default function SendReport({
     const formData = new FormData(value.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
     const report = {
+      uah: 0,
       usd: +formJson.usd,
       eur: +formJson.eur,
       gbp: +formJson.gbp,

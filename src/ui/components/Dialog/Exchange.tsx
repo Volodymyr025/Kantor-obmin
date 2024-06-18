@@ -22,6 +22,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Update } from "@/ui/context-store/updatePayDesk";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 export interface DialogProps {
   open: boolean;
@@ -36,9 +37,82 @@ export default function ExchangeWindow({
   setAlert,
   setMessage,
 }: DialogProps) {
-  const [loading, setLoading] = React.useState(false);
+  const department = getLocal("Department");
+  const user = getLocal("User");
+
   const setUpdate = React.useContext(Update).setUpdate;
+
+  const [rateLoading, setRateLoading] = React.useState(false);
+  const [loading, setloading] = React.useState(false);
   const [buySell, setBuySell] = React.useState(false);
+  const [rate, setRate] = React.useState("");
+  const [sumValue, setSumValue] = React.useState("");
+  const [totalValue, setTotalValue] = React.useState(0);
+  const [selectCurrency, setSelectCurrensy] = React.useState("");
+
+  const getExchengeRate = async () => {
+    setRateLoading(true);
+    const selected = buySell ? "sell" + selectCurrency : "buy" + selectCurrency;
+    try {
+      const req = await fetch("api/rate/exchenge", {
+        method: "POST",
+        body: JSON.stringify({ department, selected }),
+      });
+      const response = await req.json();
+      setRate(response);
+    } catch {
+      console.log("error to get rate from db");
+    } finally {
+      setRateLoading(false);
+    }
+  };
+
+  const sendExchenge = async () => {
+    setUpdate(true);
+    setloading(true);
+    try {
+      const req = await fetch("api/paydesk/exchenge", {
+        method: "PATCH",
+        body: JSON.stringify({
+          department,
+          user,
+          selectCurrency,
+          operation: buySell,
+          sumValue: buySell ? -sumValue : sumValue,
+          totalValue,
+        }),
+      });
+      const res = await req.json();
+      setMessage(res.message);
+      setAlert(true);
+    } catch {
+      console.log("error to get rate from db");
+    }
+  };
+
+  const onCloseWindow = () => {
+    setSelectCurrensy("");
+    setBuySell(false);
+    setRate("");
+    setSumValue("");
+    setTotalValue(0);
+    setOpen(false);
+  };
+
+  React.useEffect(() => {
+    if (buySell) {
+      const sum = +sumValue * +rate;
+      return setTotalValue(+sum.toFixed(2));
+    }
+    const sum = -sumValue * +rate;
+    return setTotalValue(+sum.toFixed(2));
+  }, [rate, sumValue]);
+
+  React.useEffect(() => {
+    void (async () => {
+      await getExchengeRate();
+    })();
+  }, [selectCurrency, buySell]);
 
   return (
     <Dialog
@@ -50,6 +124,10 @@ export default function ExchangeWindow({
         component: "form",
         onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
+          await sendExchenge();
+          onCloseWindow();
+          setloading(false);
+          setUpdate(false);
         },
       }}
     >
@@ -67,6 +145,7 @@ export default function ExchangeWindow({
             label={
               buySell ? "Сума валюти яку продаєм" : "Сума валюти яку купляєм"
             }
+            onChange={(e) => setSumValue(e.target.value)}
             type="number"
             fullWidth
             variant="outlined"
@@ -78,22 +157,22 @@ export default function ExchangeWindow({
             <Select
               required
               name="currency"
-              //   onChange={""}
+              onChange={(e) => setSelectCurrensy(e.target.value)}
               labelId="select-currency"
               id="select-currency"
               label="Валюта"
               defaultValue={""}
             >
-              <MenuItem value={"Administration"}>USD</MenuItem>
-              <MenuItem value={"Чортків"}>EUR</MenuItem>
-              <MenuItem value={"Чортків10"}>GBP</MenuItem>
-              <MenuItem value={"Чортків11"}>PLN</MenuItem>
-              <MenuItem value={"Тернопіль8"}>CAD</MenuItem>
-              <MenuItem value={"Тернопіль8"}>CHF</MenuItem>
-              <MenuItem value={"Тернопіль8"}>SEK</MenuItem>
-              <MenuItem value={"Тернопіль8"}>CZK</MenuItem>
-              <MenuItem value={"Тернопіль8"}>NOK</MenuItem>
-              <MenuItem value={"Тернопіль8"}>Gold</MenuItem>
+              <MenuItem value={"Usd"}>USD</MenuItem>
+              <MenuItem value={"Eur"}>EUR</MenuItem>
+              <MenuItem value={"Gbp"}>GBP</MenuItem>
+              <MenuItem value={"Pln"}>PLN</MenuItem>
+              <MenuItem value={"Cad"}>CAD</MenuItem>
+              <MenuItem value={"Chf"}>CHF</MenuItem>
+              <MenuItem value={"Sek"}>SEK</MenuItem>
+              <MenuItem value={"Czk"}>CZK</MenuItem>
+              <MenuItem value={"Nok"}>NOK</MenuItem>
+              <MenuItem value={"Gold"}>Gold</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -102,46 +181,60 @@ export default function ExchangeWindow({
             fullWidth
             disabled
             id="all"
+            value={rateLoading ? "Рахуєм..." : totalValue}
             label="Разом"
-            defaultValue="Hello World"
           />
         </Grid>
       </Grid>
-      <DialogActions
-        sx={{ display: "flex", p: 0, justifyContent: "space-between" }}
-      >
-        <FormControl component="fieldset">
-          <FormGroup aria-label="position" row>
-            <FormControlLabel
-              value="top"
-              control={
-                <Switch color="primary" onChange={() => setBuySell(!buySell)} />
-              }
-              label={buySell ? "Ми продаєм" : "Ми купляєм"}
-              labelPlacement="top"
-            />
-          </FormGroup>
-        </FormControl>
-        <Box display={"flex"} gap={2} width={"40%"} py={2}>
-          <Button
-            fullWidth
-            variant="contained"
-            color="error"
-            disabled={loading}
-            onClick={() => setOpen(false)}
-          >
-            Відміна
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            disabled={loading}
-            color="success"
-            type="submit"
-          >
-            {loading ? <CircularProgress size={25} title="Міняємо" /> : "Обмін"}
-          </Button>
-        </Box>
+      <DialogActions sx={{ p: 0 }}>
+        <Grid container pt={2} alignItems={"center"} textAlign={"center"}>
+          <Grid item xs={6} md={2}>
+            <Typography>Курс:{rateLoading ? "Пошук..." : rate}</Typography>
+          </Grid>
+          <Grid item xs={6} md={2}>
+            <FormControl component="fieldset">
+              <FormGroup aria-label="position" row>
+                <FormControlLabel
+                  value="top"
+                  control={
+                    <Switch
+                      color="primary"
+                      onChange={() => setBuySell(!buySell)}
+                    />
+                  }
+                  label={buySell ? "Ми продаєм" : "Ми купляєм"}
+                  labelPlacement="top"
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+          <Grid item flex={1}>
+            <Box display={"flex"} gap={2}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="error"
+                disabled={loading}
+                onClick={onCloseWindow}
+              >
+                Відміна
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                disabled={loading}
+                color="success"
+                type="submit"
+              >
+                {loading ? (
+                  <CircularProgress size={25} title="Міняємо" />
+                ) : (
+                  "Обмін"
+                )}
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </DialogActions>
     </Dialog>
   );

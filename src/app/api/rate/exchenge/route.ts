@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
-import Rate from "../../../../models/rate";
+import Rate from "../../../../../models/rate";
 
-export const PATCH = async (request: Request) => {
+export const POST = async (request: Request) => {
   try {
     await conectToDB();
     const reqData = await request.json();
@@ -18,26 +18,12 @@ export const PATCH = async (request: Request) => {
     });
     const lastRate = rate.slice(-1);
 
-    return NextResponse.json(lastRate);
+    const findRate = lastRate.map((rate) => rate[reqData.selected]);
+
+    return NextResponse.json(findRate);
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error to find rate", err },
-      { status: 500 }
-    );
-  }
-};
-
-export const POST = async (request: Request) => {
-  try {
-    const reqData = await request.json();
-    await conectToDB();
-
-    await Rate.create(reqData);
-
-    return NextResponse.json({ message: "Курси поставлено" }, { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json(
-      { message: "Error is created", err },
       { status: 500 }
     );
   }

@@ -13,7 +13,7 @@ export const updatePayDeskData = async (data: { department: string }) => {
       const combinedObject = Promise.all(
         [...lastOneDesk, ...[data]].reduce((pay, rep) => {
           return {
-            uah: pay.uah + rep.uah,
+            uah: 0,
             usd: pay.usd + rep.usd,
             eur: pay.eur + rep.eur,
             gbp: pay.gbp + rep.gbp,

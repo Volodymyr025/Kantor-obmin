@@ -9,12 +9,12 @@ import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { UserInfo } from "@/ui/context-store/userInfo";
-import { getLocalDepartment } from "@/ui/utils/getLocalStore";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function RateTable() {
   const [data, setData] = useState([]);
 
-  let department = getLocalDepartment();
+  let department = getLocal("Department");
 
   const getRateFromDB = async () => {
     try {

@@ -10,7 +10,7 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import Link from "next/link";
 import { Update } from "@/ui/context-store/updatePayDesk";
 import { UserInfo } from "@/ui/context-store/userInfo";
-import { getLocalDepartment, getLocalUser } from "@/ui/utils/getLocalStore";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 export interface DialogProps {
   open: boolean;
@@ -28,8 +28,8 @@ export default function RateWindow({
   const setUpdate = React.useContext(Update).setUpdate;
 
   const [loading, setLoading] = React.useState(false);
-  const department = getLocalDepartment();
-  const user = getLocalUser();
+  const department = getLocal("Department");
+  const user = getLocal("User");
 
   const postRateToMongoDB = async (report: {}) => {
     setUpdate(true);
