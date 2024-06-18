@@ -29,7 +29,6 @@ export default function Header() {
 
   return (
     <Box
-      component={"header"}
       sx={{
         p: 1,
         bgcolor: MAIN_GREEN,
