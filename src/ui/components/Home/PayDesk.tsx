@@ -4,16 +4,14 @@ import { useContext, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { Update } from "@/ui/context-store/updatePayDesk";
 import PayDeskTable from "../Table/PayDeskTable";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function PayDesk() {
   const [payDesk, setPayDesk] = useState([]);
 
   const updatePayDesk = useContext(Update).update;
 
-  let department = "";
-  if (typeof localStorage !== "undefined") {
-    department = localStorage.getItem("Department") || "";
-  }
+  const department = getLocal("Department");
 
   const getPayDesksFromDB = async () => {
     try {

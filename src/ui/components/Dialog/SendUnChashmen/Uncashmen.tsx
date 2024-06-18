@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import ListCurrency from "./ListCurrency";
 import { Update } from "@/ui/context-store/updatePayDesk";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 interface DialogProps {
   open: boolean;
@@ -56,8 +57,9 @@ export default function Uncashmen({
   const [loading, setLoading] = React.useState(false);
   const setUpdate = React.useContext(Update).setUpdate;
   const [cashList, setCashList] = React.useState<CashInput[]>([]);
-  const [user, setUser] = React.useState("");
-  const [department, setDepartment] = React.useState("");
+
+  const user = getLocal("User");
+  const department = getLocal("Department");
 
   const [cashStore, setCashStore] = React.useState<CashInput>({
     sum: "",
@@ -103,22 +105,6 @@ export default function Uncashmen({
     setCashList([]);
     setOpen(false);
   };
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedUserName = localStorage.getItem("User");
-      const storedDepartment = localStorage.getItem("Department");
-      if (storedUserName) {
-        setUser(storedUserName);
-      }
-      if (storedDepartment) {
-        setDepartment(storedDepartment);
-      } else {
-        setUser("");
-        setDepartment("");
-      }
-    }
-  }, []);
 
   const submit = async () => {
     setUpdate(true);

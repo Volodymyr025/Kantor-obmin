@@ -10,6 +10,7 @@ import { Box, CircularProgress } from "@mui/material";
 import Link from "next/link";
 import { Update } from "@/ui/context-store/updatePayDesk";
 import { UserInfo } from "@/ui/context-store/userInfo";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 export interface DialogProps {
   open: boolean;
@@ -46,8 +47,8 @@ export default function SendReport({
   };
 
   const submit = async (value: React.FormEvent<HTMLFormElement>) => {
-    const department = localStorage.getItem("Department");
-    const user = localStorage.getItem("User");
+    const department = getLocal("Department");
+    const user = getLocal("User");
     setLoading(true);
     const formData = new FormData(value.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
