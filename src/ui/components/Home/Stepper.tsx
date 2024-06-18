@@ -9,6 +9,7 @@ import GetCashlessWindow from "../Dialog/GetCashless";
 import { CurrencyType } from "./SendCashBtn";
 import { Update } from "@/ui/context-store/updatePayDesk";
 import { UserInfo } from "@/ui/context-store/userInfo";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 const steps = ["Вам відпавили інкасацію", "В дорозі...", "Прийнято"];
 
@@ -20,10 +21,7 @@ export default function CashStepper() {
   const updatePayDesk = React.useContext(Update).update;
 
   const getProcessingCash = async () => {
-    let storedDepartment = "";
-    if (typeof window !== "undefined") {
-      storedDepartment = localStorage.getItem("Department") || "";
-    }
+    const storedDepartment = getLocal("Department");
     try {
       const response = await fetch(`/api/cashless`, {
         next: { revalidate: 600 },

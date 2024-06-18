@@ -6,25 +6,18 @@ import { logOut } from "../Auth/login";
 import { useEffect, useState } from "react";
 import Logo from "@/ui/assets/SVG/Logo";
 import { UserInfo } from "@/ui/context-store/userInfo";
+import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function Header() {
   const [userName, setUserName] = useState("");
   const [department, setDepartment] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedUserName = localStorage.getItem("User");
-      const storedDepartment = localStorage.getItem("Department");
-      if (storedUserName) {
-        setUserName(storedUserName);
-      }
-      if (storedDepartment) {
-        setDepartment(storedDepartment);
-      } else {
-        setUserName("");
-        setDepartment("");
-      }
-    }
+    const storedUserName = getLocal("User");
+    const storedDepartment = getLocal("Department");
+
+    setUserName(storedUserName);
+    setDepartment(storedDepartment);
   }, []);
 
   return (
