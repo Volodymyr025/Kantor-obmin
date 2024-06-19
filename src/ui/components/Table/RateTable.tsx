@@ -7,8 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { UserInfo } from "@/ui/context-store/userInfo";
+import { useEffect, useState } from "react";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function RateTable() {
@@ -35,8 +34,10 @@ export default function RateTable() {
     })();
   }, []);
 
-  return (
-    <TableContainer component={Paper}>
+  return data.length <= 0 ? (
+    <Typography textAlign={"center"}>Курси ще не поставлені</Typography>
+  ) : (
+    <TableContainer component={Paper} sx={{ height: 700, p: 1 }}>
       <Typography sx={{ fontSize: 26, textAlign: "center" }}>Курси</Typography>
       <Table aria-label="simple table">
         <TableHead>

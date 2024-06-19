@@ -1,36 +1,31 @@
 import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import Report from "../../../../models/report";
-import { updatePayDeskData } from "./updateReport";
+import PayDesk from "../../../../models/payDesk";
 
 export const POST = async (request: Request) => {
   try {
-    const reqData = await request.json();
+    const req = await request.json();
+    const currency = await req.currency;
     await conectToDB();
 
-    const date = new Date();
-
-    const transformData = `${date.getFullYear()}-${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-
-    const startOfDay = new Date(transformData).setHours(0, 0, 0, 0);
-    const endOfDay = new Date(transformData).setHours(23, 59, 59, 999);
-
-    const report = await Report.find({
-      createdAt: { $gte: startOfDay, $lte: endOfDay },
-      department: reqData.department,
-    });
-
-    if (report.length) {
-      return NextResponse.json(
-        { message: "Сьогоднішній звіт вже відправлено" },
-        { status: 201 }
-      );
+    const payDesk = await PayDesk.findOne({ department: req.department });
+    if (!payDesk) {
+      return NextResponse.json({ message: "Касу не знайдено" });
     }
 
-    await Report.create(reqData);
-    await updatePayDeskData(reqData);
+    if (+payDesk[currency] + +req.value < 0) {
+      return NextResponse.json({
+        message: "Недостатньо валюти в касі",
+      });
+    }
+
+    await Report.create(req);
+
+    await PayDesk.findOneAndUpdate(
+      { department: req.department },
+      { [currency]: +payDesk[currency] + +req.value }
+    );
 
     return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
   } catch (err: any) {

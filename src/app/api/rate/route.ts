@@ -16,6 +16,7 @@ export const PATCH = async (request: Request) => {
       department: reqData.department.toString(),
       createdAt: { $gte: transformData },
     });
+
     const lastRate = rate.slice(-1);
 
     return NextResponse.json(lastRate);
@@ -31,7 +32,7 @@ export const POST = async (request: Request) => {
   try {
     const reqData = await request.json();
     await conectToDB();
-
+    console.log(reqData, "rr");
     await Rate.create(reqData);
 
     return NextResponse.json({ message: "Курси поставлено" }, { status: 201 });

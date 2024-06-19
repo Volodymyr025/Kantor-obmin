@@ -107,7 +107,10 @@ export default function RateWindow({
               id="usd"
               name="usd"
               label="Американський долар(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -116,7 +119,10 @@ export default function RateWindow({
               id="eur"
               name="eur"
               label="Євро(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -125,7 +131,10 @@ export default function RateWindow({
               id="gbp"
               name="gbp"
               label="Англійський фунти(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -134,7 +143,10 @@ export default function RateWindow({
               id="pln"
               name="pln"
               label="Польський злотий(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -143,7 +155,10 @@ export default function RateWindow({
               id="cad"
               name="cad"
               label="Канадський долар(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -152,7 +167,10 @@ export default function RateWindow({
               id="chf"
               name="chf"
               label="Швейцарський франк(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -161,7 +179,10 @@ export default function RateWindow({
               id="sek"
               name="sek"
               label="Швецька крона(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -170,7 +191,10 @@ export default function RateWindow({
               id="czk"
               name="czk"
               label="Чешська крона(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -179,7 +203,10 @@ export default function RateWindow({
               id="nok"
               name="nok"
               label="Норвежська крона(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -188,7 +215,10 @@ export default function RateWindow({
               id="gold"
               name="gold"
               label="Золото-999(Купівля)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -201,7 +231,10 @@ export default function RateWindow({
               id="sell-usd"
               name="sell-usd"
               label="Американський долар(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -210,7 +243,10 @@ export default function RateWindow({
               id="sell-eur"
               name="sell-eur"
               label="Євро(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -219,7 +255,10 @@ export default function RateWindow({
               id="sell-gbp"
               name="sell-gbp"
               label="Англійський фунти(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -228,7 +267,10 @@ export default function RateWindow({
               id="sell-pln"
               name="sell-pln"
               label="Польський злотий(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -237,7 +279,10 @@ export default function RateWindow({
               id="sell-cad"
               name="sell-cad"
               label="Канадський долар(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -246,7 +291,10 @@ export default function RateWindow({
               id="sell-chf"
               name="sell-chf"
               label="Швейцарський франк(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -255,7 +303,10 @@ export default function RateWindow({
               id="sell-sek"
               name="sell-sek"
               label="Швецька крона(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -264,7 +315,10 @@ export default function RateWindow({
               id="sell-czk"
               name="sell-czk"
               label="Чешська крона(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -273,7 +327,10 @@ export default function RateWindow({
               id="sell-nok"
               name="sell-nok"
               label="Норвежська крона(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />
@@ -282,7 +339,10 @@ export default function RateWindow({
               id="sell-gold"
               name="sell-gold"
               label="Золото-999(Продаж)"
-              type="text"
+              type="number"
+              inputProps={{
+                step: "0.01",
+              }}
               fullWidth
               variant="standard"
             />

@@ -23,7 +23,7 @@ export default function ReportBtn() {
         onClose={() => setOpenAlert(false)}
       />
       <Button color="success" variant="contained" onClick={() => setOpen(true)}>
-        Звіт
+        Дебет/Кредит
       </Button>
     </>
   );

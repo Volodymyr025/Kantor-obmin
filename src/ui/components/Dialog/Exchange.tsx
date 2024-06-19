@@ -124,6 +124,16 @@ export default function ExchangeWindow({
         component: "form",
         onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
+          if (+sumValue <= 0) {
+            setMessage("Введіть суму");
+            setAlert(true);
+            return;
+          }
+          if (!rate.length) {
+            setMessage("Курса не знайдено");
+            setAlert(true);
+            return;
+          }
           await sendExchenge();
           onCloseWindow();
           setloading(false);

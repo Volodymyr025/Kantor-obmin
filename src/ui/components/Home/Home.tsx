@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
-import PayDesk from "./PayDesk";
+import PayDesk from "./WorkSpace/PayDesk";
 import ReportBtn from "./ReportBtn";
 import SendCashBtn from "./SendCashBtn";
 import CashStepper from "./Stepper";
@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import ExchangeBtn from "./ExchangeBtn";
 import RateBtn from "./RateBtn";
 import RateTable from "../Table/RateTable";
+import WorkSpace from "./WorkSpace/WorkSpace";
 
 export default async function Home() {
   const resultAuth = await verifyAuth();
@@ -26,8 +27,9 @@ export default async function Home() {
           <ReportBtn />
         </Container>
         <CashStepper />
-        <RateTable />
-        <PayDesk />
+        {/* <RateTable />
+        <PayDesk /> */}
+        <WorkSpace />
       </Grid>
     </Grid>
   );
