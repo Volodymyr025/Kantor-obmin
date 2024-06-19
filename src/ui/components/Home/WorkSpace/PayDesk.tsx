@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { Update } from "@/ui/context-store/updatePayDesk";
-import PayDeskTable from "../Table/PayDeskTable";
+import PayDeskTable from "../../Table/PayDeskTable";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function PayDesk() {
@@ -37,9 +37,9 @@ export default function PayDesk() {
       {payDesk.map((desk: { department: string }) => (
         <Grid
           item
-          md={payDesk.length >= 1 ? 11 : 5.5}
-          sm={11}
-          xs={11}
+          md={payDesk.length >= 1 ? 12 : 5.5}
+          sm={12}
+          xs={12}
           key={desk.department}
         >
           <PayDeskTable data={[desk]} title={desk.department} />

@@ -6,11 +6,25 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, CircularProgress } from "@mui/material";
+
+import Textarea from "@mui/joy/Textarea";
 import Link from "next/link";
 import { Update } from "@/ui/context-store/updatePayDesk";
-import { UserInfo } from "@/ui/context-store/userInfo";
 import { getLocal } from "@/ui/utils/getLocalStore";
+import {
+  Box,
+  CircularProgress,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Switch,
+  Typography,
+} from "@mui/material";
 
 export interface DialogProps {
   open: boolean;
@@ -28,6 +42,7 @@ export default function SendReport({
   const setUpdate = React.useContext(Update).setUpdate;
 
   const [loading, setLoading] = React.useState(false);
+  const [operation, setOperation] = React.useState(true);
 
   const postFormDataToMongoDB = async (report: {}) => {
     setUpdate(true);
@@ -53,272 +68,146 @@ export default function SendReport({
     const formData = new FormData(value.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
     const report = {
-      uah: 0,
-      usd: +formJson.usd,
-      eur: +formJson.eur,
-      gbp: +formJson.gbp,
-      pln: +formJson.pln,
-      cad: +formJson.cad,
-      chf: +formJson.chf,
-      sek: +formJson.sek,
-      czk: +formJson.czk,
-      nok: +formJson.nok,
-      gold: +formJson.gold,
-      eqvUsd: +formJson["eqv-usd"],
-      eqvEur: +formJson["eqv-eur"],
-      eqvGbp: +formJson["eqv-gbp"],
-      eqvPln: +formJson["eqv-pln"],
-      eqvCad: +formJson["eqv-cad"],
-      eqvChf: +formJson["eqv-chf"],
-      eqvSek: +formJson["eqv-sek"],
-      eqvCzk: +formJson["eqv-czk"],
-      eqvNok: +formJson["eqv-nok"],
-      eqvGold: +formJson["eqv-gold"],
+      operation: operation,
+      value: operation ? +formJson.value : -formJson.value,
+      currency: formJson.currency,
+      discription: formJson.discription,
       user: user,
       department: department,
     };
+    if (!report.value || !report.currency) {
+      setAlert(true);
+      setMessage("Заповніть будь-ласка поля");
+      setLoading(false);
+      return;
+    }
     await postFormDataToMongoDB(report);
     setUpdate(false);
     setLoading(false);
     setOpen(false);
     setAlert(true);
+    setOperation(true);
   };
 
   return (
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
+      fullWidth
+      sx={{ form: { p: 2 } }}
       PaperProps={{
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
+
           submit(event);
         },
       }}
     >
-      <DialogTitle>Звіт</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Перенесіть будь-ласка всі ваші операції в кінці робочого дня з
-          таблички Exel (куп/прод та потрачену грн), звіт можна зробити лише
-          один раз за день
-        </DialogContentText>
-        <Box display={"flex"} gap={1}>
-          <Box>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="usd"
-              name="usd"
-              label="Американський долар"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eur"
-              name="eur"
-              label="Євро"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="gbp"
-              name="gbp"
-              label="Англійський фунти"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="pln"
-              name="pln"
-              label="Польський злотий"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="cad"
-              name="cad"
-              label="Канадський долар"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="chf"
-              name="chf"
-              label="Швейцарський франк"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sek"
-              name="sek"
-              label="Швецька крона"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="czk"
-              name="czk"
-              label="Чешська крона"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="nok"
-              name="nok"
-              label="Норвежська крона"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="gold"
-              name="gold"
-              label="Золото-999"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-          </Box>
-          <Box>
-            <TextField
-              margin="dense"
-              id="eqv-usd"
-              name="eqv-usd"
-              label="Еквівалент Американський долар в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-eur"
-              name="eqv-eur"
-              label="Еквівалент Євро в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-gbp"
-              name="eqv-gbp"
-              label="Еквівалент Англійський фунти в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-pln"
-              name="eqv-pln"
-              label="Еквівалент Польський злотий в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-cad"
-              name="eqv-cad"
-              label="Еквівалент Канадський долар в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-chf"
-              name="eqv-chf"
-              label="Еквівалент Швейцарський франк в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-sek"
-              name="eqv-sek"
-              label="Еквівалент Швецька крона в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-czk"
-              name="eqv-czk"
-              label="Еквівалент Чешська крона в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-nok"
-              name="eqv-nok"
-              label="Еквівалент Норвежська крона в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eqv-gold"
-              name="eqv-gold"
-              label="Еквівалент Золото-999 в грн"
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-          </Box>
-        </Box>
-      </DialogContent>
-      <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Link href={"/report"}>
-          <Button variant="contained" color="info" disabled={loading}>
-            Відправлені звіти
-          </Button>
-        </Link>
-        <Box display={"flex"} gap={"15px"}>
-          <Button
-            variant="contained"
-            color="error"
-            disabled={loading}
-            onClick={() => setOpen(false)}
-          >
-            Відміна
-          </Button>
-          <Button
-            variant="contained"
-            disabled={loading}
-            color="success"
-            type="submit"
-          >
-            {loading ? (
-              <CircularProgress size={25} title="Підтвердити" />
-            ) : (
-              "Підтвердити"
-            )}
-          </Button>
-        </Box>
+      <DialogTitle>Дебет/Кредит</DialogTitle>
+
+      <DialogContentText>
+        Отримання або видача готівки від третіх осіб.Будь-ласка введіть суму
+        оберіть валюту та обовязково перевірте правельність Дебет/Кредит.
+        <br /> Дебет* - прихід каси.
+        <br /> Кредит* - розхід каси.
+      </DialogContentText>
+
+      <TextField
+        autoFocus
+        margin="dense"
+        id="value"
+        name="value"
+        label="Введіть суму"
+        type="number"
+        fullWidth
+        required
+        variant="outlined"
+      />
+      <FormControl fullWidth margin="dense">
+        <InputLabel id="currency">Валюта</InputLabel>
+        <Select
+          required
+          name="currency"
+          labelId="currency"
+          id="currency"
+          label="Валюта"
+          defaultValue={""}
+        >
+          <MenuItem value={"uah"}>UAH</MenuItem>
+          <MenuItem value={"usd"}>USD</MenuItem>
+          <MenuItem value={"eur"}>EUR</MenuItem>
+          <MenuItem value={"gbp"}>GBP</MenuItem>
+          <MenuItem value={"pln"}>PLN</MenuItem>
+          <MenuItem value={"cad"}>CAD</MenuItem>
+          <MenuItem value={"chf"}>CHF</MenuItem>
+          <MenuItem value={"sek"}>SEK</MenuItem>
+          <MenuItem value={"czk"}>CZK</MenuItem>
+          <MenuItem value={"nok"}>NOK</MenuItem>
+          <MenuItem value={"gold"}>Gold</MenuItem>
+        </Select>
+      </FormControl>
+      <Textarea
+        required
+        color="neutral"
+        id="discription"
+        name="discription"
+        minRows={3}
+        sx={{ p: 1, my: 1 }}
+        placeholder="Опишіть суть операції (Курс,Призначення,Кому/Від кого)"
+        size="md"
+      />
+
+      <DialogActions sx={{ p: 0 }}>
+        <Grid
+          container
+          pt={2}
+          alignItems={"center"}
+          textAlign={"center"}
+          justifyContent={"space-between"}
+        >
+          <Grid item xs={12} sm={3} md={3}>
+            <FormControl component="fieldset">
+              <FormGroup aria-label="position" row>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      defaultChecked
+                      onChange={() => setOperation(!operation)}
+                    />
+                  }
+                  label={operation ? "Дебет" : "Кредит"}
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+          <Grid item flex={1}>
+            <Box display={"flex"} gap={2}>
+              <Button
+                variant="contained"
+                fullWidth
+                color="error"
+                disabled={loading}
+                onClick={() => setOpen(false)}
+              >
+                Відміна
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                disabled={loading}
+                color="success"
+                type="submit"
+              >
+                {loading ? (
+                  <CircularProgress size={25} title="Підтвердити" />
+                ) : (
+                  "Підтвердити"
+                )}
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </DialogActions>
     </Dialog>
   );

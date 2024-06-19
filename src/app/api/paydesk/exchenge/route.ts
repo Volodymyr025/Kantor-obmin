@@ -19,26 +19,34 @@ export const PATCH = async (request: Request) => {
 
   try {
     await conectToDB();
-    const date = new Date();
-
-    const exchenge = await Exchenge.create(exchengeModel);
-
     const payDesk = await PayDesk.findOne({
       department: req.department,
-      updatedAt: { $lte: date },
     });
     if (!payDesk) {
       return NextResponse.json({ message: "Касу не знайдено" });
     }
+    if (+payDesk.uah + +req.totalValue < 0) {
+      return NextResponse.json({
+        message: "Недостатньо гривень в касі",
+      });
+    }
+    if (+payDesk[selectedCurrency] + +req.sumValue < 0) {
+      return NextResponse.json({
+        message: "Недостатньо валюти в касі",
+      });
+    }
+
+    const exchenge = await Exchenge.create(exchengeModel);
 
     await PayDesk.findOneAndUpdate(
       {
         department: req.department,
-        updatedAt: { $lte: date },
       },
       {
-        [selectedCurrency]: +payDesk[selectedCurrency] + +exchenge.value,
-        uah: +payDesk.uah + +exchenge.totalValue,
+        [selectedCurrency]: (
+          +payDesk[selectedCurrency] + +exchenge.value
+        ).toFixed(2),
+        uah: (+payDesk.uah + +exchenge.totalValue).toFixed(2),
       }
     );
 

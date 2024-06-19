@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.5",
     "@lucia-auth/adapter-mongodb": "^1.0.3",
     "@mui/icons-material": "^5.15.17",
+    "@mui/joy": "5.0.0-beta.36",
     "@mui/material": "^5.15.17",
     "@mui/x-data-grid": "^7.4.0",
     "bcryptjs": "^2.4.3",
