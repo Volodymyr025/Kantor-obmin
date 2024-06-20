@@ -44,10 +44,8 @@ export const PATCH = async (request: Request) => {
           department: req.department,
         },
         {
-          [selectedCurrency]: (
-            +payDesk[selectedCurrency] + +exchenge.value
-          ).toFixed(2),
-          usd: (+payDesk.usd + +exchenge.totalValue).toFixed(2),
+          [selectedCurrency]: +payDesk[selectedCurrency] + +exchenge.value,
+          usd: +payDesk.usd + +exchenge.totalValue,
         }
       );
       return NextResponse.json({ message: "Операція успішна" });
@@ -58,10 +56,8 @@ export const PATCH = async (request: Request) => {
         department: req.department,
       },
       {
-        [selectedCurrency]: (
-          +payDesk[selectedCurrency] + +exchenge.value
-        ).toFixed(2),
-        uah: (+payDesk.uah + +exchenge.totalValue).toFixed(2),
+        [selectedCurrency]: +payDesk[selectedCurrency] + +exchenge.value,
+        uah: +payDesk.uah + +exchenge.totalValue,
       }
     );
 

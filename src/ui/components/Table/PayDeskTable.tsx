@@ -33,7 +33,7 @@ export default function PayDeskTable({ data, title }: TableProps) {
                 "&:last-child td, &:last-child th": { border: 0 },
               }}
             >
-              <TableCell align="center">{row.uah}</TableCell>
+              <TableCell align="center">{row.uah.toFixed(2)}</TableCell>
               <TableCell align="center">UAH</TableCell>
             </TableRow>
             <TableRow
@@ -41,61 +41,61 @@ export default function PayDeskTable({ data, title }: TableProps) {
                 "&:last-child td, &:last-child th": { border: 0 },
               }}
             >
-              <TableCell align="center">{row.usd}</TableCell>
+              <TableCell align="center">{row.usd.toFixed(2)}</TableCell>
               <TableCell align="center">USD</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.eur}</TableCell>
+              <TableCell align="center">{row.eur.toFixed(2)}</TableCell>
               <TableCell align="center">EUR</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.gbp}</TableCell>
+              <TableCell align="center">{row.gbp.toFixed(2)}</TableCell>
               <TableCell align="center">GBP</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.pln}</TableCell>
+              <TableCell align="center">{row.pln.toFixed(2)}</TableCell>
               <TableCell align="center">PLN</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.cad}</TableCell>
+              <TableCell align="center">{row.cad.toFixed(2)}</TableCell>
               <TableCell align="center">CAD</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.chf}</TableCell>
+              <TableCell align="center">{row.chf.toFixed(2)}</TableCell>
               <TableCell align="center">CHF</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.sek}</TableCell>
+              <TableCell align="center">{row.sek.toFixed(2)}</TableCell>
               <TableCell align="center">SEK</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.czk}</TableCell>
+              <TableCell align="center">{row.czk.toFixed(2)}</TableCell>
               <TableCell align="center">CZK</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.nok}</TableCell>
+              <TableCell align="center">{row.nok.toFixed(2)}</TableCell>
               <TableCell align="center">NOK</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="center">{row.gold}</TableCell>
+              <TableCell align="center">{row.gold.toFixed(2)}</TableCell>
               <TableCell align="center">Gold</TableCell>
             </TableRow>
           </TableBody>
