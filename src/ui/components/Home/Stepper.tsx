@@ -6,9 +6,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { Button, Snackbar } from "@mui/material";
 import GetCashlessWindow from "../Dialog/GetCashless";
-import { CurrencyType } from "./SendCashBtn";
 import { Update } from "@/ui/context-store/updatePayDesk";
-import { UserInfo } from "@/ui/context-store/userInfo";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
 const steps = ["Вам відпавили інкасацію", "В дорозі...", "Прийнято"];
@@ -18,14 +16,14 @@ export default function CashStepper() {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [processing, setProcessing] = React.useState([]);
+  const [toggleProcessing, setToggleProcessing] = React.useState(false);
   const updatePayDesk = React.useContext(Update).update;
+  const updateStepper = React.useContext(Update).updateStepper;
 
   const getProcessingCash = async () => {
     const storedDepartment = getLocal("Department");
     try {
-      const response = await fetch(`/api/cashless`, {
-        next: { revalidate: 600 },
-      });
+      const response = await fetch(`/api/cashless`);
       const data = await response.json();
       const result = await data.filter((item: { sendTo: string }) => {
         if (item.sendTo === storedDepartment) {
@@ -42,9 +40,15 @@ export default function CashStepper() {
     () =>
       void (async () => {
         await getProcessingCash();
+        const intervalId = setInterval(
+          () => setToggleProcessing(!toggleProcessing),
+          10 * 60 * 1000
+        );
+        return () => clearInterval(intervalId);
       })(),
-    [updatePayDesk]
+    [updatePayDesk, updateStepper, toggleProcessing]
   );
+
   return (
     <>
       <GetCashlessWindow

@@ -25,10 +25,12 @@ export default function GetCashlessWindow({
   data,
 }: DialogProps) {
   const [loading, setLoading] = React.useState(false);
-  const setUpdate = React.useContext(Update).setUpdate;
+  const setUpdateStepper = React.useContext(Update).setUpdateStepper;
+  const setUpdatePaydesk = React.useContext(Update).setUpdate;
 
   const getCashless = async () => {
-    setUpdate(true);
+    setUpdateStepper(true);
+    setUpdatePaydesk(true);
     setLoading(true);
     try {
       const response = await fetch("/api/cashless", {
@@ -50,7 +52,8 @@ export default function GetCashlessWindow({
     setOpen(false);
     setAlert(true);
     setLoading(false);
-    setUpdate(false);
+    setUpdateStepper(false);
+    setUpdatePaydesk(false);
   };
 
   return (

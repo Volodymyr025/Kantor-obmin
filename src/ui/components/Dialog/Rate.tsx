@@ -3,23 +3,45 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, CircularProgress, Typography } from "@mui/material";
-import Link from "next/link";
 import { Update } from "@/ui/context-store/updatePayDesk";
-import { UserInfo } from "@/ui/context-store/userInfo";
 import { getLocal } from "@/ui/utils/getLocalStore";
+
+export interface RateType {
+  buyUsd: number;
+  buyEur: number;
+  buyGbp: number;
+  buyPln: number;
+  buyCad: number;
+  buyChf: number;
+  buySek: number;
+  buyCzk: number;
+  buyNok: number;
+  buyGold: number;
+  sellUsd: number;
+  sellEur: number;
+  sellGbp: number;
+  sellPln: number;
+  sellCad: number;
+  sellChf: number;
+  sellSek: number;
+  sellCzk: number;
+  sellNok: number;
+  sellGold: number;
+}
 
 export interface DialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
+  rate: RateType | undefined;
 }
 
 export default function RateWindow({
+  rate,
   open,
   setOpen,
   setAlert,
@@ -106,6 +128,7 @@ export default function RateWindow({
           <Typography sx={{ textAlign: "center" }}>Купівля</Typography>
           <TextField
             autoFocus
+            value={rate && rate.buyUsd}
             margin="dense"
             id="usd"
             name="usd"

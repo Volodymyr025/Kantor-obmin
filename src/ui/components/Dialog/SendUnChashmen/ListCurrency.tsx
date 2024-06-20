@@ -15,7 +15,7 @@ export default function ListCurrency({ cashList, setCashList }: ListProps) {
     <Box
       sx={{
         display: "flex",
-        m: 1,
+        my: 1,
         gap: 1,
         flexWrap: "wrap",
         maxHeight: "400px",
