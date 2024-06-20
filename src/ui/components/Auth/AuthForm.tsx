@@ -21,7 +21,6 @@ import { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { login } from "./login";
 import { verifyAuth } from "./lucia";
-import { UserInfo } from "@/ui/context-store/userInfo";
 
 interface ButtonType {
   userName: string;

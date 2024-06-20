@@ -5,7 +5,6 @@ import Link from "next/link";
 import { logOut } from "../Auth/login";
 import { useEffect, useState } from "react";
 import Logo from "@/ui/assets/SVG/Logo";
-import { UserInfo } from "@/ui/context-store/userInfo";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function Header() {
