@@ -59,71 +59,71 @@ export default function RateTable() {
               }}
             >
               <TableCell align="center">USD</TableCell>
-              <TableCell align="center">{row.buyUsd}</TableCell>
-              <TableCell align="center">{row.sellUsd}</TableCell>
+              <TableCell align="center">{row.buyUsd.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellUsd.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">EUR</TableCell>
-              <TableCell align="center">{row.buyEur}</TableCell>
-              <TableCell align="center">{row.sellEur}</TableCell>
+              <TableCell align="center">{row.buyEur.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellEur.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">GBP</TableCell>
-              <TableCell align="center">{row.buyGbp}</TableCell>
-              <TableCell align="center">{row.sellGbp}</TableCell>
+              <TableCell align="center">{row.buyGbp.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellGbp.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">PLN</TableCell>
-              <TableCell align="center">{row.buyPln}</TableCell>
-              <TableCell align="center">{row.sellPln}</TableCell>
+              <TableCell align="center">{row.buyPln.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellPln.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">CAD</TableCell>
-              <TableCell align="center">{row.buyCad}</TableCell>
-              <TableCell align="center">{row.sellCad}</TableCell>
+              <TableCell align="center">{row.buyCad.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellCad.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">CHF</TableCell>
-              <TableCell align="center">{row.buyChf}</TableCell>
-              <TableCell align="center">{row.sellChf}</TableCell>
+              <TableCell align="center">{row.buyChf.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellChf.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">SEK</TableCell>
-              <TableCell align="center">{row.buySek}</TableCell>
-              <TableCell align="center">{row.sellSek}</TableCell>
+              <TableCell align="center">{row.buySek.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellSek.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">CZK</TableCell>
-              <TableCell align="center">{row.buyCzk}</TableCell>
-              <TableCell align="center">{row.sellCzk}</TableCell>
+              <TableCell align="center">{row.buyCzk.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellCzk.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">USD</TableCell>
-              <TableCell align="center">{row.buyCzk}</TableCell>
-              <TableCell align="center">{row.sellCzk}</TableCell>
+              <TableCell align="center">{row.buyCzk.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellCzk.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">GOLD</TableCell>
-              <TableCell align="center">{row.buyGold}</TableCell>
-              <TableCell align="center">{row.sellGold}</TableCell>
+              <TableCell align="center">{row.buyGold.toFixed(2)}</TableCell>
+              <TableCell align="center">{row.sellGold.toFixed(2)}</TableCell>
             </TableRow>
           </TableBody>
         ))}
