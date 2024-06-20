@@ -25,7 +25,7 @@ export default function RateWindow({
   setAlert,
   setMessage,
 }: DialogProps) {
-  const setUpdate = React.useContext(Update).setUpdate;
+  const setUpdate = React.useContext(Update).setUpdateRate;
 
   const [loading, setLoading] = React.useState(false);
   const department = getLocal("Department");
@@ -217,7 +217,7 @@ export default function RateWindow({
             margin="dense"
             id="gold"
             name="gold"
-            label="Золото-999(Купівля)"
+            label="GOLD/USD(Купівля)"
             type="number"
             inputProps={{
               step: "0.01",
@@ -341,7 +341,7 @@ export default function RateWindow({
             margin="dense"
             id="sell-gold"
             name="sell-gold"
-            label="Золото-999(Продаж)"
+            label="GOLD/USD(Продаж)"
             type="number"
             inputProps={{
               step: "0.01",
@@ -352,7 +352,7 @@ export default function RateWindow({
         </Box>
       </Box>
       <DialogActions
-        sx={{ display: "flex", justifyContent: "space-between", py: 1, px: 0 }}
+        sx={{ display: "flex", justifyContent: "flex-end", py: 1, px: 0 }}
       >
         <Button
           variant="contained"

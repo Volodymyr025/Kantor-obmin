@@ -7,11 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getLocal } from "@/ui/utils/getLocalStore";
+import { Update } from "@/ui/context-store/updatePayDesk";
 
 export default function RateTable() {
   const [data, setData] = useState([]);
+
+  const updateRate = useContext(Update).updateRate;
 
   let department = getLocal("Department");
 
@@ -32,7 +35,7 @@ export default function RateTable() {
     void (async () => {
       await getRateFromDB();
     })();
-  }, []);
+  }, [updateRate]);
 
   return data.length <= 0 ? (
     <Typography textAlign={"center"}>Курси ще не поставлені</Typography>
