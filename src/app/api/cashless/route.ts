@@ -33,6 +33,7 @@ export const GET = async (request: Request) => {
 };
 
 export const PATCH = async (request: Request) => {
+  console.log("reval");
   const req = await request.json();
   const [data] = req;
   try {

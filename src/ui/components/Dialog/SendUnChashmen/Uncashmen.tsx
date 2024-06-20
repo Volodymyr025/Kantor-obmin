@@ -224,11 +224,24 @@ export default function Uncashmen({
           value={cashList.length > 0 ? cashList[0].sendTo : cashStore.sendTo}
           fullWidth
         >
-          <MenuItem value={"Чортків"}>Чортків</MenuItem>
-          <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
-          <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
-          <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
-          <MenuItem value={"Administration"}>Administration</MenuItem>
+          <MenuItem value={"Чортків"} disabled={department === "Чортків"}>
+            Чортків
+          </MenuItem>
+          <MenuItem value={"Чортків10"} disabled={department === "Чортків10"}>
+            Чортків №10
+          </MenuItem>
+          <MenuItem value={"Чортків11"} disabled={department === "Чортків11"}>
+            Чортків №11
+          </MenuItem>
+          <MenuItem value={"Тернопіль8"} disabled={department === "Тернопіль8"}>
+            Тернопіль №8
+          </MenuItem>
+          <MenuItem
+            value={"Administration"}
+            disabled={department === "Administration"}
+          >
+            Administration
+          </MenuItem>
         </Select>
       </FormControl>
 

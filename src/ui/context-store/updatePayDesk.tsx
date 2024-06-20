@@ -6,6 +6,8 @@ interface UpdateProps {
   setUpdate: Dispatch<SetStateAction<boolean>>;
   updateRate: boolean;
   setUpdateRate: Dispatch<SetStateAction<boolean>>;
+  updateStepper: boolean;
+  setUpdateStepper: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Update = createContext<UpdateProps>({
@@ -13,11 +15,14 @@ export const Update = createContext<UpdateProps>({
   setUpdate: () => {},
   updateRate: false,
   setUpdateRate: () => {},
+  updateStepper: false,
+  setUpdateStepper: () => {},
 });
 
 const UpdatePaydeskWrapper = ({ children }: { children: React.ReactNode }) => {
   const [update, setUpdate] = useState(false);
   const [updateRate, setUpdateRate] = useState(false);
+  const [updateStepper, setUpdateStepper] = useState(false);
 
   return (
     <Update.Provider
@@ -26,6 +31,8 @@ const UpdatePaydeskWrapper = ({ children }: { children: React.ReactNode }) => {
         setUpdateRate: setUpdateRate,
         setUpdate: setUpdate,
         update: update,
+        updateStepper: updateStepper,
+        setUpdateStepper: setUpdateStepper,
       }}
     >
       {children}
