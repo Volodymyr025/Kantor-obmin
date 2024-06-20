@@ -87,6 +87,7 @@ export default function RateWindow({
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
+      sx={{ form: { p: 2 } }}
       PaperProps={{
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
@@ -95,288 +96,284 @@ export default function RateWindow({
         },
       }}
     >
-      <DialogTitle>Курси валют</DialogTitle>
-      <DialogContent>
-        <DialogContentText>Поставте будь-ласка курси валют</DialogContentText>
-        <Box display={"flex"} gap={1}>
-          <Box>
-            <Typography sx={{ textAlign: "center" }}>Купівля</Typography>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="usd"
-              name="usd"
-              label="Американський долар(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="eur"
-              name="eur"
-              label="Євро(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="gbp"
-              name="gbp"
-              label="Англійський фунти(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="pln"
-              name="pln"
-              label="Польський злотий(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="cad"
-              name="cad"
-              label="Канадський долар(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="chf"
-              name="chf"
-              label="Швейцарський франк(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sek"
-              name="sek"
-              label="Швецька крона(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="czk"
-              name="czk"
-              label="Чешська крона(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="nok"
-              name="nok"
-              label="Норвежська крона(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="gold"
-              name="gold"
-              label="Золото-999(Купівля)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-          </Box>
-          <Box>
-            <Typography sx={{ textAlign: "center" }}>Продаж</Typography>
+      <DialogTitle textAlign={"center"}>Курси валют</DialogTitle>
 
-            <TextField
-              margin="dense"
-              id="sell-usd"
-              name="sell-usd"
-              label="Американський долар(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-eur"
-              name="sell-eur"
-              label="Євро(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-gbp"
-              name="sell-gbp"
-              label="Англійський фунти(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-pln"
-              name="sell-pln"
-              label="Польський злотий(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-cad"
-              name="sell-cad"
-              label="Канадський долар(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-chf"
-              name="sell-chf"
-              label="Швейцарський франк(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-sek"
-              name="sell-sek"
-              label="Швецька крона(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-czk"
-              name="sell-czk"
-              label="Чешська крона(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-nok"
-              name="sell-nok"
-              label="Норвежська крона(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="sell-gold"
-              name="sell-gold"
-              label="Золото-999(Продаж)"
-              type="number"
-              inputProps={{
-                step: "0.01",
-              }}
-              fullWidth
-              variant="standard"
-            />
-          </Box>
+      <DialogContentText textAlign={"center"} pb={2}>
+        Поставте будь-ласка курси валют
+      </DialogContentText>
+      <Box display={"flex"} gap={1}>
+        <Box>
+          <Typography sx={{ textAlign: "center" }}>Купівля</Typography>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="usd"
+            name="usd"
+            label="Американський долар(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="eur"
+            name="eur"
+            label="Євро(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="gbp"
+            name="gbp"
+            label="Англійський фунти(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="pln"
+            name="pln"
+            label="Польський злотий(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="cad"
+            name="cad"
+            label="Канадський долар(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="chf"
+            name="chf"
+            label="Швейцарський франк(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sek"
+            name="sek"
+            label="Швецька крона(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="czk"
+            name="czk"
+            label="Чешська крона(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="nok"
+            name="nok"
+            label="Норвежська крона(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="gold"
+            name="gold"
+            label="Золото-999(Купівля)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
         </Box>
-      </DialogContent>
-      <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Link href={"/"}>
-          <Button variant="contained" color="info" disabled={loading}>
-            Поставлені курси
-          </Button>
-        </Link>
-        <Box display={"flex"} gap={"15px"}>
-          <Button
-            variant="contained"
-            color="error"
-            disabled={loading}
-            onClick={() => setOpen(false)}
-          >
-            Відміна
-          </Button>
-          <Button
-            variant="contained"
-            disabled={loading}
-            color="success"
-            type="submit"
-          >
-            {loading ? (
-              <CircularProgress size={25} title="Підтвердити" />
-            ) : (
-              "Підтвердити"
-            )}
-          </Button>
+        <Box>
+          <Typography sx={{ textAlign: "center" }}>Продаж</Typography>
+
+          <TextField
+            margin="dense"
+            id="sell-usd"
+            name="sell-usd"
+            label="Американський долар(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-eur"
+            name="sell-eur"
+            label="Євро(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-gbp"
+            name="sell-gbp"
+            label="Англійський фунти(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-pln"
+            name="sell-pln"
+            label="Польський злотий(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-cad"
+            name="sell-cad"
+            label="Канадський долар(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-chf"
+            name="sell-chf"
+            label="Швейцарський франк(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-sek"
+            name="sell-sek"
+            label="Швецька крона(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-czk"
+            name="sell-czk"
+            label="Чешська крона(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-nok"
+            name="sell-nok"
+            label="Норвежська крона(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            margin="dense"
+            id="sell-gold"
+            name="sell-gold"
+            label="Золото-999(Продаж)"
+            type="number"
+            inputProps={{
+              step: "0.01",
+            }}
+            fullWidth
+            variant="standard"
+          />
         </Box>
+      </Box>
+      <DialogActions
+        sx={{ display: "flex", justifyContent: "space-between", py: 1, px: 0 }}
+      >
+        <Button
+          variant="contained"
+          color="error"
+          disabled={loading}
+          onClick={() => setOpen(false)}
+        >
+          Відміна
+        </Button>
+        <Button
+          variant="contained"
+          disabled={loading}
+          color="success"
+          type="submit"
+        >
+          {loading ? (
+            <CircularProgress size={25} title="Підтвердити" />
+          ) : (
+            "Підтвердити"
+          )}
+        </Button>
       </DialogActions>
     </Dialog>
   );
