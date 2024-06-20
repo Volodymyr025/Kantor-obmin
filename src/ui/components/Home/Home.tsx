@@ -8,7 +8,7 @@ import { verifyAuth } from "../Auth/lucia";
 import { redirect } from "next/navigation";
 import ExchangeBtn from "./ExchangeBtn";
 import RateBtn from "./RateBtn";
-import RateTable from "../Table/RateTable";
+import RateTable from "./WorkSpace/RateTable";
 import WorkSpace from "./WorkSpace/WorkSpace";
 
 export default async function Home() {
@@ -27,8 +27,6 @@ export default async function Home() {
           <ReportBtn />
         </Container>
         <CashStepper />
-        {/* <RateTable />
-        <PayDesk /> */}
         <WorkSpace />
       </Grid>
     </Grid>

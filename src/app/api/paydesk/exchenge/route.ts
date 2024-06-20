@@ -38,6 +38,21 @@ export const PATCH = async (request: Request) => {
 
     const exchenge = await Exchenge.create(exchengeModel);
 
+    if (selectedCurrency.includes("gold")) {
+      await PayDesk.findOneAndUpdate(
+        {
+          department: req.department,
+        },
+        {
+          [selectedCurrency]: (
+            +payDesk[selectedCurrency] + +exchenge.value
+          ).toFixed(2),
+          usd: (+payDesk.usd + +exchenge.totalValue).toFixed(2),
+        }
+      );
+      return NextResponse.json({ message: "Операція успішна" });
+    }
+
     await PayDesk.findOneAndUpdate(
       {
         department: req.department,

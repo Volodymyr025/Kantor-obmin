@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import RateTable from "../../Table/RateTable";
+import RateTable from "./RateTable";
 import PayDesk from "./PayDesk";
 import RateNBU from "./RateNBU";
 
