@@ -12,6 +12,7 @@ import {
   Box,
   CircularProgress,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Paper,
@@ -143,7 +144,7 @@ export default function Uncashmen({
   return (
     <Dialog
       open={open}
-      sx={{ form: { width: "100%" } }}
+      sx={{ form: { width: "100%", p: 2 } }}
       onClose={() => setOpen(false)}
       PaperProps={{
         component: "form",
@@ -154,109 +155,130 @@ export default function Uncashmen({
       }}
     >
       <DialogTitle>Інкасація</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Оберіть суму, валюту та відділення на яке хочете відправити
-        </DialogContentText>
-        <TextField
-          variant="outlined"
-          autoFocus
-          margin="dense"
-          id="sum"
+
+      <DialogContentText>
+        Оберіть суму, валюту та відділення на яке хочете відправити
+      </DialogContentText>
+      <TextField
+        variant="outlined"
+        autoFocus
+        margin="dense"
+        id="sum"
+        onChange={(e) =>
+          setCashStore((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        name="sum"
+        value={cashStore.sum}
+        label="Вкажіть суму відправки"
+        type="number"
+        fullWidth
+      />
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="currency">Оберіть валюту</InputLabel>
+        <Select
           onChange={(e) =>
             setCashStore((prev) => ({
               ...prev,
               [e.target.name]: e.target.value,
             }))
           }
-          name="sum"
-          value={cashStore.sum}
-          label="Вкажіть суму відправки"
-          type="number"
+          name="currency"
+          labelId="currency"
+          id="currency"
+          label="Оберіть валюту"
+          defaultValue={""}
+          value={cashStore.currency}
           fullWidth
-        />
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="currency">Оберіть валюту</InputLabel>
-          <Select
-            onChange={(e) =>
-              setCashStore((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            name="currency"
-            labelId="currency"
-            id="currency"
-            label="Оберіть валюту"
-            defaultValue={""}
-            value={cashStore.currency}
-            fullWidth
-          >
-            <MenuItem value={"uah"}>UAH</MenuItem>
-            <MenuItem value={"usd"}>USD</MenuItem>
-            <MenuItem value={"eur"}>EUR</MenuItem>
-            <MenuItem value={"gbp"}>GBP</MenuItem>
-            <MenuItem value={"pln"}>PLN</MenuItem>
-            <MenuItem value={"cad"}>CAD</MenuItem>
-            <MenuItem value={"chf"}>CHF</MenuItem>
-            <MenuItem value={"sek"}>SEK</MenuItem>
-            <MenuItem value={"czk"}>CZK</MenuItem>
-            <MenuItem value={"nok"}>NOK</MenuItem>
-            <MenuItem value={"gold"}>GOLD</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="select-sendTo">Оберіть відділення</InputLabel>
-          <Select
-            onChange={(e) =>
-              setCashStore((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            name="sendTo"
-            labelId="select-sendTo"
-            id="select-sendTo"
-            label="Оберіть відділення"
-            defaultValue={""}
-            disabled={cashList.length > 0}
-            value={cashList.length > 0 ? cashList[0].sendTo : cashStore.sendTo}
-            fullWidth
-          >
-            <MenuItem value={"Чортків"}>Чортків</MenuItem>
-            <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
-            <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
-            <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
-            <MenuItem value={"Administration"}>Administration</MenuItem>
-          </Select>
-        </FormControl>
-      </DialogContent>
-      <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box display={"flex"} gap={"15px"}>
-          <Button
-            variant="contained"
-            color="error"
-            disabled={loading}
-            onClick={handlerClose}
-          >
-            Відміна
-          </Button>
-          <Button onClick={addCashList} variant="contained" disabled={loading}>
-            Додати
-          </Button>
-        </Box>
-        <Button
-          variant="contained"
-          disabled={loading || cashList.length === 0}
-          color="success"
-          type="submit"
         >
-          {loading ? (
-            <CircularProgress size={25} title="Відправити" />
-          ) : (
-            "Відправити"
-          )}
-        </Button>
+          <MenuItem value={"uah"}>UAH</MenuItem>
+          <MenuItem value={"usd"}>USD</MenuItem>
+          <MenuItem value={"eur"}>EUR</MenuItem>
+          <MenuItem value={"gbp"}>GBP</MenuItem>
+          <MenuItem value={"pln"}>PLN</MenuItem>
+          <MenuItem value={"cad"}>CAD</MenuItem>
+          <MenuItem value={"chf"}>CHF</MenuItem>
+          <MenuItem value={"sek"}>SEK</MenuItem>
+          <MenuItem value={"czk"}>CZK</MenuItem>
+          <MenuItem value={"nok"}>NOK</MenuItem>
+          <MenuItem value={"gold"}>GOLD</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="select-sendTo">Оберіть відділення</InputLabel>
+        <Select
+          onChange={(e) =>
+            setCashStore((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }))
+          }
+          name="sendTo"
+          labelId="select-sendTo"
+          id="select-sendTo"
+          label="Оберіть відділення"
+          defaultValue={""}
+          disabled={cashList.length > 0}
+          value={cashList.length > 0 ? cashList[0].sendTo : cashStore.sendTo}
+          fullWidth
+        >
+          <MenuItem value={"Чортків"}>Чортків</MenuItem>
+          <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
+          <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
+          <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
+          <MenuItem value={"Administration"}>Administration</MenuItem>
+        </Select>
+      </FormControl>
+
+      <DialogActions
+        sx={{
+          p: 0,
+        }}
+      >
+        <Grid container gap={"15px"} justifyContent={"space-between"}>
+          <Grid item xs={12} sm={"auto"}>
+            <Grid container display={"flex"} gap={"15px"} flexWrap={"nowrap"}>
+              <Grid item xs={6} sm={"auto"} md={"auto"}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="error"
+                  disabled={loading}
+                  onClick={handlerClose}
+                >
+                  Відміна
+                </Button>
+              </Grid>
+              <Grid item xs={6} sm={"auto"} md={"auto"}>
+                <Button
+                  fullWidth
+                  onClick={addCashList}
+                  variant="contained"
+                  disabled={loading}
+                >
+                  Додати
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={"auto"} md={"auto"}>
+            <Button
+              fullWidth
+              variant="contained"
+              disabled={loading || cashList.length === 0}
+              color="success"
+              type="submit"
+            >
+              {loading ? (
+                <CircularProgress size={25} title="Відправити" />
+              ) : (
+                "Відправити"
+              )}
+            </Button>
+          </Grid>
+        </Grid>
       </DialogActions>
       <ListCurrency cashList={cashList} setCashList={setCashList} />
     </Dialog>
