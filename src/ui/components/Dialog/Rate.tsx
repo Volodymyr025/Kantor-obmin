@@ -109,7 +109,7 @@ export default function RateWindow({
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
-      sx={{ form: { p: 2 } }}
+      sx={{ form: { px: 2 } }}
       PaperProps={{
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
@@ -118,18 +118,15 @@ export default function RateWindow({
         },
       }}
     >
-      <DialogTitle textAlign={"center"}>Курси валют</DialogTitle>
-
-      <DialogContentText textAlign={"center"} pb={2}>
-        Поставте будь-ласка курси валют
-      </DialogContentText>
+      <DialogTitle textAlign={"center"} p={0.5}>
+        Курси валют
+      </DialogTitle>
       <Box display={"flex"} gap={1}>
         <Box>
           <Typography sx={{ textAlign: "center" }}>Купівля</Typography>
           <TextField
             autoFocus
             value={rate && rate.buyUsd}
-            margin="dense"
             id="usd"
             name="usd"
             label="Американський долар(Купівля)"
@@ -141,7 +138,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="eur"
             name="eur"
             label="Євро(Купівля)"
@@ -153,7 +149,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="gbp"
             name="gbp"
             label="Англійський фунти(Купівля)"
@@ -165,7 +160,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="pln"
             name="pln"
             label="Польський злотий(Купівля)"
@@ -177,7 +171,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="cad"
             name="cad"
             label="Канадський долар(Купівля)"
@@ -189,7 +182,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="chf"
             name="chf"
             label="Швейцарський франк(Купівля)"
@@ -201,7 +193,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sek"
             name="sek"
             label="Швецька крона(Купівля)"
@@ -213,7 +204,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="czk"
             name="czk"
             label="Чешська крона(Купівля)"
@@ -225,7 +215,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="nok"
             name="nok"
             label="Норвежська крона(Купівля)"
@@ -237,7 +226,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="gold"
             name="gold"
             label="GOLD/USD(Купівля)"
@@ -253,7 +241,6 @@ export default function RateWindow({
           <Typography sx={{ textAlign: "center" }}>Продаж</Typography>
 
           <TextField
-            margin="dense"
             id="sell-usd"
             name="sell-usd"
             label="Американський долар(Продаж)"
@@ -265,7 +252,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-eur"
             name="sell-eur"
             label="Євро(Продаж)"
@@ -277,7 +263,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-gbp"
             name="sell-gbp"
             label="Англійський фунти(Продаж)"
@@ -289,7 +274,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-pln"
             name="sell-pln"
             label="Польський злотий(Продаж)"
@@ -301,7 +285,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-cad"
             name="sell-cad"
             label="Канадський долар(Продаж)"
@@ -313,7 +296,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-chf"
             name="sell-chf"
             label="Швейцарський франк(Продаж)"
@@ -325,7 +307,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-sek"
             name="sell-sek"
             label="Швецька крона(Продаж)"
@@ -337,7 +318,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-czk"
             name="sell-czk"
             label="Чешська крона(Продаж)"
@@ -349,7 +329,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-nok"
             name="sell-nok"
             label="Норвежська крона(Продаж)"
@@ -361,7 +340,6 @@ export default function RateWindow({
             variant="standard"
           />
           <TextField
-            margin="dense"
             id="sell-gold"
             name="sell-gold"
             label="GOLD/USD(Продаж)"
