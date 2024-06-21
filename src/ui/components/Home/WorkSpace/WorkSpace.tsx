@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import RateTable from "./RateTable";
+import RateTable from "../../Table/RateTable";
 import PayDesk from "./PayDesk";
-import RateNBU from "./RateNBU";
+import RateNBU from "../../Table/RateNBUTable";
 
 export default function WorkSpace() {
   return (

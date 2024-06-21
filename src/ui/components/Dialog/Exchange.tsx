@@ -76,6 +76,7 @@ export default function ExchangeWindow({
         body: JSON.stringify({
           department,
           user,
+          rate,
           selectCurrency,
           operation: buySell,
           sumValue: buySell ? -sumValue : sumValue,

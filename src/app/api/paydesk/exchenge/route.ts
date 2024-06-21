@@ -13,6 +13,7 @@ export const PATCH = async (request: Request) => {
     department: req.department,
     user: req.user,
     operation: req.operation ? "sell" : "buy",
+    rate: +req.rate,
     value: +req.sumValue,
     totalValue: +req.totalValue,
   };
@@ -37,7 +38,7 @@ export const PATCH = async (request: Request) => {
     }
 
     const exchenge = await Exchenge.create(exchengeModel);
-
+    console.log(exchenge);
     if (selectedCurrency.includes("gold")) {
       await PayDesk.findOneAndUpdate(
         {

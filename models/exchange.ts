@@ -6,6 +6,7 @@ export const exchengeSchema = new mongoose.Schema(
     user: String,
     currency: String,
     operation: String,
+    rate: Number,
     value: Number,
     totalValue: Number,
   },
