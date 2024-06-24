@@ -80,7 +80,7 @@ export default function GetCashlessWindow({
         <Box display={"flex"} gap={1} flexWrap={"wrap"}>
           {data.map((item: any) => {
             return (
-              <Paper key={item._id} sx={{ p: 2, m: 2 }}>
+              <Paper key={item._id} sx={{ p: 2, my: 1 }}>
                 <Typography variant="h5">{item.department}</Typography>
                 {item.uah > 0 && <Typography>UAH:{item.uah}</Typography>}
                 {item.usd > 0 && <Typography>USD:{item.usd}</Typography>}
