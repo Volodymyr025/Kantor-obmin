@@ -1,16 +1,17 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
-import React, { useContext, useState } from "react";
-import SendReport from "../Dialog/SendReport";
+import React, { useState } from "react";
+import SendReport from "../../Dialog/SendReport";
+import ExchangeWindow from "../../Dialog/Exchange";
 
-export default function ReportBtn() {
+export default function ExchangeBtn() {
   const [openDialog, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [message, setMessage] = useState("");
 
   return (
     <>
-      <SendReport
+      <ExchangeWindow
         open={openDialog}
         setOpen={setOpen}
         setAlert={setOpenAlert}
@@ -22,8 +23,13 @@ export default function ReportBtn() {
         message={message}
         onClose={() => setOpenAlert(false)}
       />
-      <Button color="success" variant="contained" onClick={() => setOpen(true)}>
-        Дебет/Кредит
+      <Button
+        fullWidth
+        color="success"
+        variant="contained"
+        onClick={() => setOpen(true)}
+      >
+        Обмін
       </Button>
     </>
   );

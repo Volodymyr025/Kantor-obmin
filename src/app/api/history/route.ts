@@ -10,12 +10,20 @@ export const POST = async (request: Request) => {
     const startOfDay = new Date(reqData.date).setHours(0, 0, 0, 0);
     const endOfDay = new Date(reqData.date).setHours(23, 59, 59, 999);
 
-    const exchenges = await Exchenge.find({
-      department: reqData.department.toString(),
-      createdAt: { $gte: startOfDay, $lte: endOfDay },
-    });
-
-    return NextResponse.json(exchenges);
+    if (reqData.operation) {
+      const exchenges = await Exchenge.find({
+        department: reqData.department.toString(),
+        createdAt: { $gte: startOfDay, $lte: endOfDay },
+      });
+      return NextResponse.json(exchenges);
+    } else {
+      const exchenges = await Exchenge.find({
+        department: reqData.department.toString(),
+        user: reqData.user,
+        createdAt: { $gte: startOfDay, $lte: endOfDay },
+      });
+      return NextResponse.json(exchenges);
+    }
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error to find rate", err },

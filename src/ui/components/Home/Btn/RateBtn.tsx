@@ -1,8 +1,8 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
 import React, { useState } from "react";
-import SendReport from "../Dialog/SendReport";
-import RateWindow, { RateType } from "../Dialog/Rate";
+import SendReport from "../../Dialog/SendReport";
+import RateWindow, { RateType } from "../../Dialog/Rate";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function RateBtn() {
@@ -42,6 +42,7 @@ export default function RateBtn() {
         onClose={() => setOpenAlert(false)}
       />
       <Button
+        fullWidth
         color="success"
         variant="contained"
         onClick={() => {
