@@ -1,12 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "@/ui/components/Header/Header";
-import TableList from "@/ui/components/Table/PayDeskTable";
 
 import { getLocal } from "@/ui/utils/getLocalStore";
-import { Box, Button, Grid, TextField } from "@mui/material";
-import { DateField, DatePicker } from "@mui/x-date-pickers";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { Box, Button, Grid } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import HistoryTable from "@/ui/components/Table/HistoryTable";
@@ -24,11 +22,11 @@ export default function History() {
   const user = getLocal("User");
   const department = getLocal("Department");
 
-  const getExchengeFromDB = async () => {
+  const getExchengeFromDB = async (operation: boolean) => {
     try {
       const req = await fetch("/api/history", {
         method: "POST",
-        body: JSON.stringify({ user, department, date }),
+        body: JSON.stringify({ user, department, date, operation: operation }),
       });
       const res = await req.json();
       setValue(res);
@@ -40,18 +38,32 @@ export default function History() {
   return (
     <>
       <Header />
-      <Box sx={{ pt: 8 }}>
+      <Box sx={{ pt: 10 }}>
         <Grid container p={2} gap={2} alignItems={"center"}>
-          <Grid item md={2}>
-            <Button fullWidth onClick={getExchengeFromDB} variant="contained">
-              Відділення
+          <Grid item xs={12} md={3}>
+            <Button
+              fullWidth
+              onClick={() => getExchengeFromDB(true)}
+              variant="contained"
+            >
+              Обмінка відділення
             </Button>
           </Grid>
-          <Grid item md={3}>
+          <Grid item xs={12} md={3}>
+            <Button
+              fullWidth
+              onClick={() => getExchengeFromDB(false)}
+              variant="contained"
+            >
+              Обмінка касира
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={3}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 sx={{
-                  input: { fontSize: 12 },
+                  width: "100%",
+                  input: { fontSize: 16, p: 1 },
                 }}
                 format="DD/MM/YYYY"
                 onChange={(e) => e && setDate(`${e.format("YYYY/MM/DD")}`)}
