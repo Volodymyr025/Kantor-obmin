@@ -33,7 +33,7 @@ export interface DialogProps {
   setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function SendReport({
+export default function SendDebitCredit({
   open,
   setOpen,
   setAlert,
@@ -47,7 +47,7 @@ export default function SendReport({
   const postFormDataToMongoDB = async (report: {}) => {
     setUpdate(true);
     try {
-      const response = await fetch("/api/report", {
+      const response = await fetch("/api/debitCredit", {
         method: "POST",
         body: JSON.stringify(report),
       });

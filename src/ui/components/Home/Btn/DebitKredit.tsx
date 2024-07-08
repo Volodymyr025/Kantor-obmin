@@ -1,16 +1,16 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
 import React, { useContext, useState } from "react";
-import SendReport from "../../Dialog/SendReport";
+import SendDebitCredit from "../../Dialog/SendDebitCredit";
 
-export default function ReportBtn() {
+export default function DebitCreditBtn() {
   const [openDialog, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [message, setMessage] = useState("");
 
   return (
     <>
-      <SendReport
+      <SendDebitCredit
         open={openDialog}
         setOpen={setOpen}
         setAlert={setOpenAlert}
