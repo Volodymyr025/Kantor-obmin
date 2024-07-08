@@ -1,7 +1,7 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
 import React, { useState } from "react";
-import SendReport from "../../Dialog/SendReport";
+import SendReport from "../../Dialog/SendDebitCredit";
 import ExchangeWindow from "../../Dialog/Exchange";
 
 export default function ExchangeBtn() {

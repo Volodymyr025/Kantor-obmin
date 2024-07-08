@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
 import PayDesk from "./WorkSpace/PayDesk";
-import ReportBtn from "./Btn/ReportBtn";
+import DebitCreditBtn from "./Btn/DebitKredit";
 import SendCashBtn from "./Btn/SendCashBtn";
 import CashStepper from "./Stepper";
 import { verifyAuth } from "../Auth/lucia";
@@ -32,7 +32,7 @@ export default async function Home() {
         <RateBtn />
       </Grid>
       <Grid item xs={12} sm={"auto"}>
-        <ReportBtn />
+        <DebitCreditBtn />
       </Grid>
       <Grid item xs={12} sm={"auto"}>
         <HistoryBtn />

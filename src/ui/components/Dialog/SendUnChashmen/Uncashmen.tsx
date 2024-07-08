@@ -124,7 +124,6 @@ export default function Uncashmen({
       department: department,
       user: user,
       sendTo: cashList[0].sendTo,
-      process: "processing",
     };
     cashList.forEach((item) => {
       const currency = item.currency.toLowerCase() as Currency;
@@ -134,6 +133,7 @@ export default function Uncashmen({
         sendObj[currency] += sum;
       }
     });
+
     await postFormDataToMongoDB(sendObj);
     setUpdate(false);
     setLoading(false);
