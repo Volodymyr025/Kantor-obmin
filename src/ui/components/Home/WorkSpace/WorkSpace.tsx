@@ -3,7 +3,8 @@ import React from "react";
 import RateTable from "../../Table/RateTable";
 import PayDesk from "./PayDesk";
 import RateNBU from "../../Table/RateNBUTable";
-import OkoTable from "../../Table/OkoTable";
+import OkoDesk from "./OkoDesk";
+import AllDesk from "./AllDesk";
 
 export default function WorkSpace() {
   return (
@@ -12,11 +13,14 @@ export default function WorkSpace() {
         <RateTable />
       </Grid>
       <Grid item md={4} xs={12}>
-        <PayDesk />
+        <AllDesk />
       </Grid>
       <Grid item md={3.6} xs={12}>
         {/* <RateNBU /> */}
-        <OkoTable />
+        <PayDesk />
+      </Grid>
+      <Grid item md={3.6} xs={12}>
+        <OkoDesk />
       </Grid>
     </Grid>
   );

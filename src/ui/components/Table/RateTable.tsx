@@ -40,9 +40,14 @@ export default function RateTable() {
   return data.length <= 0 ? (
     <Typography textAlign={"center"}>Курси ще не поставлені</Typography>
   ) : (
-    <TableContainer component={Paper} sx={{ height: 700, p: 1 }}>
-      <Typography sx={{ fontSize: 26, textAlign: "center" }}>Курси</Typography>
-      <Table aria-label="simple table">
+    <TableContainer component={Paper} sx={{ p: 1, height: "100%" }}>
+      <Typography sx={{ fontSize: 18, textAlign: "center", fontWeight: 600 }}>
+        Курси
+      </Typography>
+      <Table
+        aria-label="simple table"
+        sx={{ td: { p: 0.5 }, th: { p: 0.5, fontWeight: 550 } }}
+      >
         <TableHead>
           <TableRow>
             <TableCell align="center">Валюта</TableCell>
