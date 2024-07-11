@@ -13,6 +13,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import { useFormState, useFormStatus } from "react-dom";
@@ -62,6 +65,8 @@ const SubmitButton = ({ userName, department }: ButtonType) => {
 export default function AuthForm() {
   const [formState, formAction] = useFormState(login, {});
   const [open, setOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
+  const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [department, setDepartment] = useState("");
 
@@ -128,13 +133,22 @@ export default function AuthForm() {
             name="password"
             label="Пароль"
             fullWidth
-            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            type={showPassword ? "password" : "text"}
             variant="outlined"
             required
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <LockIcon />
+                </InputAdornment>
+              ),
+              endAdornment: password.length > 0 && (
+                <InputAdornment
+                  position="start"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </InputAdornment>
               ),
             }}

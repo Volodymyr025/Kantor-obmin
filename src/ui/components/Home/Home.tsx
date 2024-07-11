@@ -12,6 +12,7 @@ import RateTable from "../Table/RateTable";
 import WorkSpace from "./WorkSpace/WorkSpace";
 import { hashPassword } from "../Auth/hash";
 import HistoryBtn from "./Btn/HistoryBtn";
+import ReportBtn from "./Btn/ReportBtn";
 
 export default async function Home() {
   const resultAuth = await verifyAuth();
@@ -36,6 +37,9 @@ export default async function Home() {
       </Grid>
       <Grid item xs={12} sm={"auto"}>
         <HistoryBtn />
+      </Grid>
+      <Grid item xs={12} sm={"auto"}>
+        <ReportBtn />
       </Grid>
 
       <CashStepper />
