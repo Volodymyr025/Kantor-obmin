@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const payDeskSchema = new mongoose.Schema(
+const reportDeskSchema = new mongoose.Schema(
   {
     uah: Number,
     usd: Number,
@@ -19,7 +19,7 @@ export const payDeskSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const PayDesk =
-  mongoose.models.PayDesk || mongoose.model("PayDesk", payDeskSchema);
+const ReportDesk =
+  mongoose.models.ReportDesk || mongoose.model("ReportDesk", reportDeskSchema);
 
-export default PayDesk;
+export default ReportDesk;

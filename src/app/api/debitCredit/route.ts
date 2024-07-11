@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
-import Report from "../../../../models/report";
+import DebitCredit from "../../../../models/debitCredit";
 import PayDesk from "../../../../models/payDesk";
 
 export const POST = async (request: Request) => {
   try {
     const req = await request.json();
+
     const currency = await req.currency;
     await conectToDB();
 
@@ -20,14 +21,14 @@ export const POST = async (request: Request) => {
       });
     }
 
-    await Report.create(req);
+    await DebitCredit.create(req);
 
     await PayDesk.findOneAndUpdate(
       { department: req.department },
       { [currency]: +payDesk[currency] + +req.value }
     );
 
-    return NextResponse.json({ message: "Звіт відправлено" }, { status: 201 });
+    return NextResponse.json({ message: "Виконано" }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error is created", err },
@@ -39,11 +40,11 @@ export const POST = async (request: Request) => {
 export const PATCH = async (request: Request) => {
   try {
     await conectToDB();
-    const report = await Report.find();
-    return NextResponse.json(report);
+    const debitCredit = await DebitCredit.find();
+    return NextResponse.json(debitCredit);
   } catch (err: any) {
     return NextResponse.json(
-      { message: "Error to find report", err },
+      { message: "Error to find DebitCredit", err },
       { status: 500 }
     );
   }
