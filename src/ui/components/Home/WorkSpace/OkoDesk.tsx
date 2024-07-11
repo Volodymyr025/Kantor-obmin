@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import PayDeskTable from "./PayDeskTable";
+import PayDeskTable from "../../Table/PayDeskTable";
 import { getLocal } from "@/ui/utils/getLocalStore";
 import { Grid } from "@mui/material";
 
-export default function OkoTable() {
+export default function OkoDesk() {
   const [data, setData] = useState<[]>([]);
   const department = getLocal("Department");
 
@@ -29,7 +29,7 @@ export default function OkoTable() {
   return (
     <Grid container sx={{ gap: 2, justifyContent: "center" }}>
       <Grid item md={12} sm={12} xs={12}>
-        <PayDeskTable data={data} title={"OKO каса"} />
+        <PayDeskTable data={data} title={"OKO каса"} height={350} />
       </Grid>
     </Grid>
   );

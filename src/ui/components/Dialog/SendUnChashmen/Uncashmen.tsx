@@ -123,6 +123,7 @@ export default function Uncashmen({
       gold: 0,
       department: department,
       user: user,
+      process: "processing",
       sendTo: cashList[0].sendTo,
     };
     cashList.forEach((item) => {

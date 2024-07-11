@@ -5,10 +5,8 @@ import UnCashMen from "../../../../models/сashSend";
 
 export const POST = async (request: Request) => {
   const reqData = await request.json();
-
   try {
     await conectToDB();
-    await UnCashMen.create(reqData);
 
     const [payDesk] = await PayDesk.find({ department: reqData.department });
 
@@ -53,6 +51,8 @@ export const POST = async (request: Request) => {
         gold: result.gold,
       }
     );
+    console.log(reqData);
+    await UnCashMen.create(reqData);
 
     return NextResponse.json(
       { message: "Інкасацію відправлено" },

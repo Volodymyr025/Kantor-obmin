@@ -58,7 +58,7 @@ export const POST = async (request: Request) => {
     await ReportDesk.findOneAndUpdate(
       { department: reqData.department },
       {
-        uah: reportDeskObj.uah + reqData.sellUah - reqData.buyUah,
+        uah: reportDeskObj.uah + reqData.buyUah - reqData.sellUah,
         usd: reportDeskObj.usd + reqData.sellUsd - reqData.buyUsd,
         eur: reportDeskObj.eur + reqData.sellEur - reqData.buyEur,
         gbp: reportDeskObj.gbp + reqData.sellGbp - reqData.buyGbp,

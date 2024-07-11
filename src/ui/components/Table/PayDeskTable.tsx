@@ -10,17 +10,23 @@ import { Typography } from "@mui/material";
 interface TableProps {
   data: [];
   title: string;
+  height?: number;
 }
 
 export default function PayDeskTable({ data, title }: TableProps) {
   return (
     <>
       {data.length > 0 && (
-        <TableContainer component={Paper} sx={{ height: 700, p: 1 }}>
-          <Typography sx={{ fontSize: 26, textAlign: "center" }}>
+        <TableContainer component={Paper} sx={{ p: 1 }}>
+          <Typography
+            sx={{ fontSize: 18, textAlign: "center", fontWeight: 600 }}
+          >
             {title}
           </Typography>
-          <Table aria-label="simple table">
+          <Table
+            aria-label="simple table"
+            sx={{ td: { p: 0.5 }, th: { p: 0.5, fontWeight: 550 } }}
+          >
             <TableHead>
               <TableRow>
                 <TableCell align="center">Сума</TableCell>
