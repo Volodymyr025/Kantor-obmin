@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, CircularProgress, Paper, Typography } from "@mui/material";
 import { Update } from "@/ui/context-store/updatePayDesk";
+import Checkbox from "@mui/material/Checkbox";
 
 export interface DialogProps {
   open: boolean;
@@ -25,6 +26,7 @@ export default function GetCashlessWindow({
   data,
 }: DialogProps) {
   const [loading, setLoading] = React.useState(false);
+  const [select, setSelect] = React.useState<[]>([]);
   const setUpdateStepper = React.useContext(Update).setUpdateStepper;
   const setUpdatePaydesk = React.useContext(Update).setUpdate;
 
@@ -35,7 +37,7 @@ export default function GetCashlessWindow({
     try {
       const response = await fetch("/api/cashless", {
         method: "PATCH",
-        body: JSON.stringify(data),
+        body: JSON.stringify(select),
       });
       if (!response.ok) {
         throw new Error("Field to update cashless");
@@ -47,6 +49,15 @@ export default function GetCashlessWindow({
     }
   };
 
+  const toggleSelected = (item: {}) => {
+    setSelect((prev: any) => {
+      if (prev.includes(item)) {
+        return prev.filter((id: string) => id !== item);
+      }
+      return [...prev, item];
+    });
+  };
+
   const submit = async () => {
     await getCashless();
     setOpen(false);
@@ -54,6 +65,11 @@ export default function GetCashlessWindow({
     setLoading(false);
     setUpdateStepper(false);
     setUpdatePaydesk(false);
+  };
+
+  const closeWindow = () => {
+    setOpen(false);
+    setSelect([]);
   };
 
   return (
@@ -80,7 +96,11 @@ export default function GetCashlessWindow({
         <Box display={"flex"} gap={1} flexWrap={"wrap"}>
           {data.map((item: any) => {
             return (
-              <Paper key={item._id} sx={{ p: 2, my: 1 }}>
+              <Paper key={item._id} sx={{ p: 2, my: 1, position: "relative" }}>
+                <Checkbox
+                  onClick={() => toggleSelected(item)}
+                  sx={{ position: "absolute", top: 5, right: 5 }}
+                />
                 <Typography variant="h5">{item.department}</Typography>
                 {item.uah > 0 && <Typography>UAH:{item.uah}</Typography>}
                 {item.usd > 0 && <Typography>USD:{item.usd}</Typography>}
@@ -105,13 +125,13 @@ export default function GetCashlessWindow({
             variant="contained"
             color="error"
             disabled={loading}
-            onClick={() => setOpen(false)}
+            onClick={closeWindow}
           >
             Відміна
           </Button>
           <Button
             variant="contained"
-            disabled={loading}
+            disabled={loading || select.length <= 0}
             color="success"
             type="submit"
           >
