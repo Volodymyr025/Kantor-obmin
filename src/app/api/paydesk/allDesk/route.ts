@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import PayDesk from "../../../../../models/payDesk";
 import ReportDesk from "../../../../../models/reportDesk";
+import GeneralDesk from "../../../../../models/generalPayDesk";
 
 export const POST = async (request: Request) => {
   try {
@@ -11,7 +12,6 @@ export const POST = async (request: Request) => {
     const [payDeskOko] = await ReportDesk.find({ department: department });
 
     const allPayDesk = {
-      _id: payDeskDepart._id,
       uah: payDeskDepart.uah + payDeskOko.uah,
       usd: payDeskDepart.usd + payDeskOko.usd,
       eur: payDeskDepart.eur + payDeskOko.eur,
@@ -23,13 +23,22 @@ export const POST = async (request: Request) => {
       czk: payDeskDepart.czk + payDeskOko.czk,
       nok: payDeskDepart.nok + payDeskOko.nok,
       gold: payDeskDepart.gold + payDeskOko.gold,
+      department,
     };
 
     if (!allPayDesk) {
       return NextResponse.json([]);
     }
+    const generalPayDesk = await GeneralDesk.findOne({ department });
 
-    return NextResponse.json([allPayDesk]);
+    if (JSON.stringify(generalPayDesk) !== JSON.stringify(allPayDesk)) {
+      if (!generalPayDesk) {
+        await GeneralDesk.create(allPayDesk);
+      } else await GeneralDesk.findOneAndUpdate({ department }, allPayDesk);
+    }
+    const newGeneralPayDesk = await GeneralDesk.findOne({ department });
+
+    return NextResponse.json([newGeneralPayDesk]);
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error to find report", err },
