@@ -11,6 +11,10 @@ export const POST = async (request: Request) => {
     const [payDeskDepart] = await PayDesk.find({ department: department });
     const [payDeskOko] = await ReportDesk.find({ department: department });
 
+    if (!payDeskDepart || !payDeskOko) {
+      return NextResponse.json([]);
+    }
+
     const allPayDesk = {
       uah: payDeskDepart.uah + payDeskOko.uah,
       usd: payDeskDepart.usd + payDeskOko.usd,
@@ -26,9 +30,6 @@ export const POST = async (request: Request) => {
       department,
     };
 
-    if (!allPayDesk) {
-      return NextResponse.json([]);
-    }
     const generalPayDesk = await GeneralDesk.findOne({ department });
 
     if (JSON.stringify(generalPayDesk) !== JSON.stringify(allPayDesk)) {
