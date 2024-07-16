@@ -32,7 +32,7 @@ export default function WorkSpace({ role }: WorkSpaceProps) {
             selectDesk.map((item: { department: string }) => {
               return (
                 <Grid item md={3.8} xs={12} key={item.department}>
-                  <PayDeskTable data={[item]} title={item.department} />;
+                  <PayDeskTable data={[item]} title={item.department} />
                 </Grid>
               );
             })}

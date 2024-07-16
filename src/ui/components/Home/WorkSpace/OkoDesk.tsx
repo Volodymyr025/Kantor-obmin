@@ -1,11 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PayDeskTable from "../../Table/PayDeskTable";
 import { getLocal } from "@/ui/utils/getLocalStore";
 import { Grid } from "@mui/material";
+import { Update } from "@/ui/context-store/updatePayDesk";
 
 export default function OkoDesk() {
   const [data, setData] = useState<[]>([]);
+  const updatePayDesk = useContext(Update).update;
   const department = getLocal("Department");
 
   const getPayDesksFromDB = async () => {
@@ -24,7 +26,7 @@ export default function OkoDesk() {
     void (async () => {
       await getPayDesksFromDB();
     })();
-  }, []);
+  }, [updatePayDesk]);
 
   return (
     <Grid container sx={{ gap: 2, justifyContent: "center" }}>
