@@ -225,16 +225,23 @@ export default function Uncashmen({
           value={cashList.length > 0 ? cashList[0].sendTo : cashStore.sendTo}
           fullWidth
         >
-          <MenuItem value={"Чортків"} disabled={department === "Чортків"}>
-            Чортків
-          </MenuItem>
-          <MenuItem value={"Чортків10"} disabled={department === "Чортків10"}>
+          <MenuItem value={"Чортків-10"} disabled={department === "Чортків-10"}>
             Чортків №10
           </MenuItem>
-          <MenuItem value={"Чортків11"} disabled={department === "Чортків11"}>
+          <MenuItem value={"Чортків-11"} disabled={department === "Чортків-11"}>
             Чортків №11
           </MenuItem>
-          <MenuItem value={"Тернопіль8"} disabled={department === "Тернопіль8"}>
+          <MenuItem
+            value={"Чортків-РВС"}
+            disabled={department === "Чортків-РВС"}
+          >
+            Чортків-РВС
+          </MenuItem>
+
+          <MenuItem
+            value={"Тернопіль-8"}
+            disabled={department === "Тернопіль-8"}
+          >
             Тернопіль №8
           </MenuItem>
           <MenuItem

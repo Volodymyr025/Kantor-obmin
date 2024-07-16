@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import DebitCredit from "../../../../models/debitCredit";
 import PayDesk from "../../../../models/payDesk";
+import { equal } from "assert";
 
 export const POST = async (request: Request) => {
   try {
@@ -9,10 +10,24 @@ export const POST = async (request: Request) => {
 
     const currency = await req.currency;
     await conectToDB();
-
     const payDesk = await PayDesk.findOne({ department: req.department });
     if (!payDesk) {
-      return NextResponse.json({ message: "Касу не знайдено" });
+      await PayDesk.create({
+        department: req.department,
+        user: req.user,
+        uah: 0,
+        usd: 0,
+        eur: 0,
+        gbp: 0,
+        pln: 0,
+        cad: 0,
+        chf: 0,
+        sek: 0,
+        czk: 0,
+        nok: 0,
+        gold: 0,
+      });
+      return NextResponse.json({ message: "Касу створено" });
     }
 
     if (+payDesk[currency] + +req.value < 0) {

@@ -31,6 +31,7 @@ export default function PayDesk() {
       await getPayDesksFromDB();
     })();
   }, [updatePayDesk]);
+
   return (
     <Grid container sx={{ gap: 2, justifyContent: "center" }}>
       <Grid item md={12} sm={12} xs={12}>

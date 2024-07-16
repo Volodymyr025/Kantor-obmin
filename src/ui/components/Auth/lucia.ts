@@ -20,11 +20,22 @@ const lucia = new Lucia(adapter, {
       secure: process.env.NODE_ENV === "production",
     },
   },
+  getUserAttributes: (attributes) => {
+    return {
+      id: attributes.id,
+      department: attributes.department,
+    };
+  },
 });
 
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
+    DatabaseUserAttributes: UserAttributes;
+  }
+  interface UserAttributes {
+    id: string;
+    department: string;
   }
 }
 

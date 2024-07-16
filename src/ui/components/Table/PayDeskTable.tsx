@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 
 interface TableProps {
-  data: [];
+  data: {}[];
   title: string;
   height?: number;
 }
