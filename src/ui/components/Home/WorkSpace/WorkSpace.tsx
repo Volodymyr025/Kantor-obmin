@@ -1,27 +1,52 @@
+"use client";
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import RateTable from "../../Table/RateTable";
 import PayDesk from "./PayDesk";
 import RateNBU from "../../Table/RateNBUTable";
 import OkoDesk from "./OkoDesk";
 import AllDesk from "./AllDesk";
+import DepartSelect from "../DepartBtn/DepartSelect";
+import PayDeskTable from "../../Table/PayDeskTable";
 
-export default function WorkSpace() {
+interface WorkSpaceProps {
+  role: boolean;
+}
+
+export default function WorkSpace({ role }: WorkSpaceProps) {
+  const [selectDesk, setSelectDesk] = useState<[]>([]);
+
   return (
     <Grid container pt={2} gap={2} justifyContent={"flex-start"}>
-      <Grid item md={3.9} xs={12}>
+      {role && <DepartSelect setSelectDesk={setSelectDesk} />}
+      <Grid item md={3.8} xs={12}>
         <RateTable />
       </Grid>
-      <Grid item md={4} xs={12}>
-        <AllDesk />
-      </Grid>
-      <Grid item md={3.6} xs={12}>
+      <Grid item md={3.8} xs={12}>
         {/* <RateNBU /> */}
         <PayDesk />
       </Grid>
-      <Grid item md={3.6} xs={12}>
-        <OkoDesk />
-      </Grid>
+      {role ? (
+        <>
+          {selectDesk.length > 0 &&
+            selectDesk.map((item: { department: string }) => {
+              return (
+                <Grid item md={3.8} xs={12} key={item.department}>
+                  <PayDeskTable data={[item]} title={item.department} />;
+                </Grid>
+              );
+            })}
+        </>
+      ) : (
+        <>
+          <Grid item md={3.8} xs={12}>
+            <AllDesk />
+          </Grid>
+          <Grid item md={3.8} xs={12}>
+            <OkoDesk />
+          </Grid>
+        </>
+      )}
     </Grid>
   );
 }

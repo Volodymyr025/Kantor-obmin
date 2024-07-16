@@ -25,6 +25,10 @@ export const POST = async (request: Request) => {
       gold: payDeskDepart.gold + payDeskOko.gold,
     };
 
+    if (!allPayDesk) {
+      return NextResponse.json([]);
+    }
+
     return NextResponse.json([allPayDesk]);
   } catch (err: any) {
     return NextResponse.json(

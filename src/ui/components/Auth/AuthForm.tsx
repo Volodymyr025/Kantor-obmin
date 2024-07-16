@@ -163,10 +163,10 @@ export default function AuthForm() {
               defaultValue={""}
             >
               <MenuItem value={"Administration"}>Administration</MenuItem>
-              <MenuItem value={"Чортків"}>Чортків</MenuItem>
-              <MenuItem value={"Чортків10"}>Чортків №10</MenuItem>
-              <MenuItem value={"Чортків11"}>Чортків №11</MenuItem>
-              <MenuItem value={"Тернопіль8"}>Тернопіль №8</MenuItem>
+              <MenuItem value={"Чортків-РВС"}>Чортків-RwS</MenuItem>
+              <MenuItem value={"Чортків-10"}>Чортків №10</MenuItem>
+              <MenuItem value={"Чортків-11"}>Чортків №11</MenuItem>
+              <MenuItem value={"Тернопіль-8"}>Тернопіль №8</MenuItem>
             </Select>
           </FormControl>
           <SubmitButton userName={userName} department={department} />
