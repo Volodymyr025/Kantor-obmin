@@ -126,7 +126,6 @@ export default function RateWindow({
           <Typography sx={{ textAlign: "center" }}>Купівля</Typography>
           <TextField
             autoFocus
-            value={rate && rate.buyUsd}
             id="usd"
             name="usd"
             label="Американський долар(Купівля)"
