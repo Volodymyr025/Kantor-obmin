@@ -9,6 +9,7 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  LinearProgress,
   MenuItem,
   Select,
   TextField,
@@ -16,7 +17,8 @@ import {
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import HistoryTable from "@/ui/components/Table/HistoryTable";
+import ExchengeTable from "./table/ExchengeTable";
+import Main from "./table/Main";
 
 const today = new Date();
 
@@ -26,49 +28,67 @@ const transformData = `${today.getFullYear()}-${(today.getMonth() + 1)
 
 export default function History() {
   const [value, setValue] = useState<[]>([]);
+  const [operation, setOperation] = useState("");
+  const [selectDepart, setSelectDepart] = useState("");
   const [date, setDate] = useState(transformData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const department = getLocal("Department");
 
   const getExchengeFromDB = async (searchData: {}) => {
     try {
-      const req = await fetch("/api/history", {
+      setValue([]);
+      setError("");
+      setLoading(true);
+      const req = await fetch(`/api/history/${operation}`, {
         method: "POST",
         body: JSON.stringify(searchData),
       });
       const res = await req.json();
+      console.log(res);
+      if (res.message) {
+        setError(res.message);
+        return;
+      }
       setValue(res);
     } catch {
-      console.log("error to get exchenge");
+      console.log("error to get data");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const submit = (value: React.FormEvent<HTMLFormElement>) => {
-    const user = getLocal("User");
+  const submit = async (value: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(value.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
     const searchData = {
-      user,
       department: formJson.department,
       date,
-      operation: formJson.operation,
     };
-    // getExchengeFromDB(searchData);
+    await getExchengeFromDB(searchData);
   };
 
+  const chengeOperation = (element: string) => {
+    setOperation(element);
+    setValue([]);
+  };
+  const chengeDepart = (element: string) => {
+    setSelectDepart(element);
+    setValue([]);
+  };
   return (
     <>
       <Header />
-      <Box sx={{ pt: 10 }}>
+      <Box sx={{ pt: 10, px: 2 }}>
         <Box
           component={"form"}
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             submit(event);
           }}
-          px={2}
         >
-          <Grid container spacing={2}>
+          <Grid container spacing={2} py={2}>
             <Grid item xs={12} md={3}>
               <FormControl
                 fullWidth
@@ -87,6 +107,7 @@ export default function History() {
                   id="select-department"
                   label="Оберіть відділення"
                   defaultValue={""}
+                  onChange={(e) => chengeDepart(e.target.value)}
                 >
                   {department === "Administration" && (
                     <MenuItem
@@ -117,11 +138,13 @@ export default function History() {
                   name="operation"
                   labelId="select-operation"
                   id="select-operation"
-                  label="Оберіть відділення"
+                  label="Оберіть операцію"
                   defaultValue={""}
+                  value={operation}
+                  onChange={(e) => chengeOperation(e.target.value)}
                 >
-                  <MenuItem value={"Обмін"}>Обмін</MenuItem>
-                  <MenuItem value={"Інкасація"}>Інкасація</MenuItem>
+                  <MenuItem value={"exchenge"}>Обмін</MenuItem>
+                  <MenuItem value={"uncashmen"}>Інкасація</MenuItem>
                   <MenuItem value={"Курси"}>Курси</MenuItem>
                   <MenuItem value={"Дебет/Кредит"}>Дебет/Кредит</MenuItem>
                   <MenuItem value={"Звіти"}>Звіти</MenuItem>
@@ -141,7 +164,12 @@ export default function History() {
               </LocalizationProvider>
             </Grid>
             <Grid item md={"auto"} xs={6}>
-              <Button variant="contained" type="submit" fullWidth>
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                disabled={!operation || !selectDepart}
+              >
                 Пошук
               </Button>
             </Grid>
@@ -152,8 +180,12 @@ export default function History() {
             </Grid>
           </Grid>
         </Box>
-        <Box sx={{ p: 5 }}>
-          <HistoryTable data={value} />
+        <Box>
+          {loading ? (
+            <LinearProgress />
+          ) : (
+            <Main data={value} error={error} operation={operation} />
+          )}
         </Box>
       </Box>
     </>
