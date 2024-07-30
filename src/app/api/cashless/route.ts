@@ -3,6 +3,7 @@ import UnCashMen from "../../../../models/сashSend";
 
 import PayDesk from "../../../../models/payDesk";
 import { conectToDB } from "@/lib/conectToDB";
+import { kyivTime } from "../../../../models/timeKyiv";
 
 export interface CurrensyType {
   _id: string;
@@ -33,7 +34,6 @@ export const GET = async (request: Request) => {
 };
 
 export const PATCH = async (request: Request) => {
-  console.log("reval");
   const req = await request.json();
   const [data] = req;
   try {
@@ -45,7 +45,7 @@ export const PATCH = async (request: Request) => {
       req.map(async (obj: CurrensyType) => {
         await UnCashMen.findOneAndUpdate(
           { _id: obj._id },
-          { process: "complete" }
+          { process: "complete", updatedAt: kyivTime }
         );
         await PayDesk.findOneAndUpdate(
           { _id: lastOneDesk._id },
@@ -61,6 +61,7 @@ export const PATCH = async (request: Request) => {
             czk: lastOneDesk.czk + obj.czk,
             nok: lastOneDesk.nok + obj.nok,
             gold: lastOneDesk.gold + obj.gold,
+            updatedAt: kyivTime,
           }
         );
       })

@@ -28,7 +28,7 @@ dependencies:
     version: 7.4.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.17)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
   '@mui/x-date-pickers':
     specifier: ^7.7.0
-    version: 7.7.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.17)(@types/react@18.3.2)(dayjs@1.11.11)(react-dom@18.3.1)(react@18.3.1)
+    version: 7.7.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.17)(@types/react@18.3.2)(dayjs@1.11.11)(moment@2.30.1)(react-dom@18.3.1)(react@18.3.1)
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
@@ -38,6 +38,12 @@ dependencies:
   lucia:
     specifier: ^3.2.0
     version: 3.2.0
+  moment:
+    specifier: ^2.30.1
+    version: 2.30.1
+  moment-timezone:
+    specifier: ^0.5.45
+    version: 0.5.45
   mongodb:
     specifier: ^6.6.1
     version: 6.6.2
@@ -657,7 +663,7 @@ packages:
       - '@types/react'
     dev: false
 
-  /@mui/x-date-pickers@7.7.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.17)(@types/react@18.3.2)(dayjs@1.11.11)(react-dom@18.3.1)(react@18.3.1):
+  /@mui/x-date-pickers@7.7.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.17)(@types/react@18.3.2)(dayjs@1.11.11)(moment@2.30.1)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-huyoA22Vi8iCkee6ro0sX7CcFIcPV/Fl7ZGWwaQC8PTAheXhz823DjMYAiwRU/imF+UFYfUInWQ4XZCIkM+2Dw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -703,6 +709,7 @@ packages:
       '@types/react-transition-group': 4.4.10
       clsx: 2.1.1
       dayjs: 1.11.11
+      moment: 2.30.1
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -1413,6 +1420,16 @@ packages:
 
   /memory-pager@1.5.0:
     resolution: {integrity: sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==}
+    dev: false
+
+  /moment-timezone@0.5.45:
+    resolution: {integrity: sha512-HIWmqA86KcmCAhnMAN0wuDOARV/525R2+lOLotuGFzn4HO+FH+/645z2wx0Dt3iDv6/p61SIvKnDstISainhLQ==}
+    dependencies:
+      moment: 2.30.1
+    dev: false
+
+  /moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
     dev: false
 
   /mongodb-connection-string-url@3.0.1:

@@ -21,7 +21,7 @@ export default async function Home() {
   const admin = resultAuth.user.department.includes("Administration");
 
   return (
-    <Grid container sx={{ width: "100%", pt: 12, px: 2, gap: 2 }}>
+    <Grid container sx={{ width: "100%", p: 2, gap: 2 }}>
       <Grid item xs={12} sm={"auto"}>
         <ExchangeBtn />
       </Grid>

@@ -46,7 +46,6 @@ export default function History() {
         body: JSON.stringify(searchData),
       });
       const res = await req.json();
-      console.log(res);
       if (res.message) {
         setError(res.message);
         return;
@@ -77,10 +76,11 @@ export default function History() {
     setSelectDepart(element);
     setValue([]);
   };
+
   return (
     <>
       <Header />
-      <Box sx={{ pt: 10, px: 2 }}>
+      <Box sx={{ px: 2 }}>
         <Box
           component={"form"}
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
@@ -145,7 +145,7 @@ export default function History() {
                 >
                   <MenuItem value={"exchenge"}>Обмін</MenuItem>
                   <MenuItem value={"uncashmen"}>Інкасація</MenuItem>
-                  <MenuItem value={"Курси"}>Курси</MenuItem>
+                  <MenuItem value={"rate"}>Курси</MenuItem>
                   <MenuItem value={"Дебет/Кредит"}>Дебет/Кредит</MenuItem>
                   <MenuItem value={"Звіти"}>Звіти</MenuItem>
                 </Select>

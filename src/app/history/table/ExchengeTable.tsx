@@ -29,7 +29,7 @@ export default function ExchengeTable({ data }: TableProps) {
           </TableHead>
 
           {data.map((row: any) => (
-            <TableBody key={row.createdAt}>
+            <TableBody key={row._id}>
               <TableRow
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },

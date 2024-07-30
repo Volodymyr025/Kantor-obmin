@@ -3,6 +3,7 @@ import { conectToDB } from "@/lib/conectToDB";
 import DebitCredit from "../../../../models/debitCredit";
 import PayDesk from "../../../../models/payDesk";
 import { equal } from "assert";
+import { kyivTime } from "../../../../models/timeKyiv";
 
 export const POST = async (request: Request) => {
   try {
@@ -26,6 +27,8 @@ export const POST = async (request: Request) => {
         czk: 0,
         nok: 0,
         gold: 0,
+        createdAt: kyivTime,
+        updatedAt: kyivTime,
       });
       return NextResponse.json({ message: "Касу створено" });
     }
