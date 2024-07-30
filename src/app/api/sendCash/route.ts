@@ -2,9 +2,12 @@ import { NextResponse } from "next/server";
 import PayDesk from "../../../../models/payDesk";
 import { conectToDB } from "@/lib/conectToDB";
 import UnCashMen from "../../../../models/сashSend";
+import { kyivTime } from "../../../../models/timeKyiv";
 
 export const POST = async (request: Request) => {
   const reqData = await request.json();
+  reqData.createdAt = kyivTime;
+  reqData.updatedAt = kyivTime;
   try {
     await conectToDB();
 
@@ -49,9 +52,10 @@ export const POST = async (request: Request) => {
         czk: result.czk,
         nok: result.nok,
         gold: result.gold,
+        updatedAt: kyivTime,
       }
     );
-    console.log(reqData);
+
     await UnCashMen.create(reqData);
 
     return NextResponse.json(

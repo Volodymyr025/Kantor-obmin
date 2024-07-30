@@ -3,6 +3,7 @@ import { conectToDB } from "@/lib/conectToDB";
 import PayDesk from "../../../../../models/payDesk";
 import ReportDesk from "../../../../../models/reportDesk";
 import GeneralDesk from "../../../../../models/generalPayDesk";
+import { kyivTime } from "../../../../../models/timeKyiv";
 
 export const POST = async (request: Request) => {
   try {
@@ -27,6 +28,8 @@ export const POST = async (request: Request) => {
       czk: payDeskDepart.czk + payDeskOko.czk,
       nok: payDeskDepart.nok + payDeskOko.nok,
       gold: payDeskDepart.gold + payDeskOko.gold,
+      createdAt: kyivTime,
+      updatedAt: kyivTime,
       department,
     };
 

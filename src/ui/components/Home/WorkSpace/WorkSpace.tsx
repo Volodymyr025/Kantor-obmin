@@ -8,6 +8,7 @@ import OkoDesk from "./OkoDesk";
 import AllDesk from "./AllDesk";
 import DepartSelect from "../DepartBtn/DepartSelect";
 import PayDeskTable from "../../Table/PayDeskTable";
+import useGetRate from "@/ui/hook/GetRate";
 
 interface WorkSpaceProps {
   role: boolean;
@@ -15,12 +16,13 @@ interface WorkSpaceProps {
 
 export default function WorkSpace({ role }: WorkSpaceProps) {
   const [selectDesk, setSelectDesk] = useState<[]>([]);
+  const [rateData] = useGetRate();
 
   return (
     <Grid container pt={2} gap={2} justifyContent={"flex-start"}>
       {role && <DepartSelect setSelectDesk={setSelectDesk} />}
       <Grid item md={3.8} xs={12}>
-        <RateTable />
+        {rateData && <RateTable data={rateData} />}
       </Grid>
       <Grid item md={3.8} xs={12}>
         {/* <RateNBU /> */}

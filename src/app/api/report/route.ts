@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import Report from "../../../../models/report";
 import ReportDesk from "../../../../models/reportDesk";
+import { kyivTime } from "../../../../models/timeKyiv";
 
 export const POST = async (request: Request) => {
   try {
     const reqData = await request.json();
     await conectToDB();
+
+    reqData.createdAt = kyivTime;
+    reqData.updatedAt = kyivTime;
 
     const date = new Date();
 
@@ -48,6 +52,8 @@ export const POST = async (request: Request) => {
         gold: reqData.sellGold - reqData.buyGold,
         user: reqData.user,
         department: reqData.department,
+        createdAt: kyivTime,
+        updatedAt: kyivTime,
       });
       await Report.create(reqData);
 
@@ -69,6 +75,7 @@ export const POST = async (request: Request) => {
         czk: reportDeskObj.czk + reqData.sellCzk - reqData.buyCzk,
         nok: reportDeskObj.nok + reqData.sellNok - reqData.buyNok,
         gold: reportDeskObj.gold + reqData.sellGold - reqData.buyGold,
+        updatedAt: kyivTime,
       }
     );
     await Report.create(reqData);

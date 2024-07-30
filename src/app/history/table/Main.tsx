@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import CashlessTable from "./CashlessTable";
 import ExchengeTable from "./ExchengeTable";
+import Rate from "./Rate";
 
 export const transformData = (timestamp: string) => {
   const date = new Date(timestamp);
@@ -34,6 +35,7 @@ export default function Main({ data, error, operation }: TableProps) {
       )}
       {operation === "exchenge" && <ExchengeTable data={data} />}
       {operation === "uncashmen" && <CashlessTable data={data} />}
+      {operation === "rate" && <Rate data={data} />}
     </>
   );
 }

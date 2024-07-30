@@ -3,6 +3,7 @@ import { conectToDB } from "@/lib/conectToDB";
 import PayDesk from "../../../../../models/payDesk";
 import { CurrensyType } from "../../cashless/route";
 import Exchenge from "../../../../../models/exchange";
+import { kyivTime } from "../../../../../models/timeKyiv";
 
 export const PATCH = async (request: Request) => {
   const req = await request.json();
@@ -16,6 +17,8 @@ export const PATCH = async (request: Request) => {
     rate: +req.rate,
     value: +req.sumValue,
     totalValue: +req.totalValue,
+    createdAt: kyivTime,
+    updatedAt: kyivTime,
   };
 
   try {
@@ -38,7 +41,7 @@ export const PATCH = async (request: Request) => {
     }
 
     const exchenge = await Exchenge.create(exchengeModel);
-    console.log(exchenge);
+
     if (selectedCurrency.includes("gold")) {
       await PayDesk.findOneAndUpdate(
         {
@@ -65,7 +68,7 @@ export const PATCH = async (request: Request) => {
     return NextResponse.json({ message: "Операція успішна" });
   } catch (err: any) {
     return NextResponse.json(
-      { message: "Винекла помилка під час обміну", err },
+      { message: "Виникла помилка під час обміну", err },
       { status: 500 }
     );
   }

@@ -29,8 +29,6 @@ export default function Header() {
         alignItems: "center",
         width: "100%",
         height: "70px",
-        position: "fixed",
-        zIndex: 99,
       }}
     >
       <Link href={"/"}>

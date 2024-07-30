@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { conectToDB } from "@/lib/conectToDB";
 import Rate from "../../../../models/rate";
+import { kyivTime } from "../../../../models/timeKyiv";
 
 export const PATCH = async (request: Request) => {
   try {
@@ -32,7 +33,10 @@ export const POST = async (request: Request) => {
   try {
     const reqData = await request.json();
     await conectToDB();
-    console.log(reqData, "rr");
+
+    reqData.createdAt = kyivTime;
+    reqData.updatedAt = kyivTime;
+
     await Rate.create(reqData);
 
     return NextResponse.json({ message: "Курси поставлено" }, { status: 201 });
