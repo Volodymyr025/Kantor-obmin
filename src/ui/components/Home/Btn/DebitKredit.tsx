@@ -1,5 +1,5 @@
 "use client";
-import SendDebitCredit from "../../Dialog/SendDebitCredit";
+import SendDebitCredit from "../../Window/SendDebitCredit";
 import BtnWrapper from "./BtnWrapper/BtnWrapper";
 
 export default function DebitCreditBtn() {

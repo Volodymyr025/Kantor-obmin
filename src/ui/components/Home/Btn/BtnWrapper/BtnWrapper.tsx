@@ -26,14 +26,16 @@ export default function BtnWrapper({ Window, title }: WrapperProps) {
         message={message}
         onClose={() => setOpenAlert(false)}
       />
-      <Button
-        fullWidth
-        color="success"
-        variant="contained"
-        onClick={() => setOpen(true)}
-      >
-        {title}
-      </Button>
+      <>
+        <Button
+          fullWidth
+          color="success"
+          variant="contained"
+          onClick={() => setOpen(true)}
+        >
+          {title}
+        </Button>
+      </>
     </>
   );
 }

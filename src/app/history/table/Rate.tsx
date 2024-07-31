@@ -2,7 +2,7 @@ import React from "react";
 import { TableProps, transformData } from "./Main";
 import RateTable from "@/ui/components/Table/RateTable";
 import { Grid, Typography } from "@mui/material";
-import { RateType } from "@/ui/components/Dialog/Rate";
+import { RateType } from "@/ui/components/Window/Rate";
 
 interface DataProps extends RateType {
   createdAt: string;

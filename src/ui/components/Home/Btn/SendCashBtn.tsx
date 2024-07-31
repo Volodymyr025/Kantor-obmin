@@ -1,5 +1,5 @@
 "use client";
-import Uncashmen from "../../Dialog/SendUnChashmen/Uncashmen";
+import Uncashmen from "../../Window/SendUnChashmen/Uncashmen";
 import BtnWrapper from "./BtnWrapper/BtnWrapper";
 
 export default function SendCashBtn() {

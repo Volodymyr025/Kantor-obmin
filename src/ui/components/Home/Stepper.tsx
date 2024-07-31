@@ -5,7 +5,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { Button, Snackbar } from "@mui/material";
-import GetCashlessWindow from "../Dialog/GetCashless";
+import GetCashlessWindow from "../Window/GetCashless";
 import { Update } from "@/ui/context-store/updatePayDesk";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
