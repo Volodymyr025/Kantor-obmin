@@ -1,8 +1,8 @@
 "use client";
 import { Button, Snackbar } from "@mui/material";
 import React, { useState } from "react";
-import SendReport from "../../Dialog/SendDebitCredit";
-import RateWindow, { RateType } from "../../Dialog/Rate";
+import SendReport from "../../Window/SendDebitCredit";
+import RateWindow, { RateType } from "../../Window/Rate";
 import { getLocal } from "@/ui/utils/getLocalStore";
 
 export default function RateBtn() {

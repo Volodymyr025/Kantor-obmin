@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { RateType } from "../Dialog/Rate";
+import { RateType } from "../Window/Rate";
 
 interface DataProps extends RateType {
   _id: string;

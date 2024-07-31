@@ -12,12 +12,10 @@ import {
   LinearProgress,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import ExchengeTable from "./table/ExchengeTable";
 import Main from "./table/Main";
 
 const today = new Date();
@@ -174,7 +172,12 @@ export default function History() {
               </Button>
             </Grid>
             <Grid item md={"auto"} xs={6}>
-              <Button variant="contained" color="error" fullWidth>
+              <Button
+                variant="contained"
+                color="error"
+                fullWidth
+                onClick={() => setValue([])}
+              >
                 Скинути
               </Button>
             </Grid>
