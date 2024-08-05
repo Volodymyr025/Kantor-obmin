@@ -144,8 +144,8 @@ export default function History() {
                   <MenuItem value={"exchenge"}>Обмін</MenuItem>
                   <MenuItem value={"uncashmen"}>Інкасація</MenuItem>
                   <MenuItem value={"rate"}>Курси</MenuItem>
-                  <MenuItem value={"Дебет/Кредит"}>Дебет/Кредит</MenuItem>
-                  <MenuItem value={"Звіти"}>Звіти</MenuItem>
+                  <MenuItem value={"debit"}>Дебет/Кредит</MenuItem>
+                  <MenuItem value={"report"}>Звіти</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

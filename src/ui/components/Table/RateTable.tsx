@@ -11,6 +11,8 @@ import { RateType } from "../Window/Rate";
 
 interface DataProps extends RateType {
   _id: string;
+  buyUah?: number;
+  sellUah?: number;
 }
 interface RateProps {
   data: DataProps;
@@ -22,7 +24,7 @@ export default function RateTable({ data }: RateProps) {
   ) : (
     <TableContainer component={Paper} sx={{ p: 1, height: "100%" }}>
       <Typography sx={{ fontSize: 18, textAlign: "center", fontWeight: 600 }}>
-        Курси
+        {data.buyUah && data.sellUah ? "Звіт" : "Курси"}
       </Typography>
       <Table
         aria-label="simple table"
@@ -37,6 +39,17 @@ export default function RateTable({ data }: RateProps) {
         </TableHead>
 
         <TableBody key={data["_id"]}>
+          {data.buyUah && data.sellUah && (
+            <TableRow
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+              }}
+            >
+              <TableCell align="center">UAH</TableCell>
+              <TableCell align="center">{data.buyUah.toFixed(2)}</TableCell>
+              <TableCell align="center">{data.sellUah.toFixed(2)}</TableCell>
+            </TableRow>
+          )}
           <TableRow
             sx={{
               "&:last-child td, &:last-child th": { border: 0 },
