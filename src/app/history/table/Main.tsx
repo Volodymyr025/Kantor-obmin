@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import CashlessTable from "./CashlessTable";
 import ExchengeTable from "./ExchengeTable";
 import Rate from "./Rate";
+import DebitTable from "./DebitTable";
+import ReportTable from "./ReportTable";
 
 export const transformData = (timestamp: string) => {
   const date = new Date(timestamp);
@@ -36,6 +38,8 @@ export default function Main({ data, error, operation }: TableProps) {
       {operation === "exchenge" && <ExchengeTable data={data} />}
       {operation === "uncashmen" && <CashlessTable data={data} />}
       {operation === "rate" && <Rate data={data} />}
+      {operation === "debit" && <DebitTable data={data} />}
+      {operation === "report" && <ReportTable data={data} />}
     </>
   );
 }

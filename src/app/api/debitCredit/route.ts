@@ -9,6 +9,9 @@ export const POST = async (request: Request) => {
   try {
     const req = await request.json();
 
+    req.createdAt = kyivTime;
+    req.updatedAt = kyivTime;
+
     const currency = await req.currency;
     await conectToDB();
     const payDesk = await PayDesk.findOne({ department: req.department });
@@ -27,8 +30,6 @@ export const POST = async (request: Request) => {
         czk: 0,
         nok: 0,
         gold: 0,
-        createdAt: kyivTime,
-        updatedAt: kyivTime,
       });
       return NextResponse.json({ message: "Касу створено" });
     }
