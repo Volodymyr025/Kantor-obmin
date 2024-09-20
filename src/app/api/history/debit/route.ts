@@ -14,7 +14,7 @@ export const POST = async (request: Request) => {
       department: reqData.department.toString(),
       createdAt: { $gte: startOfDay, $lte: endOfDay },
     });
-    console.log(searchResult, "res");
+
     if (searchResult.length <= 0) {
       throw new Error();
     }
