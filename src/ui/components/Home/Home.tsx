@@ -1,5 +1,4 @@
 import Grid from "@mui/material/Grid";
-import PayDesk from "./WorkSpace/PayDesk";
 import DebitCreditBtn from "./Btn/DebitKredit";
 import SendCashBtn from "./Btn/SendCashBtn";
 import CashStepper from "./Stepper";
@@ -10,7 +9,15 @@ import RateBtn from "./Btn/RateBtn";
 import WorkSpace from "./WorkSpace/WorkSpace";
 import HistoryBtn from "./Btn/HistoryBtn";
 import ReportBtn from "./Btn/ReportBtn";
-import DepartBtn from "./DepartBtn/DepartSelect";
+
+const buttons = [
+  { component: <ExchangeBtn />, key: "exchange" },
+  { component: <SendCashBtn />, key: "sendCash" },
+  { component: <RateBtn />, key: "rate" },
+  { component: <DebitCreditBtn />, key: "debitCredit" },
+  { component: <HistoryBtn />, key: "history" },
+  { component: <ReportBtn />, key: "report" },
+];
 
 export default async function Home() {
   const resultAuth = await verifyAuth();
@@ -22,24 +29,11 @@ export default async function Home() {
 
   return (
     <Grid container sx={{ width: "100%", p: 2, gap: 2 }}>
-      <Grid item xs={12} sm={"auto"}>
-        <ExchangeBtn />
-      </Grid>
-      <Grid item xs={12} sm={"auto"}>
-        <SendCashBtn />
-      </Grid>
-      <Grid item xs={12} sm={"auto"}>
-        <RateBtn />
-      </Grid>
-      <Grid item xs={12} sm={"auto"}>
-        <DebitCreditBtn />
-      </Grid>
-      <Grid item xs={12} sm={"auto"}>
-        <HistoryBtn />
-      </Grid>
-      <Grid item xs={12} sm={"auto"}>
-        <ReportBtn />
-      </Grid>
+      {buttons.map(({ component, key }) => (
+        <Grid item xs={12} sm="auto" key={key}>
+          {component}
+        </Grid>
+      ))}
       <CashStepper />
       <WorkSpace role={admin} />
     </Grid>
